@@ -1,0 +1,127 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+body {
+    color: #333333 !important;
+    font-family: "Nunito", sans-serif;
+    background-color: #fafbfe;
+}
+
+.font-small{
+    font-size: 13px;
+}
+
+.sidebar {
+    background-color: #313a46;
+    -webkit-transition: width .2s linear;
+    transition: width .2s linear;
+    overflow-x: hidden;
+}
+
+.nav-icon{
+    font-size: 18px;
+    margin-right: 1.3125rem;
+}
+
+.offcanvas.offcanvas-start{
+    background-color: #313a46;
+    width: 300px;
+}
+
+.expand-sidebar {
+    width: 260px;
+}
+
+.not-expanded {
+    width: 80px;
+    overflow-x: hidden;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.sidebar-title {
+    font-size: 0.6875rem;
+    color: #8391a2
+}
+
+a.nav-link {
+    font-size: 15px;
+    color: #8391a2 !important;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+a.nav-link:hover {
+    color: #bccee4 !important;
+}
+
+a.nav-link.active {
+    color: #ffffff !important;
+}
+
+.collapse-icon {
+    transition: all .15s ease-in-out;
+}
+
+.collapse-item{
+    padding-left: 39px;
+}
+
+.nav.collapse{
+    flex-direction: column;
+}
+
+.sub-nav.nav-link{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-right: 20px;
+}
+
+main {
+    margin-left: 260px;
+    -webkit-transition: width .2s linear;
+    transition: width .2s linear;
+}
+
+.hamburger {
+    cursor: pointer;
+    color: #333333 !important;
+}
+
+div.search {
+    height: 38px;
+    width: 14rem;
+    background-color: #f0f3f8;
+    outline: none;
+    border-color: #f0f3f8;
+}
+
+.search-btn{
+    margin-left: -8px
+}
+
+@media screen and (max-width: 767px) {
+    main {
+        margin-left: 0px !important;
+    }
+
+    .sidebar {
+        display: none !important;
+    }
+
+    a.nav-link {
+        justify-content: start;
+    }
+
+    .nav-icon {
+        margin-right: .5rem !important;
+    }
+
+    .nav-text {
+        display: block;
+    }
+}
