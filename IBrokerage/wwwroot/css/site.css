@@ -28,6 +28,10 @@ html {
     background-repeat: no-repeat;
 }
 
+.navbar{
+    z-index: 1000;
+}
+
 .bg-dark{
     background-color: #333333 !important;
 }
