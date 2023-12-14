@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
+html {
+    font-size: 14px;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.body::before{
+    display: block;
+    content: '';
+    height: 57px;
+}
+
+.body {
+    font-family: "Poppins";
+    color: #333333 !important;
+    background-image: url('../images/blob (1).svg');
+    background-size: 50rem;
+    background-position: -218px 108%;
+    background-repeat: no-repeat;
+}
+
+.navbar{
+    z-index: 1000;
+}
+
+.bg-dark{
+    background-color: #333333 !important;
+}
+
+.text-dark,
+a.nav-link.front-page{
+    color: #333333 !important;
+}
+
+.btn-dark{
+    background-color: #333333;
+    color: #fff;
+    border-color: #333333;
+}
+
+section,
+.section
+{
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.offcanvas.offcanvas-end{
+    width: 350px;
+}
+
+a.nav-link.front-page.active{
+    font-weight: 700;
+}
+
+h1{
+    font-size: 55px;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.2)),url(../images/hero-image.jpg);
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 92vh;
+    min-height: 35.375rem;
+    border-bottom-right-radius: 300px;
+}
+
+.about-us-section,
+.reviews-section,
+.form
+{
+    background-color: #f8f8fa;
+}
+
+.about-us-content{
+    width: 100%;
+}
+
+.services-icon{
+    font-size: 40px;
+}
+
+.services-icon::before{
+    vertical-align: top !important;
+}
+
+.card.border,
+.card.border-0{
+    border-radius: 25px;
+    width: 100%;
+}
+
+.review-card{
+    margin-right: 1rem;
+}
+
+.review-img {
+    width: 50px;
+}
+
+.slick-next:before, .slick-prev:before {
+    color: #212121 !important;
+    font-size: 32px !important;
+}
+
+.cta-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.contact-section {
+    background-image: url('../images/blob (1).svg');
+    background-size: 70%;
+    background-position: 200% -28rem;
+    background-repeat: no-repeat;
+}
+
+.contact-us-img{
+    width: 500px;
+}
+
+.form{
+    width: 430px;
+}
+
+.login-form{
+    width: 400px;
+}
+
+
+
+
+/****************************************************       mobile design       ***********************************************/
+
+
+@media screen and (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }  
+}
+
+@media screen and (max-width: 1300px) {
+    body {
+        background-position: -220px 110%;
+    }
+}
+
+
+    @media screen and (max-width: 991px) {
+        section,
+        .section {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .hero-section {
+            border-bottom-right-radius: 200px;
+            height: 65vh;
+        }
+
+        h1 {
+            font-size: 42px;
+        }
+
+        .services-icon {
+            font-size: 32px;
+        }
+
+        .contact-section{
+            background-position-y: -15rem;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        body::before {
+            height: 50px;
+        }
+
+        .hero-section {
+            border-bottom-right-radius: 150px;
+            height: 45vh;
+        }
+
+        .contact-section {
+            background-size: 50rem;
+            background-position: 23rem -16rem;
+        }
+
+        .contact-us-img {
+            width: 300px;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        h1 {
+            font-size: 32px;
+        }
+
+        .services-icon {
+            font-size: 20px;
+        }
+
+        .reviews {
+            padding-left: 0 !important;
+        }
+
+        .review-img{
+            width: 35px;
+        }
+
+        .slick-next:before, .slick-prev:before {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 575px) {
+        section .container{
+            width: 92%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        .offcanvas.offcanvas-end {
+            width: 70%;
+        }
+
+        .about-us,
+        .content {
+            flex-direction: column;
+            align-items: start !important;
+        }
+
+        .about-us-img {
+            width: 270px;
+        }
+    }
+
+    @media screen and (max-width: 450px) {
+        h1 {
+            font-size: 28px;
+        }
+
+        .form {
+            width: 100%;
+        }
+    }
+
+@media screen and (max-width: 420px) {
+    .login-form{
+        width: 320px;
+    }
+}
