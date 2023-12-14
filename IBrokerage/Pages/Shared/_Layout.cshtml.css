@@ -92,7 +92,17 @@ main {
     color: #333333 !important;
 }
 
-div.search {
+.input-group-text{
+    background-color: #f0f3f8;
+    color: #6c757d;
+}
+
+.input-group-text>i::before{
+    font-weight: 900 !important;
+}
+
+.search {
+    padding: .375rem;
     height: 38px;
     width: 14rem;
     background-color: #f0f3f8;
@@ -101,8 +111,13 @@ div.search {
 }
 
 .search-btn{
+    background-color: #727cf5;
+    border-color: #727cf5;
+    opacity: 0.9;
     margin-left: -8px
 }
+
+
 
 @media screen and (max-width: 767px) {
     main {
