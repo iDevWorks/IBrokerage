@@ -1,142 +1,162 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-body {
-    color: #333333 !important;
-    font-family: "Nunito", sans-serif;
-    background-color: #fafbfe;
+﻿
+main {
+    margin-left: 260px;
+    transition: margin-left .2s linear;
 }
 
-.font-small{
-    font-size: 13px;
-}
-
-.sidebar {
-    background-color: #313a46;
-    -webkit-transition: width .2s linear;
+.sb {
+    background-color: #313A46;
     transition: width .2s linear;
     overflow-x: hidden;
+    position: fixed;
+    height: 100%;
+    width: 260px;
+    left: 0;
 }
 
-.nav-icon{
-    font-size: 18px;
+.sb-header a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    padding: 14px;
+}
+
+.sb-brand-icon {
+    display: none;
+}
+
+.sb-menu {
+    padding: 10px 10px 10px 20px;
+}
+
+.sb-group {
+    letter-spacing: 1px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 10px 0px;
+    color: #8391A2;
+}
+
+.sb-menu li {
+    list-style-type: none;
+}
+
+.sb-menu i {
+    font-size: 16px;
+    font-weight: bold;
     margin-right: 1.3125rem;
 }
 
-.offcanvas.offcanvas-start{
-    background-color: #313a46;
-    width: 300px;
-}
-
-.expand-sidebar {
-    width: 260px;
-}
-
-.not-expanded {
-    width: 80px;
-    overflow-x: hidden;
-}
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-.sidebar-title {
-    font-size: 0.6875rem;
-    color: #8391a2
-}
-
-a.nav-link {
+.sb-menu a {
+    color: #8391A2;
+    display: block;
     font-size: 15px;
-    color: #8391a2 !important;
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding: 14px 7px;
+    text-decoration: none;
+}
+    .sb-menu a:hover {
+        color: yellow;
+        --font-weight: bold;
+    }
+    .sb-menu .active > a,
+    .sb-menu a:active {
+        color: #FFFFFF;
+    }
+
+ul.sb-menu ul {
+    padding: 0;
+    padding-left: 40px;
+    overflow-y: hidden;
+    transition: max-height .2s ease;
+    max-height: 0;
 }
 
-a.nav-link:hover {
-    color: #bccee4 !important;
+ul.sb-menu .open ul {
+    max-height: 200px; 
+    /*
+        not a real solution.
+        if too large, animation is akward
+        if too small, content is clipped
+    */
 }
 
-a.nav-link.active {
-    color: #ffffff !important;
+ul.sb-menu ul a {
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
-.collapse-icon {
-    transition: all .15s ease-in-out;
+ul.sb-menu li:has(ul) > a span::after {
+    float: right;
+    content: '\F285'; /*caret-right*/
+    font-size: 70%;
+    font-weight: bold;
+    font-family: 'bootstrap-icons';
+    transition: transform .2s linear;
+    margin: 5px 10px 0px 0px;
 }
 
-.collapse-item{
-    padding-left: 39px;
+ul.sb-menu li:has(ul).open a span::after {
+    transform: rotate(90deg);
 }
-
-.nav.collapse{
-    flex-direction: column;
-}
-
-.sub-nav.nav-link{
-    padding-top: 9px;
-    padding-bottom: 9px;
-    padding-right: 20px;
-}
-
-main {
-    margin-left: 260px;
-    -webkit-transition: width .2s linear;
-    transition: width .2s linear;
-}
-
-.hamburger {
-    cursor: pointer;
-    color: #333333 !important;
-}
-
-.input-group-text{
-    background-color: #f0f3f8;
-    color: #6c757d;
-}
-
-.input-group-text>i::before{
-    font-weight: 900 !important;
-}
-
-.search {
-    padding: .375rem;
-    height: 38px;
-    width: 14rem;
-    background-color: #f0f3f8;
-    outline: none;
-    border-color: #f0f3f8;
-}
-
-.search-btn{
-    background-color: #727cf5;
-    border-color: #727cf5;
-    opacity: 0.9;
-    margin-left: -8px
-}
-
 
 
 @media screen and (max-width: 767px) {
-    main {
+    body:not(.override) main {
         margin-left: 0px !important;
     }
-
-    .sidebar {
-        display: none !important;
+    body:not(.override) .sb {
+        width: 0px;
     }
-
-    a.nav-link {
-        justify-content: start;
+    body:not(.override) .sb-menu,
+    body:not(.override) .sb-header a {
+        display: none;
     }
+}
 
-    .nav-icon {
-        margin-right: .5rem !important;
+@media screen and (min-width: 768px) and (max-width: 1400px) {
+    body:not(.override) main {
+        margin-left: 70px !important;
     }
-
-    .nav-text {
+    body:not(.override) .sb {
+        width: 70px;
+    }
+    body:not(.override) .sb-menu i {
+        font-weight: bold;
+        font-size: larger;
+        color: yellow;
+    }
+    body:not(.override) .sb-brand-icon {
         display: block;
+    }
+    body:not(.override) .sb-group,
+    body:not(.override) .sb-brand,
+    body:not(.override) .sb-menu span,
+    body:not(.override) ul.sb-menu ul {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1401px) {
+    .override main {
+        margin-left: 70px !important;
+    }
+    .override .sb {
+        width: 70px;
+    }
+    .override .sb-menu i {
+        font-weight: bold;
+        font-size: larger;
+        color: yellow;
+    }
+    .override .sb-brand-icon {
+        display: block;
+    }
+    .override .sb-group,
+    .override .sb-brand,
+    .override .sb-menu span,
+    .override ul.sb-menu ul {
+        display: none;
     }
 }
