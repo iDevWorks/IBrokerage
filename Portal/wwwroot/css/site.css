@@ -91,9 +91,6 @@ h1{
     font-size: 40px;
 }
 
-.about-us-content{
-}
-
 .services-icon::before{
     vertical-align: top !important;
 }
@@ -167,100 +164,4 @@ h1{
             padding-bottom: 40px;
         }
 
-        .hero-section {
-            border-bottom-right-radius: 200px;
-            height: 65vh;
-        }
-
-        h1 {
-            font-size: 42px;
-        }
-
-        .services-icon {
-            font-size: 32px;
-        }
-
-        .contact-section{
-            background-position-y: -15rem;
-        }
-    }
-
-    @media screen and (max-width: 767px) {
-        body::before {
-            height: 50px;
-        }
-
-        .hero-section {
-            border-bottom-right-radius: 150px;
-            height: 45vh;
-        }
-
-        .contact-section {
-            background-size: 50rem;
-            background-position: 23rem -16rem;
-        }
-
-        .contact-us-img {
-            width: 300px;
-        }
-    }
-
-    @media screen and (max-width: 600px) {
-        h1 {
-            font-size: 32px;
-        }
-
-        .services-icon {
-            font-size: 20px;
-        }
-
-        .reviews {
-            padding-left: 0 !important;
-        }
-
-        .review-img{
-            width: 35px;
-        }
-
-        .slick-next:before, .slick-prev:before {
-            display: none;
-        }
-    }
-
-    @media screen and (max-width: 575px) {
-        section .container{
-            width: 92%;
-        }
-    }
-
-    @media screen and (max-width: 500px) {
-        .offcanvas.offcanvas-end {
-            width: 70%;
-        }
-
-        .about-us,
-        .content {
-            flex-direction: column;
-            align-items: start !important;
-        }
-
-        .about-us-img {
-            width: 270px;
-        }
-    }
-
-    @media screen and (max-width: 450px) {
-        h1 {
-            font-size: 28px;
-        }
-
-        .form {
-            width: 100%;
-        }
-    }
-
-@media screen and (max-width: 420px) {
-    .login-form{
-        width: 320px;
-    }
 }

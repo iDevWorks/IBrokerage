@@ -1,12 +1,8 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿// Write your JavaScript code.
 
 document.addEventListener('DOMContentLoaded', () => {
     let sidebar = document.querySelector(".sidebar");
     let contentWrapper = document.querySelector("main");
-    let topNavbar = document.querySelector(".top-navbar");
     let hamburgerMenu = document.querySelector(".hamburger");
     let navLinks = document.querySelectorAll(".nav-link");
     let navIcons = document.querySelectorAll(".nav-icon");
@@ -51,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sidebar.classList.contains("expand-sidebar")) {
             sidebar.classList.replace("expand-sidebar", "not-expanded")
             contentWrapper.style.marginLeft = "80px";
-            topNavbar.style.left = "80px";
             navBrandLg.classList.toggle("d-none");
             navBrandSm.classList.toggle("d-none");
 
@@ -83,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburgerMenu.firstElementChild.classList.replace("bi-arrow-right", "bi-list");
             sidebar.classList.replace("not-expanded", "expand-sidebar");
             contentWrapper.style.marginLeft = "260px";
-            topNavbar.style.left = "260px";
             navBrandLg.classList.toggle("d-none");
             navBrandSm.classList.toggle("d-none");
 
