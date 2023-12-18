@@ -4,10 +4,6 @@ main {
     transition: margin-left .2s linear;
 }
 
-.font-small{
-    font-size: 13px;
-}
-
 .sidebar {
     background-color: #313a46;
     -webkit-transition: width .2s linear;
