@@ -91,6 +91,9 @@ h1{
     font-size: 40px;
 }
 
+.about-us-content{
+}
+
 .services-icon::before{
     vertical-align: top !important;
 }

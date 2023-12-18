@@ -13,7 +13,7 @@ body {
 
 .sidebar {
     background-color: #313a46;
-    -webkit-transition: width .2s linear;
+    -webkit-transition: width .2s ease-in-out;
     transition: width .2s linear;
     overflow-x: hidden;
 }
@@ -83,8 +83,19 @@ a.nav-link.active {
 
 main {
     margin-left: 260px;
-    -webkit-transition: width .2s linear;
+    -webkit-transition: width .2s ease-in-out;
     transition: width .2s linear;
+}
+
+.top-navbar {
+    -webkit-transition: ease-in-out;
+    position: fixed;
+    left: 260px;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    padding-top: 14px;
+    padding-bottom: 14px;
 }
 
 .hamburger {
@@ -102,7 +113,7 @@ main {
 }
 
 .search {
-    padding: .375rem;
+    padding: .375rem .375rem .375rem 0;
     height: 38px;
     width: 14rem;
     background-color: #f0f3f8;
@@ -122,6 +133,10 @@ main {
 @media screen and (max-width: 767px) {
     main {
         margin-left: 0px !important;
+    }
+
+    .top-navbar{
+        left: 0 !important;
     }
 
     .sidebar {
