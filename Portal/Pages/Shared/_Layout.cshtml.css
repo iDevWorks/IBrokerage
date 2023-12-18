@@ -8,7 +8,7 @@ main {
     font-size: 13px;
 }
 
-.sb {
+.sidebar {
     background-color: #313a46;
     -webkit-transition: width .2s linear;
     transition: width .2s linear;
