@@ -4,8 +4,13 @@ main {
     transition: margin-left .2s linear;
 }
 
+.font-small{
+    font-size: 13px;
+}
+
 .sb {
-    background-color: #313A46;
+    background-color: #313a46;
+    -webkit-transition: width .2s linear;
     transition: width .2s linear;
     overflow-x: hidden;
     position: fixed;
@@ -101,46 +106,57 @@ ul.sb-menu li:has(ul).open a span::after {
     transform: rotate(90deg);
 }
 
+.sub-nav.nav-link{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-right: 20px;
+}
+
+main {
+    margin-left: 260px;
+    -webkit-transition: width .2s linear;
+    transition: width .2s linear;
+}
+
+.hamburger {
+    cursor: pointer;
+    color: #333333 !important;
+}
+
+.input-group-text{
+    background-color: #f0f3f8;
+    color: #6c757d;
+}
+
+.input-group-text>i::before{
+    font-weight: 900 !important;
+}
+
+.search {
+    padding: .375rem;
+    height: 38px;
+    width: 14rem;
+    background-color: #f0f3f8;
+    outline: none;
+    border-color: #f0f3f8;
+}
+
+.search-btn{
+    background-color: #727cf5;
+    border-color: #727cf5;
+    opacity: 0.9;
+    margin-left: -8px
+}
+
+
 
 @media screen and (max-width: 767px) {
-    body:not(.override) main {
+    main {
         margin-left: 0px !important;
     }
-    body:not(.override) .sb {
-        width: 0px;
-    }
-    body:not(.override) .sb-menu,
-    body:not(.override) .sb-header a {
-        display: none;
-    }
-}
 
-@media screen and (min-width: 768px) and (max-width: 1400px) {
-    body:not(.override) main {
-        margin-left: 70px !important;
-    }
-    body:not(.override) .sb {
-        width: 70px;
-    }
-    body:not(.override) .sb-menu i {
-        font-weight: bold;
-        font-size: larger;
-        color: yellow;
-    }
-    body:not(.override) .sb-brand-icon {
-        display: block;
-    }
-    body:not(.override) .sb-group,
-    body:not(.override) .sb-brand,
-    body:not(.override) .sb-menu span,
-    body:not(.override) ul.sb-menu ul {
-        display: none;
-    }
-}
-
-@media screen and (min-width: 1401px) {
-    .override main {
-        margin-left: 70px !important;
+    .sidebar {
+        display: none !important;
     }
     .override .sb {
         width: 70px;
