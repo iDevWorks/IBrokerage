@@ -5,7 +5,8 @@ main {
 }
 
 .sb {
-    background-color: #313A46;
+    --background-color: #313A46;
+    background-color: var(--bs-gray-800);
     transition: width .2s linear;
     overflow-x: hidden;
     position: fixed;
@@ -21,6 +22,7 @@ main {
     text-transform: uppercase;
     letter-spacing: 4px;
     padding: 14px;
+    color: var(--bs-white);
 }
 
 .sb-brand-icon {
@@ -36,7 +38,7 @@ main {
     font-size: 0.7rem;
     font-weight: bold;
     padding: 10px 0px;
-    color: #8391A2;
+    color: var(--bs-gray-400);
 }
 
 .sb-menu li {
@@ -50,7 +52,7 @@ main {
 }
 
 .sb-menu a {
-    color: #8391A2;
+    color: var(--bs-gray-500);
     display: block;
     font-size: 15px;
     padding: 14px 7px;
@@ -58,13 +60,12 @@ main {
 }
 
     .sb-menu a:hover {
-        color: yellow;
-        --font-weight: bold;
+        color: var(--bs-white);
     }
 
     .sb-menu .active > a,
     .sb-menu a:active {
-        color: #FFFFFF;
+        color: var(--bs-white);
     }
 
 ul.sb-menu ul {
@@ -131,7 +132,6 @@ ul.sb-menu li:has(ul).open a span::after {
     body:not(.override) .sb-menu i {
         font-weight: bold;
         font-size: larger;
-        color: yellow;
     }
 
     body:not(.override) .sb-brand-icon {
@@ -158,7 +158,7 @@ ul.sb-menu li:has(ul).open a span::after {
     .override .sb-menu i {
         font-weight: bold;
         font-size: larger;
-        color: yellow;
+        color: var(--bs-white);
     }
 
     .override .sb-brand-icon {
