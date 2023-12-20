@@ -6,7 +6,8 @@ main {
 
 .sb {
     --background-color: #313A46;
-    background-color: var(--bs-gray-800);
+    --background-color: var(--bs-gray-800);
+    background-color: var(--bs-primary);
     transition: width .2s linear;
     overflow-x: hidden;
     position: fixed;
