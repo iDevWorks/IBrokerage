@@ -24,8 +24,8 @@
             Broker = broker;
             BrokerId = broker.Id;
             Name = name;
-            Address = address;
             Email = email;
+            Address = address;
             PhoneNumber = phoneNumber;
             DateAdded = DateTimeOffset.UtcNow;
 

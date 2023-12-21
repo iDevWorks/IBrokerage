@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using System.Net;
 
 namespace Portal.Services
 {
-    public class EmailSender : IEmailSender
+    public class EmailSender 
     {
         private readonly SmtpSettings _smtpSettings;
 

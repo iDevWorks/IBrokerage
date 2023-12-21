@@ -3,11 +3,8 @@ using Portal.Entities;
 
 namespace Portal.EntityFramework
 {
-    public class IBrokerageContext : DbContext
+    public class IBrokerageContext(DbContextOptions<IBrokerageContext> options) : DbContext(options)
     {
-        public IBrokerageContext(DbContextOptions<IBrokerageContext> options) : base(options) 
-        { }
-
         public DbSet<Broker> Brokers { get; set; }
 
         public DbSet<Claim> Claims { get; set; }
