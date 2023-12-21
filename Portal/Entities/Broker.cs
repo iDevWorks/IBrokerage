@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Portal.Entities
@@ -49,15 +47,12 @@ namespace Portal.Entities
 
         private static string GenerateUniqueId(string fullName, string email)
         {
-            // Combine the name and email (or use any other logic you prefer)
+            // Combine the name and email
             string combinedValue = $"{fullName}_{email}";
 
             // Hash the combined value to get a unique string
-            using (var md5 = MD5.Create())
-            {
-                byte[] hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(combinedValue));
-                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-            }
+            byte[] hashBytes = MD5.HashData(Encoding.UTF8.GetBytes(combinedValue));
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
         }
     }
 }
