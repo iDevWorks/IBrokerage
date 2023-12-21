@@ -60,18 +60,20 @@ namespace Portal.Entities
 
         private static string HashPassword(string passwordToHash)
         {
-            const int keySize = 64;
-            const int iterations = 350000;
-            HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+            return passwordToHash;
 
-            var salt = RandomNumberGenerator.GetBytes(keySize);
-            var hash = Rfc2898DeriveBytes.Pbkdf2(
-                Encoding.UTF8.GetBytes(passwordToHash),
-                salt,
-                iterations,
-                hashAlgorithm,
-                keySize);
-            return Convert.ToHexString(hash);
+            //const int keySize = 64;
+            //const int iterations = 350000;
+            //HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+
+            //var salt = RandomNumberGenerator.GetBytes(keySize);
+            //var hash = Rfc2898DeriveBytes.Pbkdf2(
+            //    Encoding.UTF8.GetBytes(passwordToHash),
+            //    salt,
+            //    iterations,
+            //    hashAlgorithm,
+            //    keySize);
+            //return Convert.ToHexString(hash);
         }
 
         public string Id { get; private set; }
