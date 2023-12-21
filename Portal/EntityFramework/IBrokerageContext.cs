@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Portal.Entities;
 
 namespace Portal.EntityFramework
 {
-    public class IBrokerageContext : IdentityDbContext<Broker>
+    public class IBrokerageContext : DbContext
     {
         public IBrokerageContext(DbContextOptions<IBrokerageContext> options) : base(options) 
         { }
-
 
         public DbSet<Broker> Brokers { get; set; }
 

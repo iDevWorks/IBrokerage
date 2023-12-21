@@ -1,26 +1,29 @@
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using Portal.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Security.Claims;
+using Portal.Entities;
+using Portal.EntityFramework;
+using Microsoft.AspNetCore.Identity;
+using Claim = System.Security.Claims.Claim;
 
 namespace IBrokerage.Pages
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Broker> _signInManager;
-        private readonly UserManager<Broker> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
-
-        public RegisterModel(UserManager<Broker> userManager, SignInManager<Broker> signInManager,
-            ILogger<RegisterModel> logger)
+        public RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context, IPasswordHasher<Broker> passwordHasher)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _logger = logger;
+            _context = context;
+            _passwordHasher = passwordHasher;
         }
+
+        private readonly IPasswordHasher<Broker> _passwordHasher;
+        private readonly IBrokerageContext _context;
+        private readonly ILogger<RegisterModel> _logger;
 
         [BindProperty]
         public string Email { get; set; }
@@ -43,7 +46,7 @@ namespace IBrokerage.Pages
         public string PhoneNumber { get; set; }
 
         [BindProperty]
-        [StringLength(100, MinimumLength = 8)]
+        [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
 
         [BindProperty]
@@ -58,52 +61,67 @@ namespace IBrokerage.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            try
             {
-                var existingUser = await _userManager.FindByEmailAsync(Email);
-                if (existingUser != null)
+                var brokerExists = await CheckIfBrokerExistsAsync();
+                if (brokerExists)
                 {
-                    ModelState.AddModelError(string.Empty, "Email address is already in use.");
+                    ModelState.AddModelError("", "A user with this email already exists.");
                     return Page();
                 }
 
-                var fullname = FirstName.Trim() + " " + LastName.Trim();
-                var broker = new Broker(fullname, Address);
-
-                await _userManager.SetUserNameAsync(broker, Email);
-                await _userManager.SetPhoneNumberAsync(broker, PhoneNumber);
-                await _userManager.SetEmailAsync(broker, Email);
-
-                var result = await _userManager.CreateAsync(broker, Password);
-
-                if (result.Succeeded)
+                if (Password != ConfirmPassword)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    // Email verification logic
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(broker);
-                    token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-
-                    var confirmationLink = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = broker.Id, code = token },
-                        protocol: Request.Scheme);
-
-                    // Use your email service to send the confirmationLink to the user's email address.
-                    // Example: await _emailService.SendEmailAsync(Email, "Confirm your email", $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(confirmationLink)}'>clicking here</a>.");
-
-                    return RedirectToPage("/Account/RegistrationSuccess");
+                    ModelState.AddModelError("", "The password and confirmation password must match.");
+                    return Page();
                 }
 
-                foreach (var error in result.Errors)
+                var fullName = $"{FirstName} {LastName}";
+                var broker = CreateBroker(Email, PhoneNumber, fullName, Address, Password);
+                broker.Password = HashPassword(broker, Password);
+
+                _context.Brokers.Add(broker);
+                await _context.SaveChangesAsync();
+
+                // Manually sign in the user after successful signup
+                var claims = new List<Claim>
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                    new(ClaimTypes.NameIdentifier, broker.Id),
+                    new(ClaimTypes.Email, broker.Email)
+                };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                    new ClaimsPrincipal(claimsIdentity));
+
+                return RedirectToPage("Dashboard");
             }
-
-            // If we got this far, something failed, redisplay form
+            catch (Exception ex)
+            {
+                // Log the exception for debugging purposes
+                _logger.LogError(ex, "An unexpected error occurred during registration.");
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
             return Page();
+        }
+
+        private async Task<bool> CheckIfBrokerExistsAsync()
+        {
+            var user = await _context.Brokers.ToListAsync();
+            return user.Any(u => u.Email == Email);
+        }
+
+        private static Broker CreateBroker(string email, string phoneNumber, string fullname, string address,   string password)
+        {
+            var broker = new Broker(email, phoneNumber, fullname, address, password);
+            return broker;
+        }
+
+        private string HashPassword(Broker broker, string password)
+        {
+            return _passwordHasher.HashPassword(broker, password);
         }
     }
 }

@@ -1,28 +1,33 @@
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Portal.Entities;
-using System.ComponentModel.DataAnnotations;
+using Claim = System.Security.Claims.Claim;
+using Portal.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 
 namespace iBrokerage.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly UserManager<Broker> _userManager;
-        private readonly SignInManager<Broker> _signInManager;
+        private readonly IBrokerageContext _context;
+        private readonly ILogger<LoginModel> _logger;
+        private readonly IPasswordHasher<Broker> _passwordHasher;
 
-        public LoginModel(UserManager<Broker> userManager, SignInManager<Broker> signInManager)
+        public LoginModel(ILogger<LoginModel> logger, IBrokerageContext context, IPasswordHasher<Broker> passwordHasher)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _logger = logger;
+            _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         [BindProperty]
-        [Required]
         public string Email { get; set; }
 
         [BindProperty]
-        [Required]
         public string Password { get; set; }
 
         public PageResult OnGet()
@@ -30,27 +35,53 @@ namespace iBrokerage.Pages
             return Page();
         }
 
-        public async Task<ActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = await _userManager.FindByEmailAsync(Email);
+                var broker = await AuthenticateBrokerAsync();
 
-                if (user != null)
+                if (broker != null)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, Password, false, lockoutOnFailure: true);
+                    await SignInBrokerAsync(broker);
 
-                    if (result.Succeeded)
-                    {
-                        // Authentication succeeded
-                        return RedirectToPage("Dashboard");
-                    }
+                    return RedirectToPage("Dashboard");
                 }
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during user authentication.");
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
 
-            // Authentication failed
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError("", "User details do not match. Please check login details.");
             return Page();
+        }
+
+        private async Task<Broker?> AuthenticateBrokerAsync()
+        {
+            var broker = await _context.Brokers.SingleOrDefaultAsync(b => b.Email == Email);
+
+            if (broker != null && _passwordHasher.VerifyHashedPassword(broker, broker.Password, Password) == PasswordVerificationResult.Success)
+            {
+                return broker;
+            }
+
+            return null;
+        }
+
+        private async Task SignInBrokerAsync(Broker broker)
+        {
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.NameIdentifier, broker.Id),
+                new(ClaimTypes.Email, broker.Email)
+            };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
         }
     }
 }

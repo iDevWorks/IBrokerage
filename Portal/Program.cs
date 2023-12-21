@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Portal.Entities;
 using Portal.EntityFramework;
+using Portal.Services;
 
 namespace iBrokerage
 {
@@ -11,46 +14,29 @@ namespace iBrokerage
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            // Add services to the container.
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                            .AddCookie(options =>
+                            {
+                                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                                options.SlidingExpiration = true;
+                                options.AccessDeniedPath = "/Forbidden/";
+                                options.LoginPath = "/Index";
+                                options.Cookie.IsEssential = true;
+                            });
+
             // Use in-memory database for demo purposes;
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
 
-            //configure identity options
-            builder.Services.AddIdentity<Broker, IdentityRole>(options =>
-            {
-                // password requirements
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequiredLength = 8;
-                options.Password.RequiredUniqueChars = 1;
-
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
-
-                // User settings
-                options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedEmail = true;
-            })
-            .AddEntityFrameworkStores<IBrokerageContext>()
-                .AddDefaultTokenProviders();
-
-
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-                options.SlidingExpiration = true;
-                options.AccessDeniedPath = "/Forbidden/";
-                options.LoginPath = "/Index";
-                options.Cookie.IsEssential = true;
-            });
-
-            // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.AddScoped<IPasswordHasher<Broker>, PasswordHasher<Broker>>();
+            builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
             var app = builder.Build();
          
