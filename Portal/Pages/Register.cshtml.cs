@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Portal.Entities;
 using Portal.EntityFramework;
-using Microsoft.AspNetCore.Identity;
 using Claim = System.Security.Claims.Claim;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
@@ -17,44 +16,42 @@ namespace IBrokerage.Pages
 {
     public class RegisterModel : PageModel
     {
-        public RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context, IPasswordHasher<Broker> passwordHasher, IEmailSender emailSender)
+        public RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context)
         {
             _logger = logger;
             _context = context;
             _passwordHasher = passwordHasher;
-            _emailSender = emailSender;
         }
 
-        private readonly IEmailSender _emailSender;
         private readonly IPasswordHasher<Broker> _passwordHasher;
         private readonly IBrokerageContext _context;
         private readonly ILogger<RegisterModel> _logger;
 
-        [BindProperty]
+        [BindProperty, Required]
         public string Email { get; set; }
 
-        [BindProperty]
+        [BindProperty, Required]
         [StringLength(20, MinimumLength = 5)]
         public string FirstName { get; set; }
 
-        [BindProperty]
+        [BindProperty, Required]
         [StringLength(20, MinimumLength = 5)]
         public string LastName { get; set; }
 
-        [BindProperty]
+        [BindProperty, Required]
         [StringLength(100)]
         public string Address { get; set; }
 
-        [BindProperty]
+        [BindProperty, Required]
         [StringLength(11, MinimumLength = 11)]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [BindProperty]
+        [BindProperty, Required]
         [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
 
-        [BindProperty]
+        [BindProperty, Required]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
@@ -68,22 +65,20 @@ namespace IBrokerage.Pages
         {
             try
             {
-                var brokerExists = await CheckIfBrokerExistsAsync();
-                if (brokerExists)
-                {
-                    ModelState.AddModelError("", "A user with this email already exists.");
-                    return Page();
-                }
-
                 if (Password != ConfirmPassword)
                 {
-                    ModelState.AddModelError("", "The password and confirmation password must match.");
-                    return Page();
+                    throw new Exception("The password and confirmation password must match.");
+                }
+
+                var brokerExists = await _context.Brokers.AnyAsync(u => u.Email == Email);
+
+                if (brokerExists)
+                {
+                    throw new Exception("A user with this email already exists.");
                 }
 
                 var fullName = $"{FirstName} {LastName}";
-                var broker = CreateBroker(Email, PhoneNumber, fullName, Address, Password);
-                broker.Password = HashPassword(broker, Password);
+                var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
 
                 _context.Brokers.Add(broker);
                 await _context.SaveChangesAsync();
@@ -119,7 +114,7 @@ namespace IBrokerage.Pages
             catch (Exception ex)
             {
                 // Log the exception for debugging purposes
-                _logger.LogError(ex, "An unexpected error occurred during registration.");
+                _logger.LogError(ex, ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();
@@ -140,20 +135,6 @@ namespace IBrokerage.Pages
         private string HashPassword(Broker broker, string password)
         {
             return _passwordHasher.HashPassword(broker, password);
-        }
-
-        private async Task SendConfirmationEmailAsync(string email, string code)
-        {
-            var confirmationLink = Url.Page(
-                "/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId, code },
-                protocol: Request.Scheme);
-
-            var message = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(confirmationLink)}'>clicking here</a>.";
-
-            // Use your custom email sender service to send the email
-            await _emailSender.SendEmailAsync(email, "Confirm your email", message);
         }
     }
 }

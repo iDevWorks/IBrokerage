@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Portal.Entities;
 using Portal.EntityFramework;
 using Portal.Services;
 
@@ -13,7 +10,6 @@ namespace iBrokerage
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
 
             // Add services to the container.
             builder.Services.AddRazorPages();
@@ -34,8 +30,7 @@ namespace iBrokerage
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
 
-            builder.Services.AddTransient<IEmailSender, EmailSender>();
-            builder.Services.AddScoped<IPasswordHasher<Broker>, PasswordHasher<Broker>>();
+            builder.Services.AddTransient<EmailSender>();
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
             var app = builder.Build();

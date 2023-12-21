@@ -7,9 +7,7 @@
         public Claim(Policy policy, string description) 
         {
             ArgumentNullException.ThrowIfNull(policy);
-
-            if (string.IsNullOrWhiteSpace(description))
-                throw new ArgumentNullException(nameof(description));
+            ArgumentException.ThrowIfNullOrWhiteSpace(description);
 
             PolicyId = policy.Id;
             Description = description;

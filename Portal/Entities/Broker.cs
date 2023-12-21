@@ -9,6 +9,8 @@ namespace Portal.Entities
 
         public Broker(string email, string phoneNumber, string fullName, string address, string password) 
         {
+            //ArgumentException.ThrowIfNullOrWhiteSpace(email);
+
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException(nameof(email));
 
@@ -30,9 +32,49 @@ namespace Portal.Entities
             FullName = fullName;
             Address = address;
             CreatedDate = DateTimeOffset.UtcNow;
-            Password = password;
+            Password = HashPassword(password);
         }
 
+        public bool IsValidPassword(string password)
+        {
+            string hashedPassword = HashPassword(password);
+
+            if (Password == hashedPassword) 
+                return true;
+
+            return false;
+        }
+
+        public void UpdatePassword(string oldPassword, string newPassword)
+        {
+            string hashedPassword = HashPassword(oldPassword);
+
+            if (Password == hashedPassword)
+            {
+                Password = HashPassword(newPassword);
+                return;
+            }
+
+            throw new Exception("Invalid old Password");
+        }
+
+        private static string HashPassword(string passwordToHash)
+        {
+            return passwordToHash;
+
+            //const int keySize = 64;
+            //const int iterations = 350000;
+            //HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+
+            //var salt = RandomNumberGenerator.GetBytes(keySize);
+            //var hash = Rfc2898DeriveBytes.Pbkdf2(
+            //    Encoding.UTF8.GetBytes(passwordToHash),
+            //    salt,
+            //    iterations,
+            //    hashAlgorithm,
+            //    keySize);
+            //return Convert.ToHexString(hash);
+        }
 
         public string Id { get; private set; }
         public string ConfirmationToken { get; set; }
@@ -40,7 +82,7 @@ namespace Portal.Entities
         public string PhoneNumber { get; private set; }
         public string FullName { get; private set; }
         public string Address { get; private set; }
-        public string Password { get; set; }
+        public string Password { get; private set; }
         public DateTimeOffset CreatedDate { get; private set; }
 
         public virtual ICollection<Client> Clients { get; set; }
