@@ -8,9 +8,6 @@ using System.Security.Claims;
 using Portal.Entities;
 using Portal.EntityFramework;
 using Claim = System.Security.Claims.Claim;
-using System.Security.Cryptography;
-using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace IBrokerage.Pages
 {
@@ -20,10 +17,8 @@ namespace IBrokerage.Pages
         {
             _logger = logger;
             _context = context;
-            _passwordHasher = passwordHasher;
         }
 
-        private readonly IPasswordHasher<Broker> _passwordHasher;
         private readonly IBrokerageContext _context;
         private readonly ILogger<RegisterModel> _logger;
 
@@ -96,20 +91,7 @@ namespace IBrokerage.Pages
                 await HttpContext.SignInAsync(
                     new ClaimsPrincipal(claimsIdentity));
 
-                // Generate confirmation token
-                var code = GenerateConfirmationToken();
-
-                // Store confirmation token in Broker entity
-                broker.ConfirmationToken = code;
-
-                // Save changes to the database
-                await _context.SaveChangesAsync();
-
-                // Send confirmation email
-                await SendConfirmationEmailAsync(broker.Email, code);
-
-                // Redirect to a page indicating that confirmation email has been sent
-                return RedirectToPage("ConfirmationSent");
+                return RedirectToPage("Dashboard");
             }
             catch (Exception ex)
             {
@@ -120,21 +102,5 @@ namespace IBrokerage.Pages
             return Page();
         }
 
-        private async Task<bool> CheckIfBrokerExistsAsync()
-        {
-            var user = await _context.Brokers.ToListAsync();
-            return user.Any(u => u.Email == Email);
-        }
-
-        private static Broker CreateBroker(string email, string phoneNumber, string fullname, string address,   string password)
-        {
-            var broker = new Broker(email, phoneNumber, fullname, address, password);
-            return broker;
-        }
-
-        private string HashPassword(Broker broker, string password)
-        {
-            return _passwordHasher.HashPassword(broker, password);
-        }
     }
 }
