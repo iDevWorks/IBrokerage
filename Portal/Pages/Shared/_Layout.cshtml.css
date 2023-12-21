@@ -5,8 +5,6 @@ main {
 }
 
 .sb {
-    --background-color: #313A46;
-    --background-color: var(--bs-gray-800);
     background-color: var(--bs-primary);
     transition: width .2s linear;
     overflow-x: hidden;
@@ -14,6 +12,26 @@ main {
     height: 100%;
     width: 260px;
     left: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;  
+    display:none;
+}
+/*
+::-webkit-scrollbar-track {
+    --background: orange;  
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;  
+    border-radius: 20px;  
+    border: 2px solid var(--bs-gray-800);  
+}
+*/
+
+.sb-header a {
+    --position: fixed;
 }
 
 .sb-header a {
@@ -31,6 +49,7 @@ main {
 }
 
 .sb-menu {
+    --margin-top: 50px;
     padding: 10px 10px 10px 20px;
 }
 
