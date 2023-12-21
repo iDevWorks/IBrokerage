@@ -35,6 +35,7 @@ namespace Portal.Entities
 
 
         public string Id { get; private set; }
+        public string ConfirmationToken { get; set; }
         public string Email { get; private set; }
         public string PhoneNumber { get; private set; }
         public string FullName { get; private set; }

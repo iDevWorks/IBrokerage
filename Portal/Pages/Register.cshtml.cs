@@ -9,18 +9,23 @@ using Portal.Entities;
 using Portal.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Claim = System.Security.Claims.Claim;
+using System.Security.Cryptography;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace IBrokerage.Pages
 {
     public class RegisterModel : PageModel
     {
-        public RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context, IPasswordHasher<Broker> passwordHasher)
+        public RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context, IPasswordHasher<Broker> passwordHasher, IEmailSender emailSender)
         {
             _logger = logger;
             _context = context;
             _passwordHasher = passwordHasher;
+            _emailSender = emailSender;
         }
 
+        private readonly IEmailSender _emailSender;
         private readonly IPasswordHasher<Broker> _passwordHasher;
         private readonly IBrokerageContext _context;
         private readonly ILogger<RegisterModel> _logger;
@@ -96,7 +101,20 @@ namespace IBrokerage.Pages
                 await HttpContext.SignInAsync(
                     new ClaimsPrincipal(claimsIdentity));
 
-                return RedirectToPage("Dashboard");
+                // Generate confirmation token
+                var code = GenerateConfirmationToken();
+
+                // Store confirmation token in Broker entity
+                broker.ConfirmationToken = code;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                // Send confirmation email
+                await SendConfirmationEmailAsync(broker.Email, code);
+
+                // Redirect to a page indicating that confirmation email has been sent
+                return RedirectToPage("ConfirmationSent");
             }
             catch (Exception ex)
             {
@@ -122,6 +140,20 @@ namespace IBrokerage.Pages
         private string HashPassword(Broker broker, string password)
         {
             return _passwordHasher.HashPassword(broker, password);
+        }
+
+        private async Task SendConfirmationEmailAsync(string email, string code)
+        {
+            var confirmationLink = Url.Page(
+                "/ConfirmEmail",
+                pageHandler: null,
+                values: new { userId, code },
+                protocol: Request.Scheme);
+
+            var message = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(confirmationLink)}'>clicking here</a>.";
+
+            // Use your custom email sender service to send the email
+            await _emailSender.SendEmailAsync(email, "Confirm your email", message);
         }
     }
 }
