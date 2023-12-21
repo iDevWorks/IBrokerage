@@ -10,14 +10,10 @@ namespace iBrokerage
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("IBrokerageContextConnection") ?? throw new InvalidOperationException("Connection string 'IBrokerageContextConnection' not found.");
 
             // Use in-memory database for demo purposes;
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
-
-            builder.Services.AddDefaultIdentity<Broker>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IBrokerageContext>();
-
 
             //configure identity options
             builder.Services.AddIdentity<Broker, IdentityRole>(options =>
@@ -37,6 +33,7 @@ namespace iBrokerage
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = true;
             })
             .AddEntityFrameworkStores<IBrokerageContext>()
                 .AddDefaultTokenProviders();
