@@ -1,11 +1,14 @@
-﻿
+﻿html {
+    font-size: 95%
+}
+
 main {
     margin-left: 260px;
     transition: margin-left .2s linear;
 }
 
 .sb {
-    background-color: var(--bs-primary);
+    background-color: var(--bs-dark);
     transition: width .2s linear;
     overflow-x: hidden;
     position: fixed;
@@ -15,20 +18,18 @@ main {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;  
-    display:none;
+    width: 6px;  
 }
-/*
+
 ::-webkit-scrollbar-track {
     --background: orange;  
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: white;  
-    border-radius: 20px;  
-    border: 2px solid var(--bs-gray-800);  
+    background-color: var(--bs-primary);
+    border-radius: 4px;
+    --border: 3px solid red;
 }
-*/
 
 .sb-header a {
     --position: fixed;
@@ -55,7 +56,7 @@ main {
 
 /*.sb-group {
     letter-spacing: 1px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: bold;
     padding: 10px 0px;
     color: var(--bs-gray-400);
@@ -66,7 +67,7 @@ main {
 }
 
 .sb-menu i {
-    font-size: 16px;
+    --font-size: 16px;
     font-weight: bold;
     margin-right: 1.3125rem;
 }
@@ -74,7 +75,7 @@ main {
 .sb-menu a {
     color: var(--bs-secondary-bg-subtle);
     display: block;
-    font-size: 15px;
+    --font-size: 15px;
     padding: 14px 7px;
     text-decoration: none;
 }
@@ -115,7 +116,7 @@ ul.sb-menu ul a {
 ul.sb-menu li:has(ul) > a span::after {
     float: right;
     content: '\F285'; /*caret-right*/
-    font-size: 70%;
+    font-size: 0.7rem;
     font-weight: bold;
     font-family: 'bootstrap-icons';
     transition: transform .2s linear;
