@@ -3,3 +3,100 @@
 @{
     ViewData["Title"] = "Insured";
 }
+
+<section class="bg-white table-responsive p-4 rounded-3 shadow d-flex flex-column gap-3">
+    <button type="button" class="btn btn-danger align-self-end" data-bs-toggle="modal" data-bs-target="#addClient">
+        <i class="bi bi-plus-circle me-2"></i> Add Client
+    </button>
+    @if(Model.Clients.Any())
+    {
+        <table id="myTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model.Clients)
+                {
+                    <tr>
+                        <td>@client.Name</td>
+                        <td>@client.PhoneNumber</td>
+                        <td>@client.Email</td>
+                        <td>@client.Address</td>
+                        <td>@client.DateAdded.ToLocalTime().Date</td>
+                        <td class="d-flex gap-1">
+                            <i class="bi bi-trash"></i>
+                            <i class="bi bi-pencil-square"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="text-center text-danger h3">No client has been found...</div>
+    }
+</section>
+
+
+
+
+<!-- Add Client Modal -->
+<div class="modal fade" id="addClient" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fw-bold" id="addClient">
+                    Add New Client
+                </h3>
+            </div>
+            <form method="post">
+                <div class="text-danger mb-1" asp-validation-summary="ModelOnly"></div>
+                <div class="modal-body d-flex flex-column gap-3">
+                    <div class="d-flex gap-3">
+                        <div>
+                            <label class="form-label" asp-for="FirstName">First Name</label>
+                            <input type="text" class="form-control" asp-for="FirstName" required />
+                        </div>
+                        <div>
+                            <label class="form-label" asp-for="LastName">Last Name</label>
+                            <input type="text" class="form-control" asp-for="LastName" required />
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <div>
+                            <label class="form-label" asp-for="Email">Email</label>
+                            <input type="email" class="form-control" asp-for="Email" required />
+                        </div>
+                        <div>
+                            <label class="form-label" asp-for="PhoneNumber">Phone</label>
+                            <input type="text" class="form-control" asp-for="PhoneNumber" required />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" asp-for="Address">Address</label>
+                        <input type="text" class="form-control" asp-for="Address" required />
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

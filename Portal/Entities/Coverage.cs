@@ -7,12 +7,8 @@
         public Coverage(Policy policy, string type, string description) 
         {
             ArgumentNullException.ThrowIfNull(policy);
-
-            if (string.IsNullOrWhiteSpace(type))
-                throw new ArgumentNullException(nameof(type));
-
-            if(string.IsNullOrWhiteSpace(description))
-                throw new ArgumentNullException(nameof(description));
+            ArgumentException.ThrowIfNullOrWhiteSpace(type);
+            ArgumentException.ThrowIfNullOrWhiteSpace(description);
 
             Policy = policy;
             PolicyId = policy.Id;

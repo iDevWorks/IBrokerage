@@ -9,22 +9,11 @@ namespace Portal.Entities
 
         public Broker(string email, string phoneNumber, string fullName, string address, string password) 
         {
-            //ArgumentException.ThrowIfNullOrWhiteSpace(email);
-
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException(nameof(email));
-
-            if(string.IsNullOrWhiteSpace(phoneNumber))
-                throw new ArgumentNullException(nameof(phoneNumber));
-
-            if (string.IsNullOrWhiteSpace(fullName))
-                throw new ArgumentNullException(nameof(fullName));
-
-            if (string.IsNullOrWhiteSpace(address))
-                throw new ArgumentNullException(nameof(address));
-
-            if (string.IsNullOrWhiteSpace(password))
-                throw new ArgumentNullException(nameof(password));
+            ArgumentException.ThrowIfNullOrWhiteSpace(email);
+            ArgumentException.ThrowIfNullOrWhiteSpace(phoneNumber);
+            ArgumentException.ThrowIfNullOrWhiteSpace(fullName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(address);
+            ArgumentException.ThrowIfNullOrWhiteSpace(password);
 
             Id = GenerateUniqueId(fullName, email);
             Email = email;
@@ -60,24 +49,19 @@ namespace Portal.Entities
 
         private static string HashPassword(string passwordToHash)
         {
-            return passwordToHash;
+            byte[] emptySalt = [];
 
-            //const int keySize = 64;
-            //const int iterations = 350000;
-            //HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-
-            //var salt = RandomNumberGenerator.GetBytes(keySize);
-            //var hash = Rfc2898DeriveBytes.Pbkdf2(
-            //    Encoding.UTF8.GetBytes(passwordToHash),
-            //    salt,
-            //    iterations,
-            //    hashAlgorithm,
-            //    keySize);
-            //return Convert.ToHexString(hash);
+            var hash = Rfc2898DeriveBytes.Pbkdf2(
+                passwordToHash,
+                salt: emptySalt,
+                iterations: 500,
+                hashAlgorithm: HashAlgorithmName.SHA512,
+                outputLength: 64);
+            return Convert.ToHexString(hash);
         }
 
         public string Id { get; private set; }
-        public string ConfirmationToken { get; set; }
+        public string ConfirmationToken { get; set; } = string.Empty;
         public string Email { get; private set; }
         public string PhoneNumber { get; private set; }
         public string FullName { get; private set; }

@@ -4,23 +4,15 @@
     {
         public Client() { }
 
-        public Client(Broker broker, Policy policy, string name, string address, string email, string phoneNumber) 
+        public Client(Broker broker, string name, string address, string email, string phoneNumber) 
         {
             ArgumentNullException.ThrowIfNull(broker);
-            ArgumentNullException.ThrowIfNull(policy);
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            ArgumentException.ThrowIfNullOrWhiteSpace(address);
+            ArgumentException.ThrowIfNullOrWhiteSpace(email);
+            ArgumentException.ThrowIfNullOrWhiteSpace(phoneNumber);
 
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException(nameof(name));
-
-            if(string.IsNullOrWhiteSpace(Address))
-                throw new ArgumentNullException(nameof(address));
-
-            if(string.IsNullOrWhiteSpace(Email))
-                throw new ArgumentNullException(nameof(email));
-
-            if(string.IsNullOrWhiteSpace(PhoneNumber))
-                throw new ArgumentNullException(nameof(phoneNumber));
-
+            Id = broker.Id;
             Broker = broker;
             BrokerId = broker.Id;
             Name = name;
@@ -28,8 +20,6 @@
             Address = address;
             PhoneNumber = phoneNumber;
             DateAdded = DateTimeOffset.UtcNow;
-
-            Policies.Add(policy);
         }
 
         public string Id { get; private set; }

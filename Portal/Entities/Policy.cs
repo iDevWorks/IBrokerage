@@ -7,10 +7,7 @@
         public Policy(InsuranceCompany insuranceCompany, string name, DateTime endDate, decimal premiumAmount) 
         {
             ArgumentNullException.ThrowIfNull(insuranceCompany);
-
-            if(string.IsNullOrWhiteSpace(name)) 
-                throw new ArgumentNullException(nameof(name));
-
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(premiumAmount);
 
             Name = name;

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/united/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <link rel="stylesheet" href="~/Portal.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <title>@ViewData["Title"] - iBrokerage</title>
@@ -13,47 +14,20 @@
     <nav class="sb">
         <header class="sb-header">
             <a href="#">
-                <span class="sb-brand">Online School</span>
-                <span class="sb-brand-icon">OS</span>
+                <span class="sb-brand">IBrokerage</span>
+                <span class="sb-brand-icon">IB</span>
             </a>
         </header>
 
         <ul class="sb-menu flex-column">
-            <li class="sb-group">ADMIN</li>
-            <li class="active open">
+           @*  <li class="sb-group">ADMIN</li> *@
+            <li class="active">
                 <a href="#">
                     <i class="bi bi-speedometer2"></i>
                     <span>Dashboard</span>
                 </a>
-                <ul class="flex-column">
-                    <li>
-                        <a href="#">
-                            <span>Analytics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>Ecommerce</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>Projects</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>CRM</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>E-Wallet</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
-            <li class="sb-group">TRAINEE</li>
+            @* <li class="sb-group">TRAINEE</li> *@
             <li>
                 <a href="/Insured">
                     <i class="bi bi-people"></i>
@@ -64,31 +38,6 @@
                 <a href="#">
                     <i class="bi bi-file-earmark"></i>
                     <span>Policies</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-file-check"></i>
-                    <span>Certificates</span>
-                </a>
-            </li>
-            <li class="sb-group">TRAINER</li>
-            <li>
-                <a href="/Insured">
-                    <i class="bi bi-people"></i>
-                    <span>Insured</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-file-earmark"></i>
-                    <span>Policies</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bi bi-file-check"></i>
-                    <span>Certificates</span>
                 </a>
             </li>
         </ul>
@@ -135,6 +84,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const buttons = document.querySelectorAll('[data-sidebar-toggle]');
@@ -143,13 +95,16 @@
                     document.querySelector('body').classList.toggle('override');
                 })
             });
-
-            const dropdowns = document.querySelectorAll('ul.sb-menu li:has(ul)');
-            dropdowns.forEach(e => {
-                e.addEventListener('click', () => {
-                    e.classList.toggle('open');
-                });
-            });
+            // toggle dropdown-menu
+            // const dropdowns = document.querySelectorAll('ul.sb-menu li:has(ul)');
+            // dropdowns.forEach(e => {
+            //     e.addEventListener('click', () => {
+            //         e.classList.toggle('open');
+            //     });
+            // });
+        });
+        $(document).ready(function () {
+            $('#myTable').DataTable();
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)

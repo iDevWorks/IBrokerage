@@ -6,17 +6,10 @@
 
         public InsuranceCompany(string name, string address, string phoneNumber, string email)
         {
-            if(string.IsNullOrWhiteSpace(Name)) 
-                throw new ArgumentNullException(nameof(name));
-
-            if(string.IsNullOrWhiteSpace(Address))
-                throw new ArgumentNullException(nameof(address));
-
-            if(string.IsNullOrWhiteSpace(PhoneNumber))
-                throw new ArgumentNullException(nameof(phoneNumber));
-
-            if(string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException(nameof(email));
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            ArgumentException.ThrowIfNullOrWhiteSpace(address);
+            ArgumentException.ThrowIfNullOrWhiteSpace(phoneNumber);
+            ArgumentException.ThrowIfNullOrWhiteSpace(email);
 
             Name = name;
             Address = address;

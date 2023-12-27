@@ -1,3 +1,8 @@
-p {
+.dataTables_length,
+.dataTables_filter{
+    padding-bottom: 0.8rem;
+}
 
+td{
+    vertical-align: middle;
 }
