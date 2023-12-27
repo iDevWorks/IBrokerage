@@ -9,52 +9,33 @@ using Portal.Entities;
 using Portal.EntityFramework;
 using Claim = System.Security.Claims.Claim;
 
-namespace IBrokerage.Pages
+namespace Portal.Pages.Public
 {
-    public class RegisterModel : PageModel
+    public class RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context) : PageModel
     {
-        public RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context)
-        {
-            _logger = logger;
-            _context = context;
-        }
-
-        private readonly IBrokerageContext _context;
-        private readonly ILogger<RegisterModel> _logger;
-
         [BindProperty, Required]
         public string Email { get; set; }
 
         [BindProperty, Required]
-        [StringLength(20, MinimumLength = 5)]
         public string FirstName { get; set; }
 
         [BindProperty, Required]
-        [StringLength(20, MinimumLength = 5)]
         public string LastName { get; set; }
 
         [BindProperty, Required]
-        [StringLength(100)]
         public string Address { get; set; }
 
         [BindProperty, Required]
-        [StringLength(11, MinimumLength = 11)]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         [BindProperty, Required]
-        [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
 
         [BindProperty, Required]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-
-        public PageResult OnGet()
-        {
-            return Page();
-        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -65,7 +46,7 @@ namespace IBrokerage.Pages
                     throw new Exception("The password and confirmation password must match.");
                 }
 
-                var brokerExists = await _context.Brokers.AnyAsync(u => u.Email == Email);
+                var brokerExists = await context.Brokers.AnyAsync(u => u.Email == Email);
 
                 if (brokerExists)
                 {
@@ -75,28 +56,30 @@ namespace IBrokerage.Pages
                 var fullName = $"{FirstName} {LastName}";
                 var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
 
-                _context.Brokers.Add(broker);
-                await _context.SaveChangesAsync();
+                context.Brokers.Add(broker);
+                await context.SaveChangesAsync();
 
-                // Manually sign in the user after successful signup
-                var claims = new List<Claim>
-                {
-                    new(ClaimTypes.NameIdentifier, broker.Id),
-                    new(ClaimTypes.Email, broker.Email)
-                };
+                //proceed to Login
+                return RedirectToPage("Login");
 
-                var claimsIdentity = new ClaimsIdentity(
-                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                //// Manually sign in the user after successful signup
+                //var claims = new List<Claim>
+                //{
+                //    new(ClaimTypes.NameIdentifier, broker.Id),
+                //    new(ClaimTypes.Email, broker.Email)
+                //};
 
-                await HttpContext.SignInAsync(
-                    new ClaimsPrincipal(claimsIdentity));
+                //var claimsIdentity = new ClaimsIdentity(
+                //    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                return RedirectToPage("Dashboard");
+                //await HttpContext.SignInAsync(
+                //    new ClaimsPrincipal(claimsIdentity));
+
+                //return RedirectToPage("Dashboard");
             }
             catch (Exception ex)
             {
-                // Log the exception for debugging purposes
-                _logger.LogError(ex, ex.Message);
+                logger.LogError(ex, ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();

@@ -1,38 +1,23 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Portal.Entities;
-using Claim = System.Security.Claims.Claim;
-using Portal.EntityFramework;
-using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Portal.EntityFramework;
+using Portal.Entities;
 
-namespace iBrokerage.Pages
+namespace Portal.Pages.Public
 {
-    public class LoginModel : PageModel
+    public class LoginModel(ILogger<LoginModel> logger, IBrokerageContext context) : PageModel
     {
-        private readonly IBrokerageContext _context;
-        private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(ILogger<LoginModel> logger, IBrokerageContext context)
-        {
-            _logger = logger;
-            _context = context;
-        }
-
         [BindProperty, Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
 
         [BindProperty, Required]
         public string Password { get; set; } = string.Empty;
 
-        public PageResult OnGet()
-        {
-            return Page();
-        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -43,7 +28,6 @@ namespace iBrokerage.Pages
                 if (broker != null)
                 {
                     await SignInBrokerAsync(broker);
-
                     return RedirectToPage("Dashboard");
                 }
 
@@ -51,7 +35,7 @@ namespace iBrokerage.Pages
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error during user authentication.");
+                logger.LogError(ex, ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();
@@ -59,7 +43,7 @@ namespace iBrokerage.Pages
 
         private async Task<Broker?> AuthenticateBrokerAsync()
         {
-            var broker = await _context.Brokers.SingleOrDefaultAsync(
+            var broker = await context.Brokers.SingleOrDefaultAsync(
                 b => b.Email == Email);
 
             if (broker != null && broker.IsValidPassword(Password))
@@ -68,9 +52,9 @@ namespace iBrokerage.Pages
             return null;
         }
 
-        private async Task SignInBrokerAsync(Broker broker)
+        private Task SignInBrokerAsync(Broker broker)
         {
-            var claims = new List<Claim>
+            var claims = new List<System.Security.Claims.Claim>
             {
                 new(ClaimTypes.NameIdentifier, broker.Id),
                 new(ClaimTypes.Email, broker.Email)
@@ -79,7 +63,7 @@ namespace iBrokerage.Pages
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+            return HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
         }
     }
 }
