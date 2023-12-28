@@ -1,4 +1,4 @@
-namespace iBrokerage
+namespace Gibs.Landing
 {
     public class Program
     {

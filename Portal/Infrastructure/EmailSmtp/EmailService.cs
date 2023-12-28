@@ -2,16 +2,11 @@
 using System.Net.Mail;
 using System.Net;
 
-namespace Portal.Services
+namespace Gibs.Infrastructure.Email
 {
-    public class EmailSender 
+    public class EmailService(IOptions<SmtpSettings> smtpSettings)
     {
-        private readonly SmtpSettings _smtpSettings;
-
-        public EmailSender(IOptions<SmtpSettings> smtpSettings)
-        {
-            _smtpSettings = smtpSettings.Value;
-        }
+        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
 
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

@@ -4,25 +4,26 @@
     ViewData["Title"] = "Insured";
 }
 
-<section class="bg-white table-responsive p-4 rounded-3 shadow d-flex flex-column gap-3">
+<section class="bg-white d-flex flex-column gap-3">
     <button type="button" class="btn btn-danger align-self-end" data-bs-toggle="modal" data-bs-target="#addClient">
         <i class="bi bi-plus-circle me-2"></i> Add Client
     </button>
-    @if(Model.Clients.Any())
-    {
-        <table id="myTable" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Client</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Location</th>
-                    <th>Created Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var client in Model.Clients)
+
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Clients.Any())
+            {
+                foreach (var client in Model.Clients)
                 {
                     <tr>
                         <td>@client.Name</td>
@@ -36,20 +37,17 @@
                         </td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <div class="text-center text-danger h3">No client has been found...</div>
-    }
+            }
+            else
+            {
+                <tr><td><div class="text-center text-danger h3">No client has been found...</div></td></tr>
+            }
+        </tbody>
+    </table>
 </section>
 
-
-
-
 <!-- Add Client Modal -->
-<div class="modal fade" id="addClient" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addClient" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

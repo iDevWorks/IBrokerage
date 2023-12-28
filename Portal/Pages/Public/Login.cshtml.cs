@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
-using Portal.EntityFramework;
-using Portal.Entities;
+using Gibs.Infrastructure.EntityFramework;
+using Gibs.Domain.Entities;
 
-namespace Portal.Pages.Public
+namespace Gibs.Portal.Pages
 {
     public class LoginModel(ILogger<LoginModel> logger, IBrokerageContext context) : PageModel
     {
@@ -35,7 +35,7 @@ namespace Portal.Pages.Public
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while trying to login.");
+                logger.LogError(ex, "Exception in : {Message}", ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();

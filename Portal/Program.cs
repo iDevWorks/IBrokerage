@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Portal.EntityFramework;
-using Portal.Services;
+using Gibs.Infrastructure.EntityFramework;
+using Gibs.Infrastructure.Email;
 
-namespace iBrokerage
+namespace Gibs.Portal
 {
     public class Program
     {
@@ -12,28 +12,25 @@ namespace iBrokerage
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AddPageRoute("/Public/Index", "");
-            });
+            builder.Services.AddRazorPages();
 
             builder.Services.AddHttpContextAccessor();
 
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                            .AddCookie(options =>
-                            {
-                                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-                                options.SlidingExpiration = true;
-                                options.AccessDeniedPath = "/Forbidden/";
-                                options.LoginPath = "/Index";
-                                options.Cookie.IsEssential = true;
-                            });
+            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //                .AddCookie(options =>
+            //                {
+            //                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+            //                    options.SlidingExpiration = true;
+            //                    options.AccessDeniedPath = "/Forbidden/";
+            //                    options.LoginPath = "/Index";
+            //                    options.Cookie.IsEssential = true;
+            //                });
 
             // Use in-memory database for demo purposes;
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
 
-            builder.Services.AddTransient<EmailSender>();
+            builder.Services.AddTransient<EmailService>();
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
             var app = builder.Build();
@@ -42,8 +39,8 @@ namespace iBrokerage
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.MapRazorPages();
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Portal.Entities;
+using Gibs.Domain.Entities;
 
-namespace Portal.EntityFramework
+namespace Gibs.Infrastructure.EntityFramework
 {
     public class IBrokerageContext(DbContextOptions<IBrokerageContext> options) : DbContext(options)
     {

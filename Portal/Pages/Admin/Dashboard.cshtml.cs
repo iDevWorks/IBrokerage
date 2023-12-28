@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace iBrokerage.Pages
+namespace Gibs.Portal.Pages
 {
-    [Authorize]
+    //[Authorize]
     public class DashboardModel : PageModel
     {
         public void OnGet()

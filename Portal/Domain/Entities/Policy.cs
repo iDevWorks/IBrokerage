@@ -1,4 +1,4 @@
-﻿namespace Portal.Entities
+﻿namespace Gibs.Domain.Entities
 {
     public class Policy
     {

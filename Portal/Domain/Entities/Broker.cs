@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Portal.Entities
+namespace Gibs.Domain.Entities
 {
     public class Broker
     {
