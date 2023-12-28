@@ -28,14 +28,14 @@ namespace Portal.Pages.Public
                 if (broker != null)
                 {
                     await SignInBrokerAsync(broker);
-                    return RedirectToPage("Dashboard");
+                    return RedirectToPage("../Dashboard");
                 }
 
                 throw new Exception("User details do not match. Please check login details.");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "An error occurred while trying to login.");
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();

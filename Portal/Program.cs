@@ -12,19 +12,22 @@ namespace iBrokerage
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Public/Index", "");
+            });
 
             builder.Services.AddHttpContextAccessor();
 
-            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //                .AddCookie(options =>
-            //                {
-            //                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-            //                    options.SlidingExpiration = true;
-            //                    options.AccessDeniedPath = "/Forbidden/";
-            //                    options.LoginPath = "/Index";
-            //                    options.Cookie.IsEssential = true;
-            //                });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                            .AddCookie(options =>
+                            {
+                                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                                options.SlidingExpiration = true;
+                                options.AccessDeniedPath = "/Forbidden/";
+                                options.LoginPath = "/Index";
+                                options.Cookie.IsEssential = true;
+                            });
 
             // Use in-memory database for demo purposes;
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
@@ -39,7 +42,7 @@ namespace iBrokerage
             app.UseStaticFiles();
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();

@@ -60,7 +60,7 @@ namespace Portal.Pages.Public
                 await context.SaveChangesAsync();
 
                 //proceed to Login
-                return RedirectToPage("Login");
+                return RedirectToPage("Index");
 
                 //// Manually sign in the user after successful signup
                 //var claims = new List<Claim>

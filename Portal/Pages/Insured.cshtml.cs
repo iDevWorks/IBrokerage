@@ -12,7 +12,7 @@ namespace iBrokerage.Pages
     {
         private readonly IBrokerageContext _context;
         private readonly string _currUserId;
-        private ILogger<InsuredModel> _logger;
+        private readonly ILogger<InsuredModel> _logger;
 
         public List<Client> Clients { get; set; } = [];
 
@@ -40,7 +40,6 @@ namespace iBrokerage.Pages
 
         public async Task<PageResult> OnGetAsync()
         {
-            var client = new Client();
             Clients = await _context.Clients.Where(c => c.BrokerId == _currUserId).ToListAsync();
             return Page();
         }
