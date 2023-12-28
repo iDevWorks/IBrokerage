@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Portal.EntityFramework;
-using Portal.Services;
+using Gibs.Infrastructure.EntityFramework;
+using Gibs.Infrastructure.Email;
 
-namespace iBrokerage
+namespace Gibs.Portal
 {
     public class Program
     {
@@ -30,7 +30,7 @@ namespace iBrokerage
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
 
-            builder.Services.AddTransient<EmailSender>();
+            builder.Services.AddTransient<EmailService>();
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
             var app = builder.Build();
@@ -40,7 +40,7 @@ namespace iBrokerage
             app.UseRouting();
 
             //app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.MapRazorPages();
 

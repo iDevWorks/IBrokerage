@@ -1,4 +1,4 @@
-﻿namespace Portal.Services
+﻿namespace Gibs.Infrastructure.Email
 {
     public class SmtpSettings
     {

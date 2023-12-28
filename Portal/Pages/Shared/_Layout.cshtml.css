@@ -1,14 +1,11 @@
-﻿html {
-    font-size: 95%
-}
-
+﻿html {font-size: 95%;}
 main {
     margin-left: 260px;
     transition: margin-left .2s linear;
 }
 
 .sb {
-    background-color: var(--bs-dark);
+    background-color: var(--bs-primary);
     transition: width .2s linear;
     overflow-x: hidden;
     position: fixed;
@@ -18,18 +15,20 @@ main {
 }
 
 ::-webkit-scrollbar {
-    width: 6px;  
+    width: 8px;
+    display: none;
 }
-
+/*
 ::-webkit-scrollbar-track {
     --background: orange;  
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--bs-primary);
-    border-radius: 4px;
-    --border: 3px solid red;
+    background-color: white;  
+    border-radius: 20px;  
+    border: 2px solid var(--bs-gray-800);  
 }
+*/
 
 .sb-header a {
     --position: fixed;
@@ -54,41 +53,39 @@ main {
     padding: 10px 10px 10px 20px;
 }
 
-/*.sb-group {
+.sb-group {
     letter-spacing: 1px;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
     padding: 10px 0px;
     color: var(--bs-gray-400);
-}*/
+}
 
 .sb-menu li {
     list-style-type: none;
 }
 
 .sb-menu i {
-    --font-size: 16px;
+    font-size: 16px;
     font-weight: bold;
     margin-right: 1.3125rem;
 }
 
 .sb-menu a {
-    color: var(--bs-secondary-bg-subtle);
+    color: var(--bs-gray-500);
     display: block;
-    --font-size: 15px;
+    /*font-size: 15px;*/
     padding: 14px 7px;
     text-decoration: none;
 }
 
     .sb-menu a:hover {
         color: var(--bs-white);
-        font-weight: 600;
     }
 
     .sb-menu .active > a,
     .sb-menu a:active {
         color: var(--bs-white);
-        font-weight: 600;
     }
 
 ul.sb-menu ul {
@@ -116,7 +113,7 @@ ul.sb-menu ul a {
 ul.sb-menu li:has(ul) > a span::after {
     float: right;
     content: '\F285'; /*caret-right*/
-    font-size: 0.7rem;
+    font-size: 70%;
     font-weight: bold;
     font-family: 'bootstrap-icons';
     transition: transform .2s linear;

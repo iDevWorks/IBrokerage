@@ -1,89 +1,65 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
-using Portal.Entities;
-using Portal.EntityFramework;
-using Claim = System.Security.Claims.Claim;
+using Gibs.Domain.Entities;
+using Gibs.Infrastructure.EntityFramework;
 
-namespace Portal.Pages.Public
+namespace Gibs.Portal.Pages
 {
     public class RegisterModel(ILogger<RegisterModel> logger, IBrokerageContext context) : PageModel
     {
         [BindProperty, Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         [BindProperty, Required]
         [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        [Compare("Password", ErrorMessage = "The passwords do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
 
 
         public async Task<IActionResult> OnPostAsync()
         {
             try
             {
-                if (Password != ConfirmPassword)
+                if (ModelState.IsValid)
                 {
-                    throw new Exception("The password and confirmation password must match.");
+                    var brokerExists = await context.Brokers.AnyAsync(u => u.Email == Email);
+
+                    if (brokerExists)
+                        throw new Exception("A user with this email already exists.");
+
+                    var fullName = $"{FirstName} {LastName}";
+                    var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
+
+                    context.Brokers.Add(broker);
+                    await context.SaveChangesAsync();
+
+                    //proceed to Login page
+                    return RedirectToPage("Login");
                 }
-
-                var brokerExists = await context.Brokers.AnyAsync(u => u.Email == Email);
-
-                if (brokerExists)
-                {
-                    throw new Exception("A user with this email already exists.");
-                }
-
-                var fullName = $"{FirstName} {LastName}";
-                var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
-
-                context.Brokers.Add(broker);
-                await context.SaveChangesAsync();
-
-                //proceed to Login
-                return RedirectToPage("Login");
-
-                //// Manually sign in the user after successful signup
-                //var claims = new List<Claim>
-                //{
-                //    new(ClaimTypes.NameIdentifier, broker.Id),
-                //    new(ClaimTypes.Email, broker.Email)
-                //};
-
-                //var claimsIdentity = new ClaimsIdentity(
-                //    claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                //await HttpContext.SignInAsync(
-                //    new ClaimsPrincipal(claimsIdentity));
-
-                //return RedirectToPage("Dashboard");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "Exception in : {Message}", ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();
         }
-
     }
 }

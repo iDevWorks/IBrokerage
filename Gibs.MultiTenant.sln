@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landing", "Landing\Landing.csproj", "{DD64EEF9-CC1A-45EE-B2AF-199E1CB2856C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gibs.Landing", "Landing\Gibs.Landing.csproj", "{DD64EEF9-CC1A-45EE-B2AF-199E1CB2856C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{CE999A16-BB91-43C2-8457-A1A3807061F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gibs.Portal", "Portal\Gibs.Portal.csproj", "{CE999A16-BB91-43C2-8457-A1A3807061F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
