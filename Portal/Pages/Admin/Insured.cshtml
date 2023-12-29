@@ -30,7 +30,7 @@
                         <td>@client.PhoneNumber</td>
                         <td>@client.Email</td>
                         <td>@client.Address</td>
-                        <td>@client.DateAdded.Date.ToShortDateString()</td>
+                        <td>@client.DateAdded.ToLocalTime().Date.ToShortDateString()</td>
                         <td class="d-flex gap-1">
                             <i class="bi bi-trash"></i>
                             <i class="bi bi-pencil-square"></i>
