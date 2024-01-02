@@ -1,0 +1,24 @@
+﻿@page
+@model Gibs.Portal.Pages.Admin.PolicyModel
+
+@{
+    ViewData["Title"] = "Policy";
+}
+
+<section class="d-flex flex-column gap-3">
+    <button type="button" class="btn btn-danger align-self-end" data-bs-toggle="modal" data-bs-target="#addClient">
+        <i class="bi bi-plus-circle me-2"></i> Add Policy
+    </button>
+
+    <div class="policies-wrapper d-flex flex-column">
+        <div class="card p-3">
+            <div class="d-flex justify-content-between border-bottom">
+                <p class="fw-bold mb-0">Car Insurance</p>
+                <p class="d-flex mb-0">
+                    <span class="fw-bold">Status</span>
+                    <span>Active</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
