@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Gibs.Infrastructure.EntityFramework;
 using Gibs.Infrastructure.Email;
+using Gibs.Portal.Services;
 
 namespace Gibs.Portal
 {
@@ -30,6 +31,7 @@ namespace Gibs.Portal
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
 
+            builder.Services.AddTransient<PaystackService>();
             builder.Services.AddTransient<EmailService>();
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
