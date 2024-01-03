@@ -1,0 +1,42 @@
+﻿@page 
+@model Gibs.Portal.Pages.Admin.ProductModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+
+<section class="">
+    <div class="card flex-row rounded-0 p-4">
+        <div class="col-9">
+            <div class="d-flex align-items-center justify-content-between border-bottom pb-2">
+                <p class="mb-0 fw-bold">Car Insurance</p>
+                <p class="d-flex align-items-center mb-0 gap-1">
+                    <span class="fw-bold">Status:</span>
+                    <span class="text-success">Active</span>
+                </p>
+            </div>
+            <div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <p class="mb-0">insurer: <span class="fw-bold">Leadway Insurance</span></p>
+                    <p class="mb-0">policy #: <span class="fw-bold">2159876</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 col-3 d-flex flex-column gap-5">
+            <div class="d-flex flex-column">
+                <h4 class="mb-0 fw-bold">Price:</h4>
+                <h1 class="fw-bold mb-0 text-success">$8000</h1>
+                <p class="mb-0 fw-bold fs-5">Per Year</p>
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <p class="mb-0">Start date: <span class="fw-bold">03 january, 2024</span></p>
+                <p class="mb-0 text-danger">End date: <span class="fw-bold">04 january, 2025</span></p>
+
+                <div class="mt-2">
+                    <button type="button" class="btn btn-primary">Buy Insurance</button>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</section>

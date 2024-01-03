@@ -1,0 +1,141 @@
+﻿@page
+@model Gibs.Portal.Pages.Admin.PolicyModel
+
+@{
+    ViewData["Title"] = "Policies";
+}
+
+<section class="d-flex flex-column gap-3">
+    <button type="button" class="btn btn-danger align-self-end" data-bs-toggle="modal" data-bs-target="#addPolicy">
+        <i class="bi bi-plus-circle me-2"></i> Add Policy
+    </button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Policy Name</th>
+                <th>Issuing Company</th>
+                <th>Premium Amount</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Policies.Any())
+            {
+                foreach (var policy in Model.Policies)
+                {
+                    <tr>
+                        <td>@policy.Id</td>
+                        <td>@policy.Name</td>
+                        <td>@policy.IssuingCompany</td>
+                        <td>@policy.PremiumAmount</td>
+                        <td>@policy.CreatedDate.ToLocalTime().Date.ToShortDateString()</td>
+                        <td>@policy.EndDate.ToLocalTime().Date.ToShortDateString()</td>
+                        <td class="d-flex gap-1">
+                            <i class="bi bi-trash" data-bs-toggle="modal"
+                               data-bs-target="#deletePolicy" data-id="@policy.Id" 
+                               data-policy-name="@policy.Name">
+                            </i>
+                            <i class="bi bi-pencil-square"></i>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="8"><div class="text-center text-danger h3">No policy has been found...</div></td></tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+
+
+
+<!-- Add Policy -->
+<div class="modal fade" id="addPolicy" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fw-bold" id="addPolicy">
+                    Add New Policy
+                </h3>
+            </div>
+            <form method="post">
+                <div class="text-danger mb-1" asp-validation-summary="ModelOnly"></div>
+                <div class="modal-body d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label" asp-for="IssuingCompany">Issuing Company</label>
+                        <input type="text" class="form-control" asp-for="IssuingCompany" required />
+                    </div>
+                    <div>
+                        <label class="form-label" asp-for="Name">Policy Name</label>
+                        <input type="text" class="form-control" asp-for="Name" required />
+                    </div>
+                    <div>
+                        <label class="form-label" asp-for="EndDate">End Date</label>
+                        <input type="date" class="form-control" asp-for="EndDate" required />
+                    </div>
+                    <div>
+                        <label class="form-label" asp-for="PremiumAmount">PremiumAmount</label>
+                        <input type="number" class="form-control" asp-for="PremiumAmount" required />
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Policy -->
+<div class="modal fade" id="deletePolicy" data-bs-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="deletePolicyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePolicyModalLabel">Delete Policy -<span id="policyName"></span></h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="d-flex flex-column gap-3" asp-page-handler="DeletePolicy">
+                    <input type="hidden" name="policyId" id="deletePolicyId" />
+                    <div class="mt-1 d-flex align-items-center gap-1">
+                        <button type="submit" class="btn btn-danger">delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const deletePolicyModal = document.getElementById("deletePolicy");
+
+            deletePolicyModal.addEventListener("show.bs.modal", function (event) {
+                let button = event.relatedTarget;
+                let policyId = button.getAttribute('data-id');
+                let policyName = button.getAttribute('data-policy-name');
+
+                let hiddenInputField = deletePolicyModal.querySelector("#deletePolicyId");
+                hiddenInputField.value = policyId;
+
+                deletePolicyModal.querySelector("#policyName").innerHTML = PolicyName;
+            });
+        });
+    </script>
+}
