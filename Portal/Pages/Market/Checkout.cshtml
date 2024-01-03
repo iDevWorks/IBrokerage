@@ -1,0 +1,99 @@
+﻿@page
+@model Gibs.Portal.Pages.Market.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<section class="d-flex flex-column gap-3">
+    <div class="bg-white rounded-3 p-3 col-7">
+        <h4 class="fw-bold mb-4">Order Details</h4>
+
+        <div class="d-flex flex-column gap-3">
+            <div class="d-flex flex-column gap-1">
+                <h6 class="fw-bold mb-0">Car Insurance</h6>
+                <p class="mb-0">policy: 216609</p>
+                <p class="mb-0">issuer: <span class="fw-bold fs-5">Leadway Insurance</span></p>
+            </div>
+            
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="mb-0">Total</p>
+                <p class="fw-bold fs-5 mb-0">$8000</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-4 col-7">
+        <h4 class="mb-0 fw-bold mb-4">Basic Information</h4>
+        <form method="post" class="d-flex flex-column gap-3">
+            <div>
+                <label class="form-label mb-1">Fullname</label>
+                <input class="form-control" type="text" />
+            </div>
+
+            <div>
+                <label class="form-label mb-1">Email address</label>
+                <input class="form-control" type="email" />
+            </div>
+
+            <div>
+                <label class="form-label mb-1">Phone number</label>
+                <input class="form-control" type="tel" />
+            </div>
+
+            <div>
+                <label class="form-label mb-1">Address</label>
+                <input class="form-control" type="text" />
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-4 col-7">
+        <h4 class="mb-0 fw-bold mb-4">Vehicle Information</h4>
+        <form method="post" class="d-flex flex-column gap-3">
+            <div>
+                <label class="form-label mb-1">Registeration No</label>
+                <input class="form-control" type="text" />
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="w-100">
+                    <label class="form-label mb-1">Brand</label>
+                    <input class="form-control" type="text" />
+                </div>
+
+                <div class="w-100">
+                    <label class="form-label mb-1">Model</label>
+                    <input class="form-control" type="text" />
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 flex-fill">
+                <div class="w-100">
+                    <label class="form-label mb-1">Color</label>
+                    <input class="form-control" type="text" />
+                </div>
+
+                <div class="w-100">
+                    <label class="form-label mb-1">Seats</label>
+                    <input class="form-control" type="number" />
+                </div>
+            </div>
+
+            <select class="form-select">
+                <option value="" selected>Transmission</option>
+                <option value="automatic">Automatic</option>
+                <option value="manual">Manual</option>
+            </select>
+
+            <div>
+                <label class="form-label mb-1">Date Purchased</label>
+                <input class="form-control" type="date" />
+            </div>
+        </form>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-primary shadow">Proceed To Pay</button>
+        <button class="btn btn-secondary">Back To List</button>
+    </div>
+</section>
