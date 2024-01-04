@@ -5,8 +5,9 @@ namespace Gibs.Portal.Pages
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
+        public ActionResult OnGet()
         {
+            return RedirectToPage("Market/Products");
         }
     }
 }
