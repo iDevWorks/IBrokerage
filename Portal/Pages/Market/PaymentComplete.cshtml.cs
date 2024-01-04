@@ -5,17 +5,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Gibs.Portal.Pages.Market
 {
-    public class PaymentCompleteModel : PageModel
+    public class PaymentCompleteModel(PaystackService paystackService) : PageModel
     {
         public TransactionVerifyResponse? ResponseData { get; set; }
         public string? ErrorMessage { get; set; }
 
-        private readonly PaystackService _paystackService;
-
-        public PaymentCompleteModel(PaystackService paystackService)
-        {
-            _paystackService = paystackService;
-        }
+        private readonly PaystackService _paystackService = paystackService;
 
         public async Task<PageResult> OnGetAsync(string reference)
         {

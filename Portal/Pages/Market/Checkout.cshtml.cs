@@ -19,10 +19,10 @@ namespace Gibs.Portal.Pages.Market
             {
                 try
                 {
-                    var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/PaymentComplete";
-                    var result = await _paystackService.InitializeTransaction("omomowosymeon45@gmail.com", , callbackUrl);
+                    //var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/PaymentComplete";
+                    //var result = await _paystackService.InitializeTransaction("omomowosymeon45@gmail.com", , callbackUrl);
 
-                    return Redirect(result.AuthorizationUrl);
+                    //return Redirect(result.AuthorizationUrl);
                 }
                 catch (Exception ex)
                 {

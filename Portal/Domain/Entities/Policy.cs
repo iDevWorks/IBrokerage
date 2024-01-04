@@ -1,4 +1,6 @@
-﻿namespace Gibs.Domain.Entities
+﻿using Gibs.Portal.Domain.Entities;
+
+namespace Gibs.Domain.Entities
 {
     public class Policy
     {
@@ -28,8 +30,8 @@
 
         public virtual InsuranceCompany IssuingCompany { get; private set; }
         public virtual Client Client { get; private set; }
-        public virtual ICollection<Claim> Claims { get; private set; }
-        public virtual ICollection<Coverage> Coverages { get; private set; }
-        public virtual ICollection<Payment> Payments { get; private set; }
+        //public virtual ICollection<Claim> Claims { get; private set; }
+        public virtual ICollection<Order> Orders { get; private set; }
+        //public virtual ICollection<Payment> Payments { get; private set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Gibs.Domain.Entities;
-
-namespace Gibs.Portal.Domain.Entities
+﻿namespace Gibs.Portal.Domain.Entities
 {
     public class Order
     {
@@ -10,15 +8,23 @@ namespace Gibs.Portal.Domain.Entities
         {
             ProductId = product.Id;
             Product = product;
-            DateOrdered = DateTimeOffset.UtcNow;
+            PurchaseDate = DateTimeOffset.UtcNow;
             TotalAmount = totalAmount;
         }
 
-        public int Id { get; private set; }
-        public string ProductId { get; private set; }
-        public DateTimeOffset DateOrdered { get; private set; }
-        public decimal TotalAmount { get; private set; }
+        public int Id { get; set; }
+        public string ProductId { get; set; }
+        public decimal TotalAmount { get; set; }
+        public DateTimeOffset PurchaseDate { get; set; }
+        public PaymentStatus PaymentStatus { get; set; }
 
-        public virtual Product Product { get; private set; }
+        public virtual Product Product { get; set; }
+    }
+
+    public enum PaymentStatus
+    {
+        Success,
+        Pending,
+        Failed
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Gibs.Portal.Domain.Entities;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Gibs.Domain.Entities
@@ -70,6 +71,7 @@ namespace Gibs.Domain.Entities
         public DateTimeOffset CreatedDate { get; private set; }
 
         public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Policy> Policies { get; set; }
 
         private static string GenerateUniqueId(string fullName, string email)
