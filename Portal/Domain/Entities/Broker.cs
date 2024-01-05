@@ -1,6 +1,5 @@
 ﻿using Gibs.Portal.Domain.Entities;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace Gibs.Domain.Entities
 {
@@ -8,20 +7,19 @@ namespace Gibs.Domain.Entities
     {
         public Broker() { }
 
-        public Broker(string email, string phoneNumber, string fullName, string address, string password) 
+        public Broker(string email, string phone, string brokerName, string address, string password) 
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(email);
-            ArgumentException.ThrowIfNullOrWhiteSpace(phoneNumber);
-            ArgumentException.ThrowIfNullOrWhiteSpace(fullName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(phone);
+            ArgumentException.ThrowIfNullOrWhiteSpace(brokerName);
             ArgumentException.ThrowIfNullOrWhiteSpace(address);
             ArgumentException.ThrowIfNullOrWhiteSpace(password);
 
-            Id = GenerateUniqueId(fullName, email);
             Email = email;
-            PhoneNumber = phoneNumber;
-            FullName = fullName;
+            Phone = phone;
+            BrokerName = brokerName;
             Address = address;
-            CreatedDate = DateTimeOffset.UtcNow;
+            CreatedOn = DateTime.UtcNow;
             Password = HashPassword(password);
         }
 
@@ -61,27 +59,13 @@ namespace Gibs.Domain.Entities
             return Convert.ToHexString(hash);
         }
 
-        public string Id { get; private set; }
-        public string ConfirmationToken { get; set; } = string.Empty;
+        public int Id { get; private set; }
         public string Email { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string FullName { get; private set; }
+        public string Phone { get; private set; }
+        public string BrokerName { get; private set; }
         public string Address { get; private set; }
         public string Password { get; private set; }
-        public DateTimeOffset CreatedDate { get; private set; }
+        public DateTime CreatedOn { get; private set; }
 
-        public virtual ICollection<Client> Clients { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<Policy> Policies { get; set; }
-
-        private static string GenerateUniqueId(string fullName, string email)
-        {
-            // Combine the name and email
-            string combinedValue = $"{fullName}_{email}";
-
-            // Hash the combined value to get a unique string
-            byte[] hashBytes = MD5.HashData(Encoding.UTF8.GetBytes(combinedValue));
-            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace Gibs.Domain.Entities
 {
-    public class InsuranceCompany
+    public class Underwriter
     {
-        public InsuranceCompany() { }
+        public Underwriter() { }
 
-        public InsuranceCompany(string name, string address, string phoneNumber, string email)
+        public Underwriter(string name, string address, string phoneNumber, string email)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             ArgumentException.ThrowIfNullOrWhiteSpace(address);

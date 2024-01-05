@@ -32,7 +32,7 @@ namespace Gibs.Portal
             builder.Services.AddDbContextPool<IBrokerageContext>(options =>
                 options.UseInMemoryDatabase("IBrokerage"));
 
-            builder.Services.AddTransient<PaystackService>();
+            //builder.Services.AddTransient<PaystackService>();
             builder.Services.AddTransient<EmailService>();
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 

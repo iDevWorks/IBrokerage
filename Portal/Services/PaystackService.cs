@@ -1,4 +1,4 @@
-﻿using Gibs.Portal.Domain.Entities;
+﻿using Gibs.Portal.Domain.Contracts;
 using System.Net.Http.Headers;
 using System.Security;
 using System.Text.Json;

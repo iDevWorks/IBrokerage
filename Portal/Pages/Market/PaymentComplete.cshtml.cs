@@ -1,4 +1,4 @@
-using Gibs.Portal.Domain.Entities;
+using Gibs.Portal.Domain.Contracts;
 using Gibs.Portal.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
