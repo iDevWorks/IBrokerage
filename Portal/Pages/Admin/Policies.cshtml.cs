@@ -24,7 +24,7 @@ namespace Gibs.Portal.Pages.Admin
         {
             Policies = await _context.Policies
                 .Include(p => p.Client)
-                .Include(p => p.IssuingCompany).ToListAsync();
+                .Include(p => p.Underwriter).ToListAsync();
 
             return Page();
         }

@@ -10,7 +10,7 @@ namespace Gibs.Portal.Pages.Admin
     {
         private readonly IBrokerageContext _context = context;
 
-        public List<InsuranceCompany> UnderWriters { get; set; } = [];
+        public List<Underwriter> UnderWriters { get; set; } = [];
 
         public async Task<PageResult> OnGetAsync()
         {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Gibs.Portal.Domain.Entities
+namespace Gibs.Portal.Domain.Contracts
 {
     public class PaystackResponse<T>(bool status, string? message, T data) where T : class
     {

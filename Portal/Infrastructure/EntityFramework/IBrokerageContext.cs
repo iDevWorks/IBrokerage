@@ -14,7 +14,7 @@ namespace Gibs.Infrastructure.EntityFramework
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
+        public DbSet<Underwriter> InsuranceCompanies { get; set; }
 
         //public DbSet<Payment> Payments { get; set; }
 

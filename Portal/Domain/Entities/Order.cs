@@ -8,18 +8,14 @@
         {
             ProductId = product.Id;
             Product = product;
-            PurchaseDate = DateTimeOffset.UtcNow;
+            DateOrdered = DateTime.UtcNow;
             TotalAmount = totalAmount;
         }
 
-        public int Id { get; set; }
-        public string ProductId { get; set; }
-        public decimal TotalAmount { get; set; }
-        public DateTimeOffset PurchaseDate { get; set; }
-        public PaymentStatus PaymentStatus { get; set; }
-
-        public virtual Product Product { get; set; }
-    }
+        public int OrderId { get; private set; }
+        public string ProductId { get; private set; }
+        public DateTime DateOrdered { get; private set; }
+        public decimal TotalAmount { get; private set; }
 
     public enum PaymentStatus
     {
