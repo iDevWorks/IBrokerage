@@ -7,7 +7,7 @@ namespace Gibs.Portal.Pages
     {
         public ActionResult OnGet()
         {
-            return RedirectToPage("Market/Products");
+            return RedirectToPage("/MarketPlace/GetQuote");
         }
     }
 }
