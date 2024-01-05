@@ -17,10 +17,13 @@
         public DateTime DateOrdered { get; private set; }
         public decimal TotalAmount { get; private set; }
 
-    public enum PaymentStatus
-    {
-        Success,
-        Pending,
-        Failed
+        public virtual Product Product { get; private set; }
+
+        public enum PaymentStatus
+        {
+            Success,
+            Pending,
+            Failed
+        }
     }
 }
