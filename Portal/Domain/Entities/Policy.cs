@@ -6,30 +6,36 @@ namespace Gibs.Domain.Entities
     {
         public Policy() { }
 
-        public Policy(Underwriter insuranceCompany, string name, DateTime endDate, decimal premiumAmount) 
+        public Policy(Product product, Client client, string name, DateTime endDate, decimal grossPremium, decimal sumInsured) 
         {
-            ArgumentNullException.ThrowIfNull(insuranceCompany);
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(premiumAmount);
+            ArgumentNullException.ThrowIfNull(product);
+            ArgumentNullException.ThrowIfNull(client);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(grossPremium);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(sumInsured);
 
+            Product = product;
+            Client = client;
             Name = name;
-            Underwriter = insuranceCompany;
-            CreatedDate = DateTimeOffset.UtcNow;
+            CreatedDate = DateTime.UtcNow;
             EndDate = endDate;
-            PremiumAmount = premiumAmount;
+            GrossPremium = grossPremium;
+            SumInsured = sumInsured;
         }
 
-        public string Id { get; private set; }
-        public string ClientId { get; private set; }
+        public string PolicyNo { get; private set; }
         public string Name { get; private set; }
-        public DateTimeOffset CreatedDate { get; private set; }
-        public DateTimeOffset EndDate { get; private set; }
-        public decimal PremiumAmount { get; private set; }
+        public DateTime CreatedDate { get; private set; }
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
+        public decimal GrossPremium { get; private set; }
+        public string Status { get; private set; }
+        public decimal SumInsured { get; private set; }
+        public decimal Commision { get; private set; }
 
-        public virtual Underwriter Underwriter { get; private set; }
+        public virtual Underwriter? Underwriter { get; private set; }
+        public virtual Product Product { get; private set; }
+
         public virtual Client Client { get; private set; }
-        //public virtual ICollection<Claim> Claims { get; private set; }
-        //public virtual ICollection<Coverage> Coverages { get; private set; }
-        //public virtual ICollection<Payment> Payments { get; private set; }
     }
 }

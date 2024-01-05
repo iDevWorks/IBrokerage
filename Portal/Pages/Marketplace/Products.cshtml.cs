@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Gibs.Portal.Pages.Marketplace
 {
-    public class GetQuoteModel : PageModel
+    public class ProductsModel : PageModel
     {
         public void OnGet()
         {

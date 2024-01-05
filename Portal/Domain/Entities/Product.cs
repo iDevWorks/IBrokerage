@@ -6,19 +6,24 @@ namespace Gibs.Portal.Domain.Entities
     {
         public Product() { }
 
-        public Product(string name, string description)
+        public Product(string productName, string classId, string shortName)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            ArgumentException.ThrowIfNullOrWhiteSpace(productName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(classId);
+            ArgumentException.ThrowIfNullOrWhiteSpace(shortName);
 
-            if (coverages.Count == 0)
-                throw new InvalidOperationException("The list is empty.");
-
-            Name = name;
-            Coverages = coverages;
+            ProductName = productName;
+            ClassId = classId;
+            ShortName = shortName;
         }
 
         public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string Description { get; private set; }
+        public string ClassId { get; private set; }
+        public string? MidClassId { get; private set; }
+        public string ProductName { get; private set; }
+        public string ShortName { get; private set; }
+        public string? NaiconTypeId { get; private set; }
+
+
     }
 }

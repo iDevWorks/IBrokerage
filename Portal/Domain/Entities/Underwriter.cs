@@ -4,23 +4,23 @@
     {
         public Underwriter() { }
 
-        public Underwriter(string name, string address, string phoneNumber, string email)
+        public Underwriter(string name, string address, string phone, string email)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             ArgumentException.ThrowIfNullOrWhiteSpace(address);
-            ArgumentException.ThrowIfNullOrWhiteSpace(phoneNumber);
+            ArgumentException.ThrowIfNullOrWhiteSpace(phone);
             ArgumentException.ThrowIfNullOrWhiteSpace(email);
 
             Name = name;
             Address = address;
-            PhoneNumber = phoneNumber;
+            Phone = phone;
             Email = email;
         }
 
         public string Id { get; private set; }
         public string Name { get; private set; }
         public string Address { get; private set; } 
-        public string PhoneNumber { get; private set; }
+        public string Phone { get; private set; }
         public string Email { get; private set; }
 
         public virtual ICollection<Policy> Policies { get; private set; }

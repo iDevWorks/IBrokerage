@@ -54,9 +54,9 @@ namespace Gibs.Portal.Pages
 
         private Task SignInBrokerAsync(Broker broker)
         {
-            var claims = new List<System.Security.Claims.Claim>
+            var claims = new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, broker.Id),
+                new(ClaimTypes.NameIdentifier, broker.Id.ToString()),
                 new(ClaimTypes.Email, broker.Email)
             };
 

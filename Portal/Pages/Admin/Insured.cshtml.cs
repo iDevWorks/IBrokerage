@@ -31,7 +31,7 @@ namespace Gibs.Portal.Pages
 
         public async Task<PageResult> OnGetAsync()
         {
-            Clients = await context.Clients.Where(c => c.BrokerId == _currUserId).ToListAsync();
+            //Clients = await context.Clients.Where(c => c.BrokerId == _currUserId).ToListAsync();
             return Page();
         }
 
@@ -41,18 +41,14 @@ namespace Gibs.Portal.Pages
             {
                 if (ModelState.IsValid)
                 {
-                    var broker = await context.Brokers.SingleOrDefaultAsync(b => b.Id == _currUserId);
+                    var broker = await context.Brokers.SingleOrDefaultAsync(b => b.Id.ToString() == _currUserId) ?? throw new Exception("Invalid Broker ID");
 
-                    if (broker == null)
-                        throw new Exception("Invalid Broker ID");
+                    //var clientExists = await context.Clients.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
 
-                    var clientExists = await context.Clients.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
+                    //if (clientExists)
+                    //    throw new Exception("A client with this email already exists.");
 
-                    if (clientExists)
-                        throw new Exception("A client with this email already exists.");
-
-                    var fullName = $"{FirstName} {LastName}";
-                    var client = new Client(broker, fullName, Address, Email, PhoneNumber);
+                    var client = new Client(FirstName, LastName, Address, Email, PhoneNumber);
 
                     context.Clients.Add(client);
                     await context.SaveChangesAsync();

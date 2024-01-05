@@ -31,7 +31,7 @@ namespace Gibs.Portal.Pages.Admin
 
         public async Task<ActionResult> OnPostDeletePolicy(string policyId)
         {
-            var policy = Policies.FirstOrDefault(p => p.Id == policyId);
+            var policy = Policies.FirstOrDefault(p => p.PolicyNo == policyId);
             if (policy != null)
             {
                 _context.Policies.Remove(policy);

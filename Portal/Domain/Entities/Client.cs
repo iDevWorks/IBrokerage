@@ -4,14 +4,17 @@
     {
         public Client() { }
 
-        public Client(string name, string address, string email, string phone) 
+        public Client(string firstname, string lastname, string address, string email, string phone) 
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            ArgumentException.ThrowIfNullOrWhiteSpace(firstname);
+            ArgumentException.ThrowIfNullOrWhiteSpace(lastname);
             ArgumentException.ThrowIfNullOrWhiteSpace(address);
             ArgumentException.ThrowIfNullOrWhiteSpace(email);
             ArgumentException.ThrowIfNullOrWhiteSpace(phone);
 
-            Name = name;
+            Id = email;
+            FirstName = firstname;
+            LastName = lastname;
             Email = email;
             Phone = phone;
             Address = address;
@@ -19,7 +22,8 @@
         }
 
         public string Id { get; private set; }
-        public string Name { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
         public string Address { get; private set; }
         public string Email { get; private set; }
         public string Phone { get; private set; }
