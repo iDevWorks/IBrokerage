@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="_StaticFiles" model='"styles"' />
+</head>
+<body class="container">
+    <nav class="navbar bg-primary-subtle shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand ">TITPAK</a>
+            <div class="d-flex gap-2">
+                <a class="btn btn-primary" href="/Public/Login">Login</a>
+                <a class="btn btn-secondary" href="/Public/Register">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+    <main class="p-4">
+        @RenderBody()
+    </main>
+</body>
+</html>

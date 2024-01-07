@@ -1,0 +1,26 @@
+﻿@{
+    string path = Context.Request.Path;
+    string[] a = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+}
+
+<ol class="breadcrumb">
+    @for (int i = 0; i < a.Length; i++)
+    {
+        string title = a[i];
+        string url = string.Join('/', a, 0, i + 1);
+
+        if (i == 0)
+        {
+            title = "Home";
+        }
+
+        if (i == a.Length - 1)
+        {
+            <li class="breadcrumb-item active">@title</li>
+        }
+        else
+        {
+            <li class="breadcrumb-item"><a href="/@url">@title</a></li>
+        }
+    }
+</ol>

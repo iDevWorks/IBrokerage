@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="_StaticFiles" model='"styles"' />
+</head>
+<body class="vh-100 bg-light">
+    <nav class="sb">
+        <header class="sb-header">
+            <a href="#">
+                <span class="sb-brand">Titpak Brokers</span>
+                <span class="sb-brand-icon">TP</span>
+            </a>
+        </header>
+
+        <ul class="sb-menu flex-column">
+            <li class="sb-group">ADMIN</li>
+            <li class="active">
+                <a href="/Admin/Dashboard">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Orders">
+                    <i class="bi bi-bag-check-fill"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Policies">
+                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <span>Policies</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Customers">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Products">
+                    <i class="bi bi-box2-heart"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Underwriters">
+                    <i class="bi bi-building-fill"></i>
+                    <span>Underwriters</span>
+                </a>
+            </li>
+            <li class="sb-group">PUBLIC</li>
+            <li>
+                <a href="/Public/Products">
+                    <i class="bi bi-check-fill"></i>
+                    <span>Purchase</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Public/Register">
+                    <i class="bi bi-user-fill"></i>
+                    <span>Register</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main role="main" class="pb-3 h-100">
+        <header class="navbar py-2 bg-primary-subtle shadow">
+            <div class="container-fluid">
+                <left class="d-flex gap-2">
+                    <button class="btn btn-toolbar" type="button" data-sidebar-toggle="toggle">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input class="form-control" type="text" placeholder="search...">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                </left>
+                <right class="d-flex gap-2">
+                    <button class="btn"><i class="bi bi-bell-fill"></i></button>
+                    <button class="btn btn-secondary"><i class="bi bi-bell-fill"></i></button>
+                    @*<button class="btn btn-outline-primary"><i class="bi bi-bell-slash"></i></button>*@
+                    <button class="btn btn-outline-secondary"><i class="bi bi-bell-slash"></i></button>
+                </right>
+            </div>
+        </header>
+
+        <section class="p-4">
+            <header class="d-flex justify-content-between pb-2">
+                <h5 class="fw-bold">@ViewData["Title"]</h5>
+                <nav>
+                    <partial name="BreadCrumb" />
+                </nav>
+            </header>
+            <div class="text-danger" asp-validation-summary="All"></div>
+            @RenderBody()
+        </section>
+    </main>
+
+    <partial name="_StaticFiles" model='"scripts"' />
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('[data-sidebar-toggle]');
+            buttons.forEach(e => {
+                e.addEventListener('click', () => {
+                    document.querySelector('body').classList.toggle('override');
+                })
+            });
+            // toggle dropdown-menu
+            // const dropdowns = document.querySelectorAll('ul.sb-menu li:has(ul)');
+            // dropdowns.forEach(e => {
+            //     e.addEventListener('click', () => {
+            //         e.classList.toggle('open');
+            //     });
+            // });
+
+            //add dataTables here. Prefer class name
+            const dataTables = document.querySelectorAll('#myTable, .data-table');
+            dataTables.forEach(e => {
+                e.DataTable();
+            });
+        });
+
+        //requires jQuery
+        // $(document).ready(function () {
+        //     $('#myTable').DataTable();
+        // });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
