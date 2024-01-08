@@ -2,42 +2,21 @@
 @{
     // bootswatch styles
     //
-    //Default
-    //Cerulean
-    // Cosmo
-    // Cyborg
-    // Darkly
-    // Flatly
-    // Journal
-    // Litera
-    // Lumen
-    // Lux
-    // Materia
-    // Minty
-    // Morph
-    // Pulse
-    // Quartz
-    // Sandstone
-    // Simplex
-    // Sketchy
-    // Slate
-    // Solar
-    // Spacelab
-    // Superhero
-    // United
-    // Vapor
-    // Yeti
-    // Zephyr
+    // default   cerulean   cosmo    cyborg
+    // darkly    flatly     journal  litera
+    // lumen     lux        materia  minty
+    // morph     pulse      quartz   sandstone
+    // simplex   sketchy    slate    solar
+    // spacelab  superhero  united   vapor
+    // yeti      zephyr
 
-    string bootswatch = "united";
+    string bootswatch = "zephyr"; //united
 }
 
 @if (Model == "scripts")
 {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @* <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> *@
-    @* <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script> *@
 }
 else
 { 

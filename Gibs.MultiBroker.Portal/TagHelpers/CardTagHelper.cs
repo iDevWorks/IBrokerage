@@ -2,7 +2,7 @@
 
 namespace WebTutor.TagHelpers
 {
-    [HtmlTargetElement("card"), RestrictChildren("header", "body", "footer")]
+    [HtmlTargetElement("card"), RestrictChildren("header","img", "body", "footer")]
     public class CardTagHelper : TagHelper
     {
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)

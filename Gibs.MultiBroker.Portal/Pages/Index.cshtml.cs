@@ -10,7 +10,7 @@ namespace Gibs.Portal.Pages
             //can we handle invalid Tenets in the middleware and return string error?
 
             if (Tenant.IsValid)
-                return RedirectToPage("/Public/Products");
+                return RedirectToPage("/Admin/Dashboard");
 
             //show error page
             return Page();
