@@ -1,0 +1,49 @@
+﻿@page
+@model Gibs.MultiBroker.Portal.Pages.Public.QuoteSummaryModel
+@{
+    ViewData["Title"] = "QuoteSummary";
+}
+
+<section class="row justify-content-lg-center">
+    <div class=" col-md-6 col-lg-5 mb-3 mb-md-0 px-3">
+        <h4>Confirm your details</h4>
+        <card>
+            <body>
+                <h6 class="d-inline-block">Policy Holder</h6>
+                <a class="float-end text-decoration-none" asp-page="Quote">Edit</a>
+                <p class="mb-2"><span class="d-block">Name</span>
+                    <span class="fw-bold">Omomowo Reliance</span>
+                </p>
+                <p class="mb-4">
+                    <span class="d-block">Email</span>
+                    <span class="fw-bold">Omomowosymeon45@gmail.com</span>
+                </p>
+                <h6 class="d-inline-block">Registration Details</h6>
+                <a class="float-end text-decoration-none" asp-page="Quote">Edit</a>
+                <p class="mb-2">
+                    <span class="d-block">Registration No</span>
+                    <span class="fw-bold">MXueVRe8</span>
+                </p>
+                <p>
+                    <span class="d-block">Chasis No</span>
+                    <span class="fw-bold">222222877200041</span>
+                </p>
+            </body>
+        </card>
+    </div>
+    <div class="col-md-6 col-lg-5 px-3">
+        <h4>Here is what you'll pay</h4>
+        <p>your certificate will be sent to your email address</p>
+        <card>
+            <body>
+                <h6>3rd Party coverage will cost</h6>
+                <h3 class="fw-bold mb-0">
+                    ₦15,000.00 per year
+                </h3>
+            </body>
+            <footer>
+                <button class="btn btn-primary w-100">Proceed to Payment</button>
+            </footer>
+        </card>
+    </div>
+</section>

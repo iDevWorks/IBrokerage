@@ -4,83 +4,39 @@
     ViewData["Title"] = "Products";
 }
 
-<section>
-    <card class="mb-3">
-        <header>
-            <h5>Car Insurance</h5>
-        </header>
-        <body>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Roadside Assistance</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-        </body>
-        <footer>
-            <a class="btn btn-primary" asp-page="Quote" type="button">Buy Online</a>
-        </footer>
-    </card>
-    <card class="mb-3">
-        <header>
-            <h5>Travel Insurance</h5>
-        </header>
-        <body>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Roadside Assistance</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-        </body>
-        <footer>
-            <a class="btn btn-primary" asp-page="Quote" type="button">Buy Online</a>
-        </footer>
-    </card>
-    <card class="mb-3">
-        <header>
-            <h5>Home Insurance</h5>
-        </header>
-        <body>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Roadside Assistance</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-            <p>
-                <i class="bi bi-check-circle-fill"></i>
-                <span>Windscreen cover</span>
-            </p>
-        </body>
-        <footer>
-            <a class="btn btn-primary" asp-page="Quote" type="button">Buy Online</a>
-        </footer>
-    </card>
+<section class="row justify-content-center">
+    <div class="col-12 col-lg-4">
+        <card class="mb-3 ">
+            <header>
+                <h5>Car Insurance</h5>
+            </header>
+            <img src="~/images/car-removebg-preview.png" class="img-fluid" height="288">
+            <footer class="">
+                <a class="btn btn-primary float-end" asp-page="Quote" type="button"><i class="bi bi-cart me-2"></i>Buy Online</a>
+            </footer>
+        </card>
+    </div>
+    <div class="col-12 col-lg-4">
+        <card class="mb-3">
+            <header>
+                <h5>Travel Insurance</h5>
+            </header>
+            <img src="~/images/travel-removebg-preview.png" class="img-fluid" height="288">
+            <footer>
+                <a class="btn btn-primary float-end" href="#" type="button"><i class="bi bi-cart me-2"></i>Coming Soon..</a>
+            </footer>
+        </card>
+    </div>
+    <div class="col-12 col-lg-4">
+        <card class="mb-3">
+            <header>
+                <h5>Home Insurance</h5>
+            </header>
+            <img src="~/images/home.jpg" class="img-fluid" height="288px">
+            <footer>
+                <a class="btn btn-primary float-end" href="#" type="button"><i class="bi bi-cart me-2"></i>Coming Soon..</a>
+            </footer>
+        </card>
+
+    </div>
 </section>

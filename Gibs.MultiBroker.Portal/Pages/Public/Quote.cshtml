@@ -5,9 +5,9 @@
 }
 
 <main class="d-flex gap-4">
-    <card style="width: 30%">
+    <card style="width: 30%; height: fit-content;">
         <header>Third Party Motor Insurance</header>
-        <img class="img-fluid" src="~/images/lance-asper-50cIn5ELxLo-unsplash.jpg" />
+        <img class="img-fluid" src="~/images/car.jpg" />
         <body>
             <h5>What we cover</h5>
             <p class="d-flex gap-2">
@@ -41,37 +41,91 @@
                         <input type="email" class="form-control" id="inputEmail4">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="phone">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select id="gender" class="form-select">
+                            <option selected></option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input class="form-control" id="dob" type="date" />
                     </div>
                     <div class="col-12">
                         <label for="inputAddress" class="form-label">Address</label>
                         <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
                     </div>
-                    <div class="col-12">
-                        <label for="inputAddress2" class="form-label">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                    </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
                         <input type="text" class="form-control" id="inputCity">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="inputState" class="form-label">State</label>
                         <select id="inputState" class="form-select">
                             <option selected>Choose...</option>
                             <option>...</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
+                </div>
+            </body>
+            <body>
+                <h3>Vehicle Information</h3>
+                <p>Please, fill in your vehicle information.</p>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="class" class="form-label">Vehicle Class/Type</label>
+                        <select id="class" class="form-select">
+                            <option selected>Choose...</option>
+                            <option>....</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="registration" class="form-label">Registration No</label>
+                        <input type="text" class="form-control" id="registration">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="carBrand" class="form-label">Car Brand</label>
+                        <input type="text" class="form-control" id="carBrand" placeholder="ex Toyota, Nissan">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="carModel" class="form-label">Car Models</label>
+                        <input type="text" class="form-control" id="carModel" placeholder="ex Camry, Altima">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="engineNo" class="form-label">Engine No</label>
+                        <input class="form-control" type="text" id="engineNo" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="chasisNo" class="form-label">Chasis No</label>
+                        <input class="form-control" type="text" id="chasisNo" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="yearOfMake" class="form-label">Manufactured Year</label>
+                        <input type="number" class="form-control" id="yearOfMake">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="color" class="form-label">Color</label>
+                        <input type="text" class="form-control" id="color">
                     </div>
                 </div>
             </body>
-            <footer class="gap-2">
-                <button class="btn btn-secondary">Back</button>
-                <button class="btn btn-primary">Next</button>
+            <footer class="d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary">Cancel</button>
+                <button class="btn btn-primary">Get Quote</button>
             </footer>
         </card>
     </form>
