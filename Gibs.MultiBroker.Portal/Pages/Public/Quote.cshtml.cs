@@ -52,7 +52,7 @@ namespace Gibs.Portal.Pages.Public
         public string EngineNo { get; set; }
 
         [BindProperty]
-        public int YearOfMake { get; set; }
+        public string YearOfMake { get; set; }
 
         [BindProperty, MinLength(3)]
         public string Color { get; set; }
