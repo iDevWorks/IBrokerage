@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="iDevWorks.Utilities" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
@@ -19,12 +20,6 @@
   <ItemGroup>
     <Folder Include="Pages\Customer\" />
     <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="iDevWorks.Utilities">
-      <HintPath>..\..\..\CheckoutWithPaystack\Idevworks.Utilities\bin\Debug\net6.0\iDevWorks.Utilities.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
