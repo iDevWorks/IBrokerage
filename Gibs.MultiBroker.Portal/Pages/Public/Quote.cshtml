@@ -4,7 +4,7 @@
     ViewData["Title"] = "Buy Online";
 }
 
-<main class="d-flex gap-4">
+<section class="d-flex gap-4">
     <card style="width: 30%; height: fit-content;">
         <header>Third Party Motor Insurance</header>
         <img class="img-fluid" src="~/images/car.jpg" />
@@ -53,16 +53,16 @@
                         <input type="text" class="form-control" id="lastName">
                     </div>
                     <div class="col-md-6">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input class="form-control" id="dob" type="date" />
+                    </div>
+                    <div class="col-md-6">
                         <label for="gender" class="form-label">Gender</label>
                         <select id="gender" class="form-select">
                             <option selected></option>
                             <option>Male</option>
                             <option>Female</option>
                         </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="dob" class="form-label">Date of Birth</label>
-                        <input class="form-control" id="dob" type="date" />
                     </div>
                     <div class="col-12">
                         <label for="inputAddress" class="form-label">Address</label>
@@ -129,4 +129,4 @@
             </footer>
         </card>
     </form>
-</main>
+</section>

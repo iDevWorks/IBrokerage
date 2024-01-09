@@ -1,4 +1,73 @@
 ﻿@page
 @model Gibs.MultiBroker.Portal.Pages.Public.IndexModel
 @{
+    ViewData["Title"] = "Home";
+    Layout = null;
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="_StaticFiles" model='"styles"' />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary-subtle shadow">
+        <div class="container">
+            <a class="navbar-brand" href="/Public/index.cshtml">TITPAK</a>
+            <button class="btn btn-toolbar py-2" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="Products"><i class="bi bi-house-check me-2"></i>Products</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#Renewals"><i class="bi bi-house me-2"></i>Renewals</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#Claims"><i class="bi bi-cash-coin me-2"></i>Claims</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#Contact"><i class="bi bi-telephone me-2"></i>Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex gap-3">
+                <a class="btn btn-secondary" href="/Public/Login">Login</a>
+                <a class="btn btn-primary" href="/Public/Register">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="py-5 hero-section">
+            <div class="container">
+                <h1 class="fw-bold text-center">
+                    Car Insurance
+                </h1>
+                <div class="d-flex justify-content-center align-items-center pt-3 hero-content">
+                    <div>
+                        <h3 class="fw-bold">Enter Your Car Registration No</h3>
+                        <p>Premium as low as ₦15,000 per annum</p>
+                        <div class="d-flex flex-column gap-3">
+                            <input class="form-control rounded-5 py-3" type="text" placeholder="e.g MX04Dk006U" />
+                            <button class="btn btn-primary btn-lg py-3 rounded-5">Get Quote</button>
+                        </div>
+                    </div>
+                     <img class="img-fliud" src="~/images/insurance-illustration.svg" />
+                </div>
+                
+            </div>
+
+        </section>
+
+        <section class="py-5 container">
+            <h1 class="fw-bold">What is Car Insurance? A must-have for everyone who drives</h1>
+            <p class="pt-1">Car insurance, also known as 4-wheeler insurance or four-wheeler insurance, is something you can’t do without if you own a car. It protects you against expenses in case of fire, theft, natural disasters, as well as damage to another person's property caused by your car. When you decide to buy car insurance online, you can conveniently choose from a wide range of four-wheeler insurance plans available online. These plans include Third Party insurance, Stand Alone Damage cover, and Comprehensive Policies, each with unique car insurance coverage benefits. Keep your individual needs in mind, and you will find a car insurance policy online that’s just perfect at giving you comprehensive car insurance coverage. Whether it’s to abide by the law or to get maximum cover, the sheer variety of options ensures that there is an ideal car insurance solution for you. With the right car insurance policy in place, you can enjoy peace of mind knowing that you are financially protected in case of unexpected events.</p>
+        </section>
+    </main>
+</body>
+
+</html>
