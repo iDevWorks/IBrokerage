@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Gibs.Infrastructure.EntityFramework;
 using Gibs.Infrastructure.Email;
-using Gibs.Portal.Services;
 using Gibs.Portal.Middleware;
 
 namespace Gibs.Portal

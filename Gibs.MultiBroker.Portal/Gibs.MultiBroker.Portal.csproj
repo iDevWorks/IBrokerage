@@ -18,6 +18,13 @@
 
   <ItemGroup>
     <Folder Include="Pages\Customer\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="iDevWorks.Utilities">
+      <HintPath>..\..\..\CheckoutWithPaystack\Idevworks.Utilities\bin\Debug\net6.0\iDevWorks.Utilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

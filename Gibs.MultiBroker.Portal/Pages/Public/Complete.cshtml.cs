@@ -1,12 +1,12 @@
-using Gibs.Portal.Services;
-using Gibs.Portal.Domain.Contracts;
+using iDevWorks.Paystack;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Gibs.Portal.Pages.Public
 {
-    public class PaymentCompleteModel(PaystackService paystackService) : PageModel
+    public class PaymentCompleteModel(IConfiguration configuration) : PageModel
     {
-        public TransactionVerifyResponse? Result { get; set; }
+        private readonly PaystackClient paystack = new(configuration["Paystack:TestSecretKey"]);
+        public Transaction? Transaction { get; set; }
         public string? ErrorMessage { get; set; }
 
 
@@ -14,7 +14,7 @@ namespace Gibs.Portal.Pages.Public
         {
             try
             {
-                Result = await paystackService.VerifyTransaction(reference);
+                Transaction = await paystack.VerifyTransaction(reference);
             }
             catch (Exception ex)
             {
