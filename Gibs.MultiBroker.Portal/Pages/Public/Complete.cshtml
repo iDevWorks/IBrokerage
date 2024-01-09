@@ -13,9 +13,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Transaction Status</h5>
-                    <p class="card-text font-weight-bold @(string.IsNullOrWhiteSpace(Model.Result?.Status) ? "text-danger":"text-success")">
-                        @Model.Result?.Status
-                        <span class="d-block text-danger">@Model.Result?.GatewayResponse</span>
+                    <p class="card-text font-weight-bold @(string.IsNullOrWhiteSpace(Model.Transaction?.Status) ? "text-danger":"text-success")">
+                        @Model.Transaction?.Status
+                        <span class="d-block text-danger">@Model.Transaction?.GatewayResponse</span>
                     </p>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Order Number</h5>
-                    <p class="card-text text-black-50">@Model.Result?.Reference</p>
+                    <p class="card-text text-black-50">@Model.Transaction?.Reference</p>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Total Amount</h5>
                     @{
-                        var nAmount = (Model.Result?.AmountInKobo / 100);
+                        var nAmount = (Model.Transaction?.AmountInKobo / 100);
                     }
                     <p class="card-text text-black-50">@nAmount?.ToString("C2")</p>
                 </div>
@@ -64,7 +64,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Buyer Information</h5>
-                    <p class="card-text text-black-50">@Model.Result?.Customer.Email</p>
+                    <p class="card-text text-black-50">@Model.Transaction?.Customer.Email</p>
                 </div>
             </div>
         </div>
