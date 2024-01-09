@@ -2,14 +2,9 @@
 
 namespace Gibs.Portal.Middleware;
 
-public class MultiTenantMiddleware
+public class MultiTenantMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next;
-
-    public MultiTenantMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
+    private readonly RequestDelegate _next = next;
 
     public async Task InvokeAsync(HttpContext context)
     {

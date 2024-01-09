@@ -1,7 +1,7 @@
 ﻿@page
 @model GetQuoteModel
 @{
-    ViewData["Title"] = "Buy Online";
+   ViewData["Title"] = "Buy Online";
 }
 
 <section class="d-flex gap-4">
@@ -29,7 +29,7 @@
         </body>
     </card>
 
-    <form style="width: 70%">
+    <form method="post" asp-page-handler="GetQuote" style="width: 70%">
         <card class="h-100">
             <body>
                 <h3>Personal Information</h3>
@@ -37,46 +37,75 @@
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input type="email" class="form-control" asp-for="Email" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone">
+                        <label asp-for="Phone" class="form-label">Phone</label>
+                        <input type="number" class="form-control" asp-for="Phone" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName">
+                        <label asp-for="FirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" asp-for="FirstName" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName">
+                        <label asp-for="LastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" asp-for="LastName" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="dob" class="form-label">Date of Birth</label>
-                        <input class="form-control" id="dob" type="date" />
+                        <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+                        <input class="form-control" asp-for="DateOfBirth" type="date" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select id="gender" class="form-select">
-                            <option selected></option>
-                            <option>Male</option>
-                            <option>Female</option>
+                        <label asp-for="Gender" class="form-label">Gender</label>
+                        <select asp-for="Gender" class="form-select" required>
+                            <option value="" selected></option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
                         </select>
                     </div>
                     <div class="col-12">
-                        <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                        <label asp-for="Address" class="form-label">Address</label>
+                        <input type="text" class="form-control" asp-for="Address" placeholder="1234 Main St" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity">
+                        <label asp-for="City" class="form-label">City</label>
+                        <input type="text" class="form-control" asp-for="City" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputState" class="form-label">State</label>
-                        <select id="inputState" class="form-select">
-                            <option selected>Choose...</option>
-                            <option>...</option>
+                        <label asp-for="State" class="form-label">State</label>
+                        <select asp-for="State" class="form-select" required>
+                            <option value="">Select State</option>
+                            <option value="1">Lagos</option>
+                            <option value="2">Abia</option>
+                            <option value="3">Bauchi</option>
+                            <option value="4">Enugu</option>
+                            <option value="5">Ebonyi</option>
+                            <option value="6">Akwa Ibom</option>
+                            <option value="7">Cross River</option>
+                            <option value="8">Edo</option>
+                            <option value="9">Delta</option>
+                            <option value="10">Kogi</option>
+                            <option value="11">Kwara</option>
+                            <option value="12">Niger</option>
+                            <option value="13">Benue</option>
+                            <option value="14">Nasarawa</option>
+                            <option value="15">Plateau</option>
+                            <option value="16">Oyo</option>
+                            <option value="17">Ogun</option>
+                            <option value="18">Ekiti</option>
+                            <option value="19">Osun</option>
+                            <option value="20">Ondo</option>
+                            <option value="21">Kaduna</option>
+                            <option value="22">Katsina</option>
+                            <option value="23">Kebbi</option>
+                            <option value="24">Imo</option>
+                            <option value="25">Sokoto</option>
+                            <option value="26">Zamfara</option>
+                            <option value="27">Rivers</option>
+                            <option value="28">Abuja</option>
+                            <option value="29">Jigawa</option>
+                            <option value="30">Yobe</option>
                         </select>
                     </div>
                 </div>
@@ -87,45 +116,388 @@
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label for="class" class="form-label">Vehicle Class/Type</label>
-                        <select id="class" class="form-select">
-                            <option selected>Choose...</option>
-                            <option>....</option>
+                        <label asp-for="VehicleClass" class="form-label">Class/Type</label>
+                        <select asp-for="VehicleClass" class="form-select" required>
+                            <option value="" selected>Choose...</option>
+                            <option value="suv">Suv</option>
+                            <option value="sedan">Sedan</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="registration" class="form-label">Registration No</label>
-                        <input type="text" class="form-control" id="registration">
+                        <label asp-for="RegistrationNo" class="form-label">Registration No</label>
+                        <input type="text" class="form-control" asp-for="RegistrationNo" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="carBrand" class="form-label">Car Brand</label>
-                        <input type="text" class="form-control" id="carBrand" placeholder="ex Toyota, Nissan">
+                        <label asp-for="CarBrand" class="form-label">Brand</label>
+                        <select asp-for="CarBrand" class="form-select" required>
+                            <option value="">Select vehicle brand</option>
+                            <option value="346"> STEYR</option>
+                            <option value="127">35CMB</option>
+                            <option value="152">AC ATUL</option>
+                            <option value="228">ACE</option>
+                            <option value="147">ACURA</option>
+                            <option value="8">ALPHA ROMEO</option>
+                            <option value="313">AMBASSADOR</option>
+                            <option value="106">APACHE</option>
+                            <option value="210">ASHOK LEYLAND</option>
+                            <option value="312">ASTON</option>
+                            <option value="80">ASTRA</option>
+                            <option value="358">ATUL</option>
+                            <option value="3">AUDI</option>
+                            <option value="128">AUSTIN</option>
+                            <option value="309">B2</option>
+                            <option value="109">BACK HOE</option>
+                            <option value="9">BADFORD</option>
+                            <option value="68">BAJAJ</option>
+                            <option value="327">BAOTIAN</option>
+                            <option value="218">BASUKI</option>
+                            <option value="248">BAW</option>
+                            <option value="320">BAZUKI</option>
+                            <option value="244">BEDFORD</option>
+                            <option value="84">BEIBEN</option>
+                            <option value="195">BELL</option>
+                            <option value="174">BENTLEY</option>
+                            <option value="75">BHACHU</option>
+                            <option value="262">BIKEMASTER</option>
+                            <option value="92">BLUE BIRD</option>
+                            <option value="7">BMW</option>
+                            <option value="365">BOB</option>
+                            <option value="10">BOBCAT</option>
+                            <option value="336">BOBTAIL</option>
+                            <option value="290">BOVA</option>
+                            <option value="126">BPW</option>
+                            <option value="335">BRIDGER</option>
+                            <option value="269">BRILLIANCE</option>
+                            <option value="182">BUICK</option>
+                            <option value="11">CADILLAC</option>
+                            <option value="12">CAM</option>
+                            <option value="284">CANTER FUSO</option>
+                            <option value="89">CAPTAIN</option>
+                            <option value="357">CARTER</option>
+                            <option value="217">CARTER PEN</option>
+                            <option value="13">CAT</option>
+                            <option value="239">CATERPILLAR</option>
+                            <option value="307">CHANA</option>
+                            <option value="254">CHANA STAR</option>
+                            <option value="142">CHANGAN</option>
+                            <option value="223">CHANGFENG</option>
+                            <option value="141">CHERRY</option>
+                            <option value="283">CHERY</option>
+                            <option value="14">CHEVROLET</option>
+                            <option value="15">CHRYSLER</option>
+                            <option value="301">CIMC</option>
+                            <option value="16">CITROEN</option>
+                            <option value="104">CLAAS</option>
+                            <option value="17">CMC</option>
+                            <option value="181">COMMER</option>
+                            <option value="129">CPCD</option>
+                            <option value="275">DACIA</option>
+                            <option value="18">DAEWOO</option>
+                            <option value="138">DAF</option>
+                            <option value="19">DAIHATSU</option>
+                            <option value="302">Daimler</option>
+                            <option value="303">DAIMLER AG</option>
+                            <option value="131">DALIAN</option>
+                            <option value="190">DATSUN</option>
+                            <option value="191">DAVE</option>
+                            <option value="161">DAYLONG</option>
+                            <option value="99">DAYUN</option>
+                            <option value="158">DEGAB</option>
+                            <option value="179">DENNIS</option>
+                            <option value="150">DENSTAR</option>
+                            <option value="216">DFAC</option>
+                            <option value="270">DFM</option>
+                            <option value="243">DIAMOND REO</option>
+                            <option value="183">DODGE</option>
+                            <option value="347">DOGUMAK</option>
+                            <option value="74">DOLL</option>
+                            <option value="88">DONGFENG</option>
+                            <option value="132">DOOSAN</option>
+                            <option value="20">DUCATI</option>
+                            <option value="280">EAGLE</option>
+                            <option value="297">EFR</option>
+                            <option value="21">EICHER</option>
+                            <option value="110">ELITE</option>
+                            <option value="249">ENGLON</option>
+                            <option value="250">ENGLON </option>
+                            <option value="240">E-ONE</option>
+                            <option value="295">ETEFA</option>
+                            <option value="186">EVERLAST</option>
+                            <option value="176">FALCON</option>
+                            <option value="70">FAW</option>
+                            <option value="345">FENCO</option>
+                            <option value="344">FERRARI</option>
+                            <option value="22">FIAT</option>
+                            <option value="256">FIORI</option>
+                            <option value="133">FLATBED</option>
+                            <option value="316">FODEY</option>
+                            <option value="23">FORD</option>
+                            <option value="356">FORKLIFT</option>
+                            <option value="222">FORLAND</option>
+                            <option value="24">FOTON</option>
+                            <option value="148">FRAJEND</option>
+                            <option value="170">FREIGHTLINER</option>
+                            <option value="353">FRIGHTLINER</option>
+                            <option value="151">FUSO</option>
+                            <option value="164">GAC</option>
+                            <option value="340">GALAXY</option>
+                            <option value="298">Geely</option>
+                            <option value="226">GEELY</option>
+                            <option value="355">GENESIS</option>
+                            <option value="213">GENIE </option>
+                            <option value="277">GENLYON</option>
+                            <option value="350">GINAF</option>
+                            <option value="162">GMC</option>
+                            <option value="268">GOLDEN DRAGON</option>
+                            <option value="291">GONOW</option>
+                            <option value="286">GRAND CHEROKEE</option>
+                            <option value="115">GRAY ADAMS</option>
+                            <option value="184">GREATWALL</option>
+                            <option value="124">GROVE</option>
+                            <option value="325">GS</option>
+                            <option value="224">HAIMA</option>
+                            <option value="230">HANGCHA</option>
+                            <option value="326">HANVAN</option>
+                            <option value="67">HAOJIN</option>
+                            <option value="212">HAOJUE</option>
+                            <option value="282">Haojue elegant</option>
+                            <option value="116">HAWK</option>
+                            <option value="107">HERO</option>
+                            <option value="271">HIGER</option>
+                            <option value="25">HINO</option>
+                            <option value="98">HITACHI</option>
+                            <option value="26">HONDA</option>
+                            <option value="279">HONGYAN GENLYON</option>
+                            <option value="103">HOUSEHAM</option>
+                            <option value="160">HOWO</option>
+                            <option value="114">HTL</option>
+                            <option value="117">HUBEI</option>
+                            <option value="27">HUMMER</option>
+                            <option value="333">HYOSUNG</option>
+                            <option value="90">HYSTER</option>
+                            <option value="28">HYUNDAI</option>
+                            <option value="154">INFINITI</option>
+                            <option value="146">INNOSON</option>
+                            <option value="163">INTERNATIONAL</option>
+                            <option value="233">INTERNATIONAL TRANSTAR</option>
+                            <option value="29">ISUZU</option>
+                            <option value="71">IVECO</option>
+                            <option value="85">JAC</option>
+                            <option value="30">JAGUAR</option>
+                            <option value="229">JCB</option>
+                            <option value="31">JEEP</option>
+                            <option value="276">JET</option>
+                            <option value="364">JETOUR</option>
+                            <option value="235">JIN BEI</option>
+                            <option value="252">JINBEI  </option>
+                            <option value="258">JINCHENG</option>
+                            <option value="200">JMC</option>
+                            <option value="83">JOHN DEERE</option>
+                            <option value="178">JOYLONG</option>
+                            <option value="332">KAMA</option>
+                            <option value="219">KASEA</option>
+                            <option value="189">KAWASAKI</option>
+                            <option value="123">KAYAK</option>
+                            <option value="265">KEEWAY</option>
+                            <option value="214">KEEWAY HANDY</option>
+                            <option value="323">KEN STAR</option>
+                            <option value="287">KENWORTH</option>
+                            <option value="196">KG PLATE</option>
+                            <option value="32">KIA</option>
+                            <option value="79">KIBO</option>
+                            <option value="112">KING BIRD</option>
+                            <option value="208">KING LONG</option>
+                            <option value="177">KINGKAN</option>
+                            <option value="322">KRONE</option>
+                            <option value="94">KTM</option>
+                            <option value="93">KUBOTA</option>
+                            <option value="167">KYMSTONE</option>
+                            <option value="321">LAMBORGHINI</option>
+                            <option value="33">LAND ROVER</option>
+                            <option value="241">LANSING</option>
+                            <option value="156">LDV</option>
+                            <option value="139">LEXUS</option>
+                            <option value="205">LEYLAND</option>
+                            <option value="34">LEYLAND DAF</option>
+                            <option value="349">LIBERTY</option>
+                            <option value="35">LIEBHERR</option>
+                            <option value="91">LIFAN</option>
+                            <option value="206">LINCOLN</option>
+                            <option value="242">LINDE</option>
+                            <option value="166">LINGKEN</option>
+                            <option value="187">LML STAR</option>
+                            <option value="66">LOCAL</option>
+                            <option value="227">LOCATELLI</option>
+                            <option value="136">MACK</option>
+                            <option value="36">MAHINDRA</option>
+                            <option value="82">MAN</option>
+                            <option value="330">MAN DIESEL</option>
+                            <option value="331">MANDIESEL</option>
+                            <option value="236">MANITOU</option>
+                            <option value="306">MARS</option>
+                            <option value="37">MARUTI</option>
+                            <option value="238">MASERATI</option>
+                            <option value="102">MASSEY FERGUSON</option>
+                            <option value="308">MATCTS</option>
+                            <option value="363">MAX</option>
+                            <option value="334">MAXUS</option>
+                            <option value="38">MAZDA</option>
+                            <option value="39">MERCEDES</option>
+                            <option value="188">MERCEDES BENZ</option>
+                            <option value="225">MERCURY</option>
+                            <option value="257">MERLO S.P.A</option>
+                            <option value="122">MEYLUN</option>
+                            <option value="169">MG</option>
+                            <option value="288">MIKANO</option>
+                            <option value="120">MINGWEI</option>
+                            <option value="140">MINI</option>
+                            <option value="293">MISHUBISHI</option>
+                            <option value="2">MITSUBISHI</option>
+                            <option value="204">MORRIS</option>
+                            <option value="259">MOTOBI</option>
+                            <option value="267">MUONER</option>
+                            <option value="285">MV</option>
+                            <option value="199">NANFANG</option>
+                            <option value="40">NEW HOLLAND</option>
+                            <option value="41">NISSAN</option>
+                            <option value="359">NORD</option>
+                            <option value="360">NTM</option>
+                            <option value="296">OLDSMOBILE</option>
+                            <option value="343">OMAA</option>
+                            <option value="42">OPEL</option>
+                            <option value="361">OTTAWA</option>
+                            <option value="289">PETERBILT</option>
+                            <option value="43">PEUGEOT</option>
+                            <option value="105">PIAGGIO</option>
+                            <option value="261">POLARSUN</option>
+                            <option value="159">PONTIAC</option>
+                            <option value="44">PORSCHE</option>
+                            <option value="266">PRESIDENT</option>
+                            <option value="211">PROTON</option>
+                            <option value="352">PUTZMEISTER </option>
+                            <option value="253">QINGQI</option>
+                            <option value="246">QIPAI</option>
+                            <option value="157">QLINK</option>
+                            <option value="118">QUON</option>
+                            <option value="45">RANDON</option>
+                            <option value="354">RANGE ROVER</option>
+                            <option value="310">RANGER</option>
+                            <option value="47">RENAULT</option>
+                            <option value="342">ROBINE-LP</option>
+                            <option value="292">Robinson</option>
+                            <option value="197">ROLLS-ROYCE</option>
+                            <option value="328">RONGXING</option>
+                            <option value="48">ROVER</option>
+                            <option value="207">ROYAL</option>
+                            <option value="49">SAAB</option>
+                            <option value="130">SACHS</option>
+                            <option value="50">SAILORMEIYA</option>
+                            <option value="72">SAME</option>
+                            <option value="194">SANY</option>
+                            <option value="274">SATURN</option>
+                            <option value="51">SCANIA</option>
+                            <option value="232">SCHWING</option>
+                            <option value="172">SCION</option>
+                            <option value="221">SEAT</option>
+                            <option value="245">SENKE</option>
+                            <option value="52">SHACMAN</option>
+                            <option value="111">SHANTUI</option>
+                            <option value="119">SHENZEN</option>
+                            <option value="100">SHINERAY</option>
+                            <option value="215">SHIRORO</option>
+                            <option value="171">SINO</option>
+                            <option value="168">SINOKI SUPRA</option>
+                            <option value="53">SINOTRUK</option>
+                            <option value="54">SKODA</option>
+                            <option value="108">SKYGO</option>
+                            <option value="55">SMART</option>
+                            <option value="263">SONLINK</option>
+                            <option value="329">SOR</option>
+                            <option value="192">SOYAT</option>
+                            <option value="56">SSANGYONG</option>
+                            <option value="145">STALLION</option>
+                            <option value="86">STAR</option>
+                            <option value="209">STERLING</option>
+                            <option value="281">STEYR</option>
+                            <option value="95">STO</option>
+                            <option value="57">SUBARU</option>
+                            <option value="272">SUPER GALLANT</option>
+                            <option value="251">SUPER POWER</option>
+                            <option value="153">SUPRA MARS</option>
+                            <option value="58">SUZUKI</option>
+                            <option value="264">TAFE TRACTOR </option>
+                            <option value="193">TANADO</option>
+                            <option value="351">TARMAC</option>
+                            <option value="59">TATA</option>
+                            <option value="198">TEC</option>
+                            <option value="231">TEREX</option>
+                            <option value="299">TGA18.410</option>
+                            <option value="185">TIANMA</option>
+                            <option value="60">TIGO</option>
+                            <option value="315">T-KING</option>
+                            <option value="81">TLD</option>
+                            <option value="1">TOYOTA</option>
+                            <option value="73">TRACTOR</option>
+                            <option value="87">TRAIL KING</option>
+                            <option value="77">TRANSTRAILER</option>
+                            <option value="304">TRI-AXLE</option>
+                            <option value="134">TRIUMPH</option>
+                            <option value="149">TRUMPCHI GAC</option>
+                            <option value="362">TSR</option>
+                            <option value="202">TUG</option>
+                            <option value="78">TVS</option>
+                            <option value="165">TWINCO</option>
+                            <option value="69">UM</option>
+                            <option value="97">VALTRA</option>
+                            <option value="61">VAUXHALL</option>
+                            <option value="324">VECTOR</option>
+                            <option value="62">VOLKSWAGEN</option>
+                            <option value="63">VOLVO</option>
+                            <option value="237">VPG</option>
+                            <option value="278">Wrangler</option>
+                            <option value="64">WUHAN SHENJUN</option>
+                            <option value="314">XCMG</option>
+                            <option value="300">XINGYUE</option>
+                            <option value="65">YAMAHA</option>
+                            <option value="337">YAMASAKI</option>
+                            <option value="341">Yangzhou</option>
+                            <option value="96">YATIAN</option>
+                            <option value="180">YORK</option>
+                            <option value="294">YUEJIN</option>
+                            <option value="155">YUTONG</option>
+                            <option value="173">ZAHAV</option>
+                            <option value="260">ZHEJIANG XINCHAI</option>
+                            <option value="175">ZHONGTONG</option>
+                            <option value="305">ZNA RICH</option>
+                            <option value="113">ZOOMLION</option>
+                            <option value="247">ZOTYE</option>
+                            <option value="348">ZX</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="carModel" class="form-label">Car Models</label>
-                        <input type="text" class="form-control" id="carModel" placeholder="ex Camry, Altima">
+                        <label asp-for="CarModel" class="form-label">Model</label>
+                        <input type="text" class="form-control" asp-for="CarModel" placeholder="ex Camry, Altima" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="engineNo" class="form-label">Engine No</label>
-                        <input class="form-control" type="text" id="engineNo" />
+                        <label asp-for="EngineNo" class="form-label">Engine No</label>
+                        <input class="form-control" type="text" asp-for="EngineNo" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="chasisNo" class="form-label">Chasis No</label>
-                        <input class="form-control" type="text" id="chasisNo" />
+                        <label asp-for="ChasisNo" class="form-label">Chasis No</label>
+                        <input class="form-control" type="text" asp-for="ChasisNo" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="yearOfMake" class="form-label">Manufactured Year</label>
-                        <input type="number" class="form-control" id="yearOfMake">
+                        <label asp-for="YearOfMake" class="form-label">Manufactured Year</label>
+                        <input type="number" min="1980" max="2024" class="form-control" asp-for="YearOfMake" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="color" class="form-label">Color</label>
-                        <input type="text" class="form-control" id="color">
+                        <label asp-for="Color" class="form-label">Color</label>
+                        <input type="text" class="form-control" asp-for="Color" required>
                     </div>
                 </div>
             </body>
-            <footer class="d-flex justify-content-end gap-2">
-                <button class="btn btn-secondary">Cancel</button>
-                <button class="btn btn-primary">Get Quote</button>
+            <footer>
+                <button type="submit" class="btn btn-primary float-end">Get Quote</button>
             </footer>
         </card>
     </form>
