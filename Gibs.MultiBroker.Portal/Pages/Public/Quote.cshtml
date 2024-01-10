@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-md-6">
                         <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
-                        <input class="form-control" asp-for="DateOfBirth" type="date" required>
+                        <input class="form-control" value="1980-01-01" asp-for="DateOfBirth" type="date" required>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="Gender" class="form-label">Gender</label>
@@ -119,8 +119,8 @@
                         <label asp-for="VehicleClass" class="form-label">Class/Type</label>
                         <select asp-for="VehicleClass" class="form-select" required>
                             <option value="" selected>Choose...</option>
-                            <option value="suv">Suv</option>
-                            <option value="sedan">Sedan</option>
+                            <option value="private">Private</option>
+                            <option value="commercial">Commercial</option>
                         </select>
                     </div>
                     <div class="col-md-6">

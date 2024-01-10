@@ -34,16 +34,17 @@
     <div class="col-md-6 col-lg-5 px-3">
         <h4>Here is what you'll pay</h4>
         <p>your certificate will be sent to your email address</p>
-        <card>
-            <body>
-                <h6>3rd Party coverage will cost</h6>
-                <h3 class="fw-bold mb-0">
-                    ₦15,000.00 per year
-                </h3>
-            </body>
-            <footer>
-                <button class="btn btn-primary w-100">Proceed to Payment</button>
-            </footer>
-        </card>
+        <form method="post">
+            <card>
+                <body>
+                    <h6>3rd Party coverage will cost</h6>
+                    <input class="form-control fs-4 fw-bold" asp-for="Price" value="15000">
+                    <span class="fw-bold fs-4">per year</span>
+                </body>
+                <footer>
+                    <button type="submit" class="btn btn-primary w-100">Proceed to Payment</button>
+                </footer>
+            </card>
+        </form>
     </div>
 </section>

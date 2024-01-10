@@ -12,46 +12,50 @@
                 <i class="bi bi-house fs-4 mb-3"></i>
                 <div>
                     <h5 class="mb-1 fw-bold">Address</h5>
-                    <a href="#" class="text-decoration-none text-dark">6, Oremeta Street, Off Ola Adeshega Close, Ikeja, Lagos</a>
+                    <a href="#" class="text-decoration-none text-dark">
+                        Nigerian Railway Compound,
+                        off Moshood Abiola Rd,
+                        P.M.B.1037, Ebute Metta, Lagos.
+                    </a>
                 </div>
             </div>
             <div class="mb-3">
                 <i class="bi bi-telephone fs-4 mb-3"></i>
                 <div>
                     <h5 class="mb-1 fw-bold">Phone</h5>
-                    <a href="tel:+2348063506603" class="text-decoration-none text-dark">+2348063506603</a>
+                    <a href="tel:+2348033070308" class="text-decoration-none text-dark">+2348033070308</a>
                 </div>
             </div>
             <div class="mb-3">
                 <i class="bi bi-envelope fs-4 mb-3"></i>
                 <div>
                     <h5 class="mb-1 fw-bold">Email</h5>
-                    <a href="mailto:idevWorks@gmail.com" class="text-decoration-none text-dark">idevWorks@gmail.com</a>
+                    <a href="mailto:Info@titpakinsurancebrokers.com" class="text-decoration-none text-dark">Info@titpakinsurancebrokers.com</a>
                 </div>
             </div>
             <div class="mb-3">
                 <i class="bi bi-whatsapp fs-4 mb-3"></i>
                 <div>
-                    <h5 class="mb-1 fw-bold">Email</h5>
-                    <a href="mailto:idevWorks@gmail.com" class="text-decoration-none text-dark">idevWorks@gmail.com</a>
+                    <h5 class="mb-1 fw-bold">Whatsapp</h5>
+                    <a href="#" class="text-decoration-none text-dark">+2348033070308</a>
                 </div>
             </div>
         </div>
 
         <div class="p-5 rounded-3 col-11 col-sm-10 col-lg-5 col-xl-4" style="background-color: #f8f8fa;">
             <h4 class="mb-0 fw-bold mb-3">Send us a message</h4>
-            <form class="d-flex flex-column gap-3">
+            <form method="post" class="d-flex flex-column gap-3">
                 <div>
-                    <label for="fullName" class="form-label">From</label>
-                    <input type="email" class="form-control" id="fullName" placeholder="your@email.com" />
+                    <label asp-for="Sender" class="form-label">From</label>
+                    <input type="email" class="form-control" asp-for="Sender" placeholder="your@email.com" required>
                 </div>
                 <div>
-                    <label for="email" class="form-label">Subject</label>
-                    <input type="text" class="form-control" id="email" />
+                    <label asp-for="Subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" asp-for="Subject" required>
                 </div>
                 <div>
-                    <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label asp-for="Message" class="form-label">Message</label>
+                    <textarea class="form-control" asp-for="Message" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-dark mt-2">Submit</button>
             </form>

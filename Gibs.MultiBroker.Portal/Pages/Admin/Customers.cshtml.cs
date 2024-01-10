@@ -28,7 +28,7 @@ namespace Gibs.Portal.Pages
 
         public async Task<PageResult> OnGetAsync()
         {
-            //Clients = await context.Clients.Where(c => c.BrokerId == _currUserId).ToListAsync();
+          // Clients = await context.Clients.Where(c => c.BrokerId == _currUserId).ToListAsync();
             return Page();
         }
 
