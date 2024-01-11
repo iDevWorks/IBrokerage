@@ -4,8 +4,8 @@
     ViewData["Title"] = "QuoteSummary";
 }
 
-<section class="row justify-content-lg-center">
-    <div class=" col-md-6 col-lg-5 mb-3 mb-md-0 px-3">
+<section class="row justify-content-lg-center h-100 align-items-center">
+    <div class=" col-md-6 col-lg-5 mb-3 mb-md-0 px-3" style="height: fit-content">
         <h4>Confirm your details</h4>
         <card>
             <body>
@@ -31,15 +31,17 @@
             </body>
         </card>
     </div>
-    <div class="col-md-6 col-lg-5 px-3">
+    <div class="col-md-6 col-lg-5 px-3" style="height: 359.03px;">
         <h4>Here is what you'll pay</h4>
         <p>your certificate will be sent to your email address</p>
         <form method="post" asp-page-handler="BuyInsurance">
             <card>
                 <body>
                     <h6>3rd Party coverage will cost</h6>
-                    <input class="form-control fs-4 fw-bold" asp-for="Price" value="15000">
-                    <span class="fw-bold fs-6">per year</span>
+                    <h3 class="fw-bold mb-0">
+                        ₦@Model.Price 
+                        <span class="fs-4">per year</span>
+                    </h3>
                 </body>
                 <footer>
                     <button type="submit" class="btn btn-primary w-100">Proceed to Payment</button>

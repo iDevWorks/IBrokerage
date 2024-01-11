@@ -9,7 +9,7 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
     {
         private readonly PaystackClient paystack = new(configuration["Paystack:Key"]);
         [BindProperty]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 15000;
 
         public void OnGet()
         {
