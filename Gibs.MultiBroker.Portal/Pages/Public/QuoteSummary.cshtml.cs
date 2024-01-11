@@ -17,7 +17,7 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
         }
 
         public async Task<ActionResult> OnPostBuyInsurance()
-        {
+       {
             try
             {
                 var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Complete";
