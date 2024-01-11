@@ -29,7 +29,7 @@ namespace Gibs.Portal
 
             // Use in-memory database for demo purposes;
             builder.Services.AddDbContextPool<BrokerContext>(options =>
-                options.UseInMemoryDatabase("IBrokerage"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbLocal")));
 
             //builder.Services.AddTransient<PaystackService>();
             builder.Services.AddTransient<EmailService>();

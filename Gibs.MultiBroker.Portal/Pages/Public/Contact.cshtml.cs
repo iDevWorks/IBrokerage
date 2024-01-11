@@ -1,12 +1,15 @@
 using Gibs.Infrastructure.Email;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.MultiBroker.Portal.Pages.Public
 {
-    public class ContactModel(EmailService emailService) : PageModel
+    public class ContactModel(EmailService emailService, IOptions<SmtpSettings> smtpSettings) : PageModel
     {
+        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
+
         [BindProperty, EmailAddress]
         public string Sender { get; set; }
 
@@ -28,7 +31,8 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
             {
                 if (ModelState.IsValid)
                 {
-                    await _emailService.SendEmailAsync(Sender, Subject, Message);
+                    _smtpSettings.SenderEmail = Sender;
+                    await _emailService.SendEmailAsync(_smtpSettings.SenderEmail, Subject, Message);
                     return RedirectToPage("Index");
                 }
             }

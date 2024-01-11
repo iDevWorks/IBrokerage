@@ -23,6 +23,7 @@ namespace Gibs.Infrastructure.EntityFramework
             modelBuilder.Entity<Order>(e =>
             {
                 e.ToTable("Orders").HasKey(d => d.OrderId);
+                e.Property(o => o.TotalAmount).HasColumnType("decimal(18,2)");
             });
             modelBuilder.Entity<Client>(e =>
             {
@@ -39,6 +40,9 @@ namespace Gibs.Infrastructure.EntityFramework
             modelBuilder.Entity<Policy>(e =>
             {
                 e.ToTable("Policies").HasKey(d => d.PolicyNo);
+                e.Property(p => p.Commision).HasColumnType("decimal(18,2)");
+                e.Property(p => p.GrossPremium).HasColumnType("decimal(18,2)");
+                e.Property(p => p.SumInsured).HasColumnType("decimal(18,2)");
             });
 
 
