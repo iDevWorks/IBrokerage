@@ -16,35 +16,7 @@ namespace Gibs.Infrastructure.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Broker>(e =>
-            {
-                e.ToTable("Brokers").HasKey(d => d.Id);
-            });
-            modelBuilder.Entity<Order>(e =>
-            {
-                e.ToTable("Orders").HasKey(d => d.OrderId);
-                e.Property(o => o.TotalAmount).HasColumnType("decimal(18,2)");
-            });
-            modelBuilder.Entity<Client>(e =>
-            {
-                e.ToTable("Clients").HasKey(d => d.Id);
-            });
-            modelBuilder.Entity<Product>(e =>
-            {
-                e.ToTable("Products").HasKey(d => d.Id);
-            });
-            modelBuilder.Entity<Underwriter>(e =>
-            {
-                e.ToTable("Underwriters").HasKey(d => d.Id);
-            });
-            modelBuilder.Entity<Policy>(e =>
-            {
-                e.ToTable("Policies").HasKey(d => d.PolicyNo);
-                e.Property(p => p.Commision).HasColumnType("decimal(18,2)");
-                e.Property(p => p.GrossPremium).HasColumnType("decimal(18,2)");
-                e.Property(p => p.SumInsured).HasColumnType("decimal(18,2)");
-            });
-
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BrokerContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
         }
