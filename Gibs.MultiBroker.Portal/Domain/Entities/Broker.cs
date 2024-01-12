@@ -1,5 +1,4 @@
-﻿using Gibs.Portal.Domain.Entities;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
 namespace Gibs.Domain.Entities
 {

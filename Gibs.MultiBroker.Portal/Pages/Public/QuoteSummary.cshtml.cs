@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using iDevWorks.Paystack;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Gibs.Portal.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace Gibs.MultiBroker.Portal.Pages.Public
@@ -19,10 +17,10 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
         }
 
         public async Task<ActionResult> OnPostBuyInsurance()
-       {
+        {
             try
             {
-                var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Complete";
+                var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Public/Complete";
                 var result = await paystack.InitializeTransaction("omomowosymeon45@gmail.com", Price, callbackUrl);
                 var reference = result.Reference;
                 // add the reference to the order entity

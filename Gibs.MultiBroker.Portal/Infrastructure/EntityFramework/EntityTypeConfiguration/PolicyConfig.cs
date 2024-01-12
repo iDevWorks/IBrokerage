@@ -1,5 +1,4 @@
 ﻿using Gibs.Domain.Entities;
-using iDevWorks.Paystack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,11 +20,6 @@ namespace WebTutor.EntityFramework.Configuration
             builder.Property(x => x.Status).HasColumnName("Status");
             builder.Property(x => x.SumInsured).HasColumnName("SumInsured").HasColumnType("decimal(18,2)");
             builder.Property(x => x.Commision).HasColumnName("Commision").HasColumnType("decimal(18,2)");
-            builder.Property(x => x.Underwriter).HasColumnName("Underwriter");
-            builder.Property(x => x.Client).HasColumnName("Client");
-            builder.Property(x => x.Product).HasColumnName("Product");
-
-
         }
     }
 }

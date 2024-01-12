@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Gibs.Infrastructure.Email
 {

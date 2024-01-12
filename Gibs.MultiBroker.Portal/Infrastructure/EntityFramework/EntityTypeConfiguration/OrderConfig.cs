@@ -13,14 +13,13 @@ namespace WebTutor.EntityFramework.Configuration
                    .HasKey(x => x.OrderId);
 
             builder.Property(x => x.OrderId).HasColumnName("Id");
-            builder.Property(x => x.DateOrdered).HasColumnName("DateOrdered");
+            builder.Property(x => x.CreatedUtc).HasColumnName("DateOrdered");
             builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").HasColumnType("decimal(18,2)");
             builder.Property(x => x.PaymentMethod).HasColumnName("PaymentMethod");
-            builder.Property(x => x.PaymentMethod).HasColumnName("PaymentMethod");
+            builder.Property(x => x.PaymentStatus).HasColumnName("PaymentStatus").HasConversion<string>();
             builder.Property(x => x.TransReference).HasColumnName("TransReference");
-            builder.Property(x => x.Client).HasColumnName("Client");
-            builder.Property(x => x.Product).HasColumnName("Product");
-
+            builder.Property(x => x.Remark).HasColumnName("Remark");
+            builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate");
         }
     }
 }
