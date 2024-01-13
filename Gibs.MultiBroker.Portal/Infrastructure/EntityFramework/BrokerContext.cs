@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Gibs.Domain.Entities;
-using Gibs.Portal.Domain.Entities;
+
 
 namespace Gibs.Infrastructure.EntityFramework
 {

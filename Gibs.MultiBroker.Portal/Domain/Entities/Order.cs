@@ -1,6 +1,6 @@
 ﻿using Gibs.Domain.Entities;
 
-namespace Gibs.Portal.Domain.Entities
+namespace Gibs.Domain.Entities
 {
     public class Order
     {
