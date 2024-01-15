@@ -9,7 +9,7 @@ namespace Gibs.Portal.Pages
 {
     public class InsuredModel(BrokerContext context) : PageModel
     {
-        public List<Client> Clients { get; set; } = [];
+        public List<Insured> Clients { get; set; } = [];
 
         [BindProperty, Required]
         public string FirstName { get; set; } = string.Empty;
@@ -28,7 +28,7 @@ namespace Gibs.Portal.Pages
 
         public async Task<PageResult> OnGetAsync()
         {
-          // Clients = await context.Clients.Where(c => c.BrokerId == _currUserId).ToListAsync();
+          // Insureds = await context.Insureds.Where(c => c.BrokerId == _currUserId).ToListAsync();
             return Page();
         }
 
@@ -38,14 +38,14 @@ namespace Gibs.Portal.Pages
             {
                 if (ModelState.IsValid)
                 {
-                    //var clientExists = await context.Clients.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
+                    //var clientExists = await context.Insureds.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
 
                     //if (clientExists)
                     //    throw new Exception("A client with this email already exists.");
 
-                    var client = new Client(FirstName, LastName, Address, Email, PhoneNumber);
+                    var client = new Customer(FirstName, LastName, Address, Email, PhoneNumber);
 
-                    context.Clients.Add(client);
+                    context.Insureds.Add(client);
                     await context.SaveChangesAsync();
                 }
             }

@@ -35,24 +35,21 @@ namespace Gibs.Portal.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid) return Page();
+
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var brokerExists = await context.Brokers.AnyAsync(u => u.Email == Email);
+                var exists = await context.Brokers.AnyAsync(u => u.Email == Email);
 
-                    if (brokerExists)
-                        throw new Exception("A user with this email already exists");
+                if (exists)
+                    throw new Exception("A user with this email already exists");
 
-                    var fullName = $"{FirstName} {LastName}";
-                    var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
+                var fullName = $"{FirstName} {LastName}";
+                var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
+                context.Add(broker);
 
-                    context.Brokers.Add(broker);
-                    await context.SaveChangesAsync();
-
-                    //proceed to Login page
-                    return RedirectToPage("Login");
-                }
+                await context.SaveChangesAsync();
+                return RedirectToPage("Login");
             }
             catch (Exception ex)
             {

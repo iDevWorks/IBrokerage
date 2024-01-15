@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages.Public
 {
-    public class PaymentCompleteModel(BrokerContext context, IConfiguration configuration) : PageModel
+    public class PaymentCompleteModel(BrokerContext context, PaystackClient paystack) : PageModel
     {
-        private readonly BrokerContext _brokerContext = context;
-        private readonly PaystackClient paystack = new(configuration["Paystack:Key"]);
         public Transaction? Transaction { get; set; }
         public string? ErrorMessage { get; set; }
 
@@ -16,23 +14,19 @@ namespace Gibs.Portal.Pages.Public
         {
             try
             {
-                var order = await _brokerContext.Orders
-                        .Where(o => o.TransReference == reference)
-                        .SingleOrDefaultAsync();
-
-                ArgumentNullException.ThrowIfNull(order);
+                var order = await context.Orders
+                        .Where(o => o.Reference == reference)
+                        .SingleOrDefaultAsync()
+                    ?? throw new InvalidOperationException("Wrong payment reference");
 
                 Transaction = await paystack.VerifyTransaction(reference);
                 
                 if (Transaction.Status == "success")
-                {
                     order.PaymentSuccess(Transaction.RequestedAmount);
-                }
                 else
-                {
-                    order.PaymentFailed(Transaction.Message);
-                }
-                await _brokerContext.SaveChangesAsync();
+                    order.PaymentFailed(Transaction.GatewayResponse);
+
+                await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

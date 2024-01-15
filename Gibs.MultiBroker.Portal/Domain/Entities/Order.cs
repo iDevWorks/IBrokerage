@@ -1,20 +1,20 @@
-﻿using Gibs.Domain.Entities;
-
-namespace Gibs.Portal.Domain.Entities
+﻿namespace Gibs.Domain.Entities
 {
     public class Order
     {
+        #pragma warning disable CS8618
         public Order() { }
+        #pragma warning restore CS8618
 
-        public Order(Product product, Client client, string transReference, decimal totalAmount)
+        public Order(Product product, Insured client, string transReference, decimal totalAmount)
         {
             ArgumentNullException.ThrowIfNull(product);
             ArgumentNullException.ThrowIfNull(client);
             ArgumentException.ThrowIfNullOrWhiteSpace(transReference);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalAmount);
 
-            TransReference = transReference;
-            Client = client;
+            Reference = transReference;
+            Insured = client;
             Product = product;
             CreatedUtc = DateTime.UtcNow;
             TotalAmount = totalAmount;
@@ -24,7 +24,7 @@ namespace Gibs.Portal.Domain.Entities
 
         public void PaymentFailed(string errorMessage)
         {
-            Remark = errorMessage;
+            Remarks = errorMessage;
             PaymentStatus = OrderStatus.FAILED;
         }
 
@@ -34,7 +34,7 @@ namespace Gibs.Portal.Domain.Entities
             {
                 throw new ArgumentException("the amount expected is not the same");
             }
-            PaymentDate = DateTime.UtcNow;
+            PaymentUtc = DateTime.UtcNow;
             PaymentStatus = OrderStatus.SUCCESS;
         }
 
@@ -43,11 +43,11 @@ namespace Gibs.Portal.Domain.Entities
         public decimal TotalAmount { get; private set; }
         public string PaymentMethod { get; private set; }
         public OrderStatus PaymentStatus { get; private set; }
-        public string TransReference { get; private set; }
-        public string? Remark { get; private set; }
-        public DateTime? PaymentDate { get; private set; }
+        public string Reference { get; private set; }
+        public string? Remarks { get; private set; }
+        public DateTime? PaymentUtc { get; private set; }
 
-        public virtual Client Client { get; private set; }
+        public virtual Insured Insured { get; private set; }
         public virtual Product Product { get; private set; }
     }
 

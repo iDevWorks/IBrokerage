@@ -2,27 +2,29 @@
 {
     public class Underwriter
     {
+        #pragma warning disable CS8618
         public Underwriter() { }
+        #pragma warning restore CS8618
 
-        public Underwriter(string name, string address, string phone, string email)
+        public Underwriter(Broker broker, Insurer insurer, string apiKey1Username, string apiKey2Password)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(name);
-            ArgumentException.ThrowIfNullOrWhiteSpace(address);
-            ArgumentException.ThrowIfNullOrWhiteSpace(phone);
-            ArgumentException.ThrowIfNullOrWhiteSpace(email);
+            ArgumentNullException.ThrowIfNull(broker);
+            ArgumentNullException.ThrowIfNull(insurer);
+            ArgumentException.ThrowIfNullOrWhiteSpace(apiKey1Username);
+            ArgumentException.ThrowIfNullOrWhiteSpace(apiKey2Password);
 
-            Name = name;
-            Address = address;
-            Phone = phone;
-            Email = email;
+            Broker = broker;
+            Insurer = insurer;
+            ApiKey1Username = apiKey1Username;
+            ApiKey2Password = apiKey2Password;
         }
 
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string Address { get; private set; } 
-        public string Phone { get; private set; }
-        public string Email { get; private set; }
+        public string? MappedFields { get; private set; }
+        public string ApiKey1Username { get; private set; }
+        public string ApiKey2Password { get; private set; } 
 
-        public virtual ICollection<Policy> Policies { get; private set; }
+        public virtual Broker Broker { get; private set; }
+        public virtual Insurer Insurer { get; private set; }
+        //public virtual ICollection<Policy> Policies { get; private set; }
     }
 }

@@ -23,7 +23,7 @@ namespace Gibs.Portal.Pages.Admin
         public async Task<PageResult> OnGetAsync()
         {
             Policies = await _context.Policies
-                .Include(p => p.Client)
+                .Include(p => p.Insured)
                 .Include(p => p.Underwriter).ToListAsync();
 
             return Page();

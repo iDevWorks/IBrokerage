@@ -1,4 +1,4 @@
-﻿using Gibs.Portal.Domain.Entities;
+﻿using Gibs.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,9 +9,9 @@ namespace WebTutor.EntityFramework.Configuration
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Products")
-                   .HasKey(x => x.Id);
+                   .HasKey(x => x.ProductId);
 
-            builder.Property(x => x.Id).HasColumnName("Id");
+            builder.Property(x => x.ProductId).HasColumnName("Id");
             builder.Property(x => x.ClassId).HasColumnName("ClassId");
             builder.Property(x => x.MidClassId).HasColumnName("MidClassId");
             builder.Property(x => x.ProductName).HasColumnName("Name");

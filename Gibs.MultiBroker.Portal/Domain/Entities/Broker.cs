@@ -1,70 +1,29 @@
-﻿using System.Security.Cryptography;
-
+﻿
 namespace Gibs.Domain.Entities
 {
-    public class Broker
+    public class Broker : Person
     {
+        #pragma warning disable CS8618
         public Broker() { }
+        #pragma warning restore CS8618
 
-        public Broker(string email, string phone, string brokerName, string address, string password) 
+        public Broker(string brokerName, string registrationNo, string firstName, string lastName, string email, string phone, string password)
+          : base(GenerateBrokerId(brokerName), firstName, lastName, email, phone, password)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(email);
-            ArgumentException.ThrowIfNullOrWhiteSpace(phone);
-            ArgumentException.ThrowIfNullOrWhiteSpace(brokerName);
-            ArgumentException.ThrowIfNullOrWhiteSpace(address);
-            ArgumentException.ThrowIfNullOrWhiteSpace(password);
+            ArgumentException.ThrowIfNullOrEmpty(brokerName);
+            ArgumentException.ThrowIfNullOrEmpty(registrationNo);
 
-            Email = email;
-            Phone = phone;
             BrokerName = brokerName;
-            Address = address;
-            CreatedOn = DateTime.UtcNow;
-            Password = HashPassword(password);
+            RegistrationNo = registrationNo;
         }
 
-        public bool IsValidPassword(string password)
+        private static string GenerateBrokerId(string brokerName)
         {
-            string hashedPassword = HashPassword(password);
-
-            if (Password == hashedPassword) 
-                return true;
-
-            return false;
+            return brokerName.ToUpper().Trim().Replace(" ", "_");
         }
 
-        public void UpdatePassword(string oldPassword, string newPassword)
-        {
-            string hashedPassword = HashPassword(oldPassword);
-
-            if (Password == hashedPassword)
-            {
-                Password = HashPassword(newPassword);
-                return;
-            }
-
-            throw new Exception("Invalid old Password");
-        }
-
-        private static string HashPassword(string passwordToHash)
-        {
-            byte[] emptySalt = [];
-
-            var hash = Rfc2898DeriveBytes.Pbkdf2(
-                passwordToHash,
-                salt: emptySalt,
-                iterations: 500,
-                hashAlgorithm: HashAlgorithmName.SHA512,
-                outputLength: 64);
-            return Convert.ToHexString(hash);
-        }
-
-        public int Id { get; private set; }
-        public string Email { get; private set; }
-        public string Phone { get; private set; }
         public string BrokerName { get; private set; }
-        public string Address { get; private set; }
-        public string Password { get; private set; }
-        public DateTime CreatedOn { get; private set; }
-
+        public string RegistrationNo { get; private set; }
+        public KycInfo Kyc { get; private set; } = new();
     }
 }

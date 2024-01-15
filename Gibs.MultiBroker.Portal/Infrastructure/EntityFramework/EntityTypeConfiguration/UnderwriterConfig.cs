@@ -1,5 +1,4 @@
 ﻿using Gibs.Domain.Entities;
-using Gibs.Portal.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
