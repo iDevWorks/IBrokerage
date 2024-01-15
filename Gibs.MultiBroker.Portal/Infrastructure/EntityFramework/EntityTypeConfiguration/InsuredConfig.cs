@@ -1,15 +1,14 @@
 ﻿using Gibs.Domain.Entities;
-using iDevWorks.Paystack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace WebTutor.EntityFramework.Configuration
 {
-    class BrokerConfig : IEntityTypeConfiguration<Broker>
+    class InsuredConfig : IEntityTypeConfiguration<Insured>
     {
-        public void Configure(EntityTypeBuilder<Broker> builder)
+        public void Configure(EntityTypeBuilder<Insured> builder)
         {
-            builder.ToTable("Brokers")
+            builder.ToTable("Insureds")
                    .HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("Id");
@@ -22,9 +21,9 @@ namespace WebTutor.EntityFramework.Configuration
             builder.Property(x => x.Password).HasColumnName("Password");
             builder.Property(x => x.IsActive).HasColumnName("IsActive");
 
-            builder.Property(x => x.BrokerName).HasColumnName("BrokerName");
-            builder.Property(x => x.RegistrationNo).HasColumnName("RegistrationNo");
-
+            builder.Property(x => x.IsCorporate).HasColumnName("IsCorporate");
+            builder.Property(x => x.CompanyName).HasColumnName("CompanyName");
+            builder.Property(x => x.DateOfBirthOrReg).HasColumnName("DateOfBirthOrReg");
 
             builder.OwnsOne(x => x.Kyc, nb =>
             {
