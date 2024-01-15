@@ -1,6 +1,4 @@
-﻿using Gibs.Domain.Entities;
-
-namespace Gibs.Portal.Domain.Entities
+﻿namespace Gibs.Portal.Domain.Entities
 {
     public class Product
     {
@@ -23,7 +21,5 @@ namespace Gibs.Portal.Domain.Entities
         public string ProductName { get; private set; }
         public string ShortName { get; private set; }
         public string? NaiconTypeId { get; private set; }
-
-
     }
 }
