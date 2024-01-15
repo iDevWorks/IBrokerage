@@ -1,12 +1,12 @@
 ﻿using Gibs.Domain.Entities;
 
-namespace Gibs.Portal.Domain.Entities
+namespace Gibs.Domain.Entities
 {
     public class Vehicle
     {
         public Vehicle() { }
 
-        public Vehicle(Product product, string registrationNumber, string brand, string model, string color, int seats, TransmissionType transmission, DateTime purchaseDate)
+        public Vehicle(Product product, string registrationNumber, string brand, string model, string color, int seats, DateTime purchaseDate)
         {
             ArgumentNullException.ThrowIfNull(product);
             ArgumentException.ThrowIfNullOrWhiteSpace(registrationNumber);
@@ -20,7 +20,6 @@ namespace Gibs.Portal.Domain.Entities
             Model = model;
             Color = color;
             Seats = seats;
-            Transmission = transmission;
             PurchaseDate = purchaseDate;
         }
 
@@ -31,15 +30,8 @@ namespace Gibs.Portal.Domain.Entities
         public string Model { get; private set; }
         public string Color { get; private set; }
         public int Seats { get; private set; }
-        public TransmissionType Transmission { get; private set; }
         public DateTime PurchaseDate { get; private set; }
 
         public virtual Product Product { get; private set; }
-    }
-
-    public enum TransmissionType
-    {
-        Automatic,
-        Manual
     }
 }

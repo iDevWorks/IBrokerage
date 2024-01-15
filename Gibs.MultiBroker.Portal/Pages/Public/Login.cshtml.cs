@@ -10,7 +10,7 @@ using Gibs.Domain.Entities;
 
 namespace Gibs.Portal.Pages.Public
 {
-    public class LoginModel(ILogger<LoginModel> logger, BrokerContext context) : PageModel
+    public class LoginModel(BrokerContext context) : PageModel
     {
         [BindProperty, Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
@@ -21,38 +21,29 @@ namespace Gibs.Portal.Pages.Public
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid) return Page();
+
             try
             {
-                var broker = await AuthenticateBrokerAsync();
+                var broker = await context.Brokers.SingleOrDefaultAsync(
+                    b => b.Email == Email);
 
-                if (broker != null)
+                if (broker != null && broker.IsValidPassword(Password))
                 {
-                    await SignInBrokerAsync(broker);
+                    await SignInAsync(broker);
                     return RedirectToPage("../Dashboard");
                 }
 
-                throw new Exception("User details do not match. Please check login details.");
+                throw new Exception("Invalid Username or Password");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Exception in : {Message}", ex.Message);
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();
         }
 
-        private async Task<Broker?> AuthenticateBrokerAsync()
-        {
-            var broker = await context.Brokers.SingleOrDefaultAsync(
-                b => b.Email == Email);
-
-            if (broker != null && broker.IsValidPassword(Password))
-                return broker;
-
-            return null;
-        }
-
-        private Task SignInBrokerAsync(Broker broker)
+        private Task SignInAsync(Broker broker)
         {
             var claims = new List<Claim>
             {

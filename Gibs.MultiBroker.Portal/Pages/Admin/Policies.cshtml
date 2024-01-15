@@ -41,15 +41,15 @@
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
                         <td>@policy.PolicyNo</td>
-                        <td>@policy.Name</td>
+                        <td>@policy.InsuredName</td>
                         <td>@policy.Underwriter</td>
                         <td>@policy.GrossPremium</td>
-                        <td>@policy.CreatedDate.ToLocalTime().Date.ToShortDateString()</td>
+                        <td>@policy.CreatedUtc.ToLocalTime().Date.ToShortDateString()</td>
                         <td>@policy.EndDate.ToLocalTime().Date.ToShortDateString()</td>
                         <td class="d-flex gap-1">
                             <i class="bi bi-trash" data-bs-toggle="modal"
                                data-bs-target="#deletePolicy" data-id="@policy.PolicyNo" 
-                               data-policy-name="@policy.Name">
+                               data-policy-name="@policy.InsuredName">
                             </i>
                             <i class="bi bi-pencil-square"></i>
                         </td>

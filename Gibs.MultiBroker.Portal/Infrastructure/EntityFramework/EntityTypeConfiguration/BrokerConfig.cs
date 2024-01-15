@@ -12,13 +12,13 @@ namespace WebTutor.EntityFramework.Configuration
             builder.ToTable("Brokers")
                    .HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasColumnName("Id");
+            builder.Property(x => x.Id).HasColumnName("BrokerId");
             builder.Property(x => x.Email).HasColumnName("Email");
             builder.Property(x => x.Phone).HasColumnName("Phone");
             builder.Property(x => x.BrokerName).HasColumnName("Name");
             builder.Property(x => x.Address).HasColumnName("Address");
             builder.Property(x => x.Password).HasColumnName("Password");
-            builder.Property(x => x.CreatedOn).HasColumnName("CreatedOn");
+            builder.Property(x => x.CreatedUtc).HasColumnName("CreatedUtc");
         }
     }
 }
