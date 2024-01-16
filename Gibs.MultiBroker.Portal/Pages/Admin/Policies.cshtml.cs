@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gibs.Portal.Pages.Admin
 {
-    public class PolicyModel(BrokerContext context) : PageModel
+    public class PolicyModel(BrokerContext context) : AdminPageModel
     {
         private readonly BrokerContext _context = context;
 

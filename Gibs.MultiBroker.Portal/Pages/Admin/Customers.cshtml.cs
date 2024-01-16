@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages
 {
-    public class InsuredModel(BrokerContext context) : PageModel
+    public class InsuredModel(BrokerContext context) : AdminPageModel
     {
-        public List<Insured> Clients { get; set; } = [];
+        public List<Insured> Insureds { get; set; } = [];
 
         [BindProperty, Required]
         public string FirstName { get; set; } = string.Empty;
@@ -28,7 +28,7 @@ namespace Gibs.Portal.Pages
 
         public async Task<PageResult> OnGetAsync()
         {
-          // Insureds = await context.Insureds.Where(c => c.BrokerId == _currUserId).ToListAsync();
+          // Insureds = await context.Insureds.Where(c => c.BrokerI == _currUserId).ToListAsync();
             return Page();
         }
 
@@ -43,7 +43,7 @@ namespace Gibs.Portal.Pages
                     //if (clientExists)
                     //    throw new Exception("A client with this email already exists.");
 
-                    var client = new Customer(FirstName, LastName, Address, Email, PhoneNumber);
+                    var client = new Insured(false, "", DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, "password");
 
                     context.Insureds.Add(client);
                     await context.SaveChangesAsync();

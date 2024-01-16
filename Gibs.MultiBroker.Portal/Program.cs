@@ -28,7 +28,7 @@ namespace Gibs.Portal
             //                });
 
             // Use in-memory database for demo purposes;
-            builder.Services.AddDbContextPool<BrokerContext>(options =>
+            builder.Services.AddDbContext<BrokerContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbLocal")));
 
             //builder.Services.AddTransient<PaystackService>();

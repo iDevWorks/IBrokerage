@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Gibs.Portal.Pages.Admin
 {
-    public class ProductModel : PageModel
+    public class ProductModel : AdminPageModel
     {
         public void OnGet()
         {

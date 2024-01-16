@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages.Admin
 {
-    public class OrdersModel(BrokerContext context) : PageModel
+    public class OrdersModel(BrokerContext context) : AdminPageModel
     {
         private readonly BrokerContext _context = context;
 

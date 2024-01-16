@@ -30,17 +30,17 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Clients != null && Model.Clients.Count > 0)
+            @if (Model.Insureds != null && Model.Insureds.Count > 0)
             {
-                foreach (var client in Model.Clients)
+                foreach (var client in Model.Insureds)
                 {
                     var viewLink = Url.Page("View", new { id = client.Id });
                     <tr>
                         <td><input type="checkbox" class="form-check-input" /></td>
-                        <td>@client.FirstName @client.LastName</td>
+                        <td>@client.FullName</td>
                         <td>@client.Phone</td>
                         <td>@client.Email</td>
-                        <td>@client.Address</td>
+                        <td>@client.</td>
                         <td>@client.CreatedUtc.ToString("MMM dd yyyy")</td>
                         <td>
                             <div class="d-flex gap-3 py-3 fs-5">

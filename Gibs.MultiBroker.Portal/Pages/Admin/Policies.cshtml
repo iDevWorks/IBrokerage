@@ -45,7 +45,7 @@
                         <td>@policy.Underwriter</td>
                         <td>@policy.GrossPremium</td>
                         <td>@policy.CreatedUtc.ToLocalTime().Date.ToShortDateString()</td>
-                        <td>@policy.EndDate.ToLocalTime().Date.ToShortDateString()</td>
+                        <td>@policy.EndDate.ToShortDateString()</td>
                         <td class="d-flex gap-1">
                             <i class="bi bi-trash" data-bs-toggle="modal"
                                data-bs-target="#deletePolicy" data-id="@policy.PolicyNo" 

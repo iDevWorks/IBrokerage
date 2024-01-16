@@ -19,7 +19,7 @@ namespace Gibs.Portal.Pages
         public string LastName { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string Address { get; set; } = string.Empty;
+        public string RegistrationNo { get; set; } = string.Empty;
 
         [BindProperty, Required]
         [DataType(DataType.PhoneNumber)]
@@ -45,7 +45,8 @@ namespace Gibs.Portal.Pages
                     throw new Exception("A user with this email already exists");
 
                 var fullName = $"{FirstName} {LastName}";
-                var broker = new Broker(Email, PhoneNumber, fullName, Address, Password);
+
+                var broker = new Broker(fullName, RegistrationNo, FirstName, LastName, Email, PhoneNumber, Password);
                 context.Add(broker);
 
                 await context.SaveChangesAsync();

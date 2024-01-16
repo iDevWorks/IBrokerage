@@ -33,11 +33,11 @@
             {
                 foreach (var underWriter in Model.UnderWriters)
                 {
-                    <tr>
+                    @* <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
-                        <td>@underWriter.Name</td>
-                        <td>@underWriter.Phone</td>
-                        <td>@underWriter.Email</td>
+                        <td>@underWriter.Insurer.InsurerName</td>
+                        <td>@underWriter.Insurer.ph</td>
+                        <td>@underWriter.Insurer.E</td>
                         <td>@underWriter.Address</td>
                         <td class="d-flex gap-1">
                             <i class="bi bi-trash" data-bs-toggle="modal"
@@ -46,7 +46,7 @@
                             </i>
                             <i class="bi bi-pencil-square"></i>
                         </td>
-                    </tr>
+                    </tr> *@
                 }
             }
             else

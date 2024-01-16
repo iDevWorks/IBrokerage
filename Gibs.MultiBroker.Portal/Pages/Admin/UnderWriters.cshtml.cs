@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages.Admin
 {
-    public class UnderWritersModel(BrokerContext context) : PageModel
+    public class UnderWritersModel(BrokerContext context) : AdminPageModel
     {
         private readonly BrokerContext _context = context;
 
@@ -21,7 +21,7 @@ namespace Gibs.Portal.Pages.Admin
 
         public async Task<ActionResult> OnPostDeleteUnderWriter(string underwriterId)
         {
-            var underWriter = UnderWriters.SingleOrDefault(u => u.Id == underwriterId);
+            var underWriter = UnderWriters.SingleOrDefault(u => u.Insurer.InsurerId == underwriterId);
             if (underWriter != null)
             {
                 _context.Underwriters.Remove(underWriter);
