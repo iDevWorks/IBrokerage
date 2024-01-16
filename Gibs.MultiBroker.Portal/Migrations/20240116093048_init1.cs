@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Gibs.MultiBroker.Portal.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -205,12 +205,12 @@ namespace Gibs.MultiBroker.Portal.Migrations
             migrationBuilder.InsertData(
                 table: "Brokers",
                 columns: new[] { "Id", "BrokerName", "CreatedUtc", "Email", "FirstName", "IsActive", "LastName", "Password", "Phone", "RegistrationNo", "Title" },
-                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 15, 15, 47, 23, 923, DateTimeKind.Local).AddTicks(2633), "omomowosymeon45@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
+                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 16, 10, 30, 47, 712, DateTimeKind.Local).AddTicks(2203), "omomowosymeon45@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
 
             migrationBuilder.InsertData(
                 table: "Insurers",
                 columns: new[] { "InsurerId", "ApiAuthStyle", "CreatedUtc", "InsurerName", "IsActive", "NaicomId" },
-                values: new object[] { "001", 2, new DateTime(2024, 1, 15, 14, 47, 23, 924, DateTimeKind.Utc).AddTicks(2497), "cornerstone", true, "naicomId" });
+                values: new object[] { "001", 2, new DateTime(2024, 1, 16, 9, 30, 47, 713, DateTimeKind.Utc).AddTicks(7798), "cornerstone", true, "naicomId" });
 
             migrationBuilder.InsertData(
                 table: "Products",

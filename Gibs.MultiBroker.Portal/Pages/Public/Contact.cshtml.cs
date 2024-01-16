@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.MultiBroker.Portal.Pages.Public
 {
-    public class ContactModel(EmailService emailService, IOptions<SmtpSettings> smtpSettings) : PageModel
+    public class ContactModel(EmailService emailService, IOptions<SmtpOptions> smtpSettings) : PageModel
     {
-        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
+        private readonly SmtpOptions _smtpSettings = smtpSettings.Value;
 
         [BindProperty, EmailAddress]
         public string Sender { get; set; }

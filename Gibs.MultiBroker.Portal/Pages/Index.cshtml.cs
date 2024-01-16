@@ -8,9 +8,10 @@ namespace Gibs.Portal.Pages
         public ActionResult OnGet()
         {
             //can we handle invalid Tenets in the middleware and return string error?
+            //invalid Tenants can be routed to OUR own portal perhaps?
 
             if (Tenant.IsValid)
-                return RedirectToPage("/Admin/Dashboard");
+                return RedirectToPage("/Public/Index");
 
             //show error page
             return Page();

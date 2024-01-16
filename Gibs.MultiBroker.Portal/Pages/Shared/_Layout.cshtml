@@ -13,7 +13,9 @@
         </header>
 
         <ul class="sb-menu flex-column">
-            <li class="sb-group">ADMIN</li>
+            @if (User.IsInRole("broker"))
+            {
+            <li class="sb-group">BROKER</li>
             <li class="active">
                 <a href="/Admin/Dashboard">
                     <i class="bi bi-speedometer2"></i>
@@ -50,6 +52,9 @@
                     <span>Underwriters</span>
                 </a>
             </li>
+            }
+            else if (User.IsInRole("customer"))
+            {
             <li class="sb-group">CUSTOMER</li>
             <li class="active">
                 <a href="/Customer/Dashboard">
@@ -69,6 +74,9 @@
                     <span>Policies</span>
                 </a>
             </li>
+            }
+            else
+            {
             <li class="sb-group">PUBLIC</li>
             <li>
                 <a href="/Public/Products">
@@ -76,6 +84,7 @@
                     <span>Purchase</span>
                 </a>
             </li>
+            }
         </ul>
     </nav>
 
