@@ -19,10 +19,6 @@ namespace Gibs.Infrastructure.EntityFramework
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BrokerContext).Assembly);
 
-            modelBuilder.Entity<Broker>()
-                .HasOne(b => b.Kyc)  // Assuming 'Kyc' is the navigation property
-                .WithOne();
-
             modelBuilder.Entity<Broker>().HasData(
                 new Broker("Omomowo Reliance", "12345678", "Omomowo", "Reliance", "omomowosymeon45@gmail.com", "08095482981", "123456")
             );

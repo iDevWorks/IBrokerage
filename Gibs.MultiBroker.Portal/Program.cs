@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Gibs.Infrastructure.EntityFramework;
 using Gibs.Infrastructure.Email;
 using Gibs.Portal.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Gibs.Portal
 {
@@ -17,17 +18,16 @@ namespace Gibs.Portal
 
             builder.Services.AddHttpContextAccessor();
 
-            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //                .AddCookie(options =>
-            //                {
-            //                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-            //                    options.SlidingExpiration = true;
-            //                    options.AccessDeniedPath = "/Forbidden/";
-            //                    options.LoginPath = "/Index";
-            //                    options.Cookie.IsEssential = true;
-            //                });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                        options.SlidingExpiration = true;
+                        options.AccessDeniedPath = "/public/login/";
+                        options.LoginPath = "/public/login";
+                        options.Cookie.IsEssential = true;
+                    });
 
-            // Use in-memory database for demo purposes;
             builder.Services.AddDbContext<BrokerContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbLocal")));
 
@@ -41,8 +41,8 @@ namespace Gibs.Portal
             app.UseStaticFiles();
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapRazorPages();
             app.UseMultiTenant();

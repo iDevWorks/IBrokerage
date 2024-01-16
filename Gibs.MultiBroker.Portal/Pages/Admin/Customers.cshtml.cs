@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using System.ComponentModel.DataAnnotations;

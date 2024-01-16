@@ -7,28 +7,29 @@ using Gibs.Infrastructure.EntityFramework;
 
 namespace Gibs.Portal.Pages
 {
+    [BindProperties]
     public class RegisterModel(ILogger<RegisterModel> logger, BrokerContext context) : PageModel
     {
-        [BindProperty, Required]
+        [Required]
         public string Email { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public string FirstName { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public string LastName { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public string RegistrationNo { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public string Password { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         [Compare("Password", ErrorMessage = "The passwords do not match.")]
         public string ConfirmPassword { get; set; } = string.Empty;
 

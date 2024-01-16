@@ -7,9 +7,6 @@
 <div class="d-flex h-100 align-items-center justify-content-center">
     <main class="bg-white shadow p-3" style="width: 600px">
         <aside>
-
-        </aside>
-        <aside>
             <nav class="p-3">
                 <h4>@ViewData["Title"]</h4>
             </nav>
@@ -25,6 +22,20 @@
                         <div>
                             <label class="form-label" asp-for="Password">Pasword</label>
                             <input class="form-control" asp-for="Password" type="password" required />
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="form-check">
+                                <input asp-for="Role" class="form-check-input" type="radio"                 value="broker">
+                                <label asp-for="Role" class="form-check-label">
+                                    login as broker
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input asp-for="Role" class="form-check-input" type="radio"                 value="insured">
+                                <label asp-for="Role" class="form-check-label">
+                                    login as insured
+                                </label>
+                            </div>
                         </div>
                         <a asp-page="#">forgot password?</a>
                         <button type="submit" class="btn btn-primary">Login</button>
