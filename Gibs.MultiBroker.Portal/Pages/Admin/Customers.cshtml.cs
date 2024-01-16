@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
 {
@@ -23,15 +24,21 @@ namespace Gibs.Portal.Pages
         public string PhoneNumber { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string Address { get; set; } = string.Empty;
+        public string IsCorporate { get; set; }
+
+        [BindProperty]
+        public string CompanyName { get; set; } = string.Empty;
+
+        [BindProperty, Required]
+        public string Password { get; set; } = string.Empty;
 
         public async Task<PageResult> OnGetAsync()
         {
-          // Insureds = await context.Insureds.Where(c => c.BrokerI == _currUserId).ToListAsync();
+          Insureds = await context.Insureds.ToListAsync();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAddInsured()
         {
             try
             {
@@ -42,7 +49,16 @@ namespace Gibs.Portal.Pages
                     //if (clientExists)
                     //    throw new Exception("A client with this email already exists.");
 
-                    var client = new Insured(false, "", DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, "password");
+                    Insured client;
+
+                    if (IsCorporate == "true")
+                    {
+                        client = new Insured(true, CompanyName, DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, Password);
+                    }
+                    else
+                    {
+                        client = new Insured(false, "", DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, Password);
+                    }
 
                     context.Insureds.Add(client);
                     await context.SaveChangesAsync();

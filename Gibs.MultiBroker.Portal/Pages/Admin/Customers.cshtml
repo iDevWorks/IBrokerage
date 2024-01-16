@@ -24,7 +24,6 @@
                 <th>Customer Name</th>
                 <th>Phone</th>
                 <th>Email</th>
-                <th>Location</th>
                 <th>Created Date</th>
                 <th>Actions</th>
             </tr>
@@ -40,8 +39,7 @@
                         <td>@client.FullName</td>
                         <td>@client.Phone</td>
                         <td>@client.Email</td>
-                        <td>@client.</td>
-                        <td>@client.CreatedUtc.ToString("MMM dd yyyy")</td>
+                        <td>@client.CreatedUtc.ToString("MMM-dd-yyyy")</td>
                         <td>
                             <div class="d-flex gap-3 py-3 fs-5">
                                 <a href="@viewLink" class="text-muted" title="Edit Insured"><i class="bi bi-pencil-fill text-warning"></i></a>
@@ -69,12 +67,53 @@
             <input asp-label="Last Name" asp-for="@Model.LastName" type="text">
             <input asp-label="Phone Number" asp-for="@Model.PhoneNumber" type="tel">
             <input asp-label="Email" asp-for="@Model.Email" type="email">
-            <input asp-label="Address" asp-for="@Model.Address" type="text">
+            <div class="row mb-3 mt-3">
+                <label class="col-4 form-label" asp-for="IsCorporate">Is Corporate</label>
+                <div class="col-8">
+                    <div class="form-check d-inline-block pe-2">
+                        <input name="IsCorporate" id="true" class="form-check-input" type="radio" value="true" onchange="toggleCompanyNameVisibility();" checked>
+                        <label for="true" class="form-check-label">
+                            true
+                        </label>
+                    </div>
+                    <div class="form-check d-inline-block">
+                        <input name="IsCorporate" id="false" class="form-check-input" type="radio" value="false" onchange="toggleCompanyNameVisibility();">
+                        <label for="false" class="form-check-label">
+                            false
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <input asp-label="CompanyName" asp-for="@Model.CompanyName" type="Password">
+            <input asp-label="Password" asp-for="@Model.Password" type="Password">
+            
         </body>
         <footer>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" asp-page-handler="CreateTrainer">Create Customer</button>
+            <button type="submit" class="btn btn-primary" asp-page-handler="AddInsured">Create Customer</button>
         </footer>
     </modal>
 </form>
 
+
+
+
+@section Scripts{
+    <script>
+        function toggleCompanyNameVisibility() {
+            var isCorporate = document.querySelector('input[name="IsCorporate"]:checked').value;
+            var companyNameInput = document.getElementById('CompanyName');
+            var companyNameLabel = document.querySelector('label[for="CompanyName"]');
+
+            if (isCorporate === 'true') {
+                companyNameInput.style.display = 'block';
+                companyNameLabel.style.display = 'block';
+
+            } else {
+                companyNameInput.style.display = 'none';
+                companyNameLabel.style.display = 'none';
+            }
+        }
+        
+    </script>
+}

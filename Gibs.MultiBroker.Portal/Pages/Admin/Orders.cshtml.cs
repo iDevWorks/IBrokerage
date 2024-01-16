@@ -1,5 +1,6 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,5 +18,10 @@ namespace Gibs.Portal.Pages.Admin
 
             return Page();
         }
+
+        //public async Task<ActionResult> OnPost()
+        //{
+
+        //}
     }
 }

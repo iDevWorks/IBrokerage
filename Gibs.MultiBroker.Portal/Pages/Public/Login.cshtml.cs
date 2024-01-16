@@ -20,7 +20,7 @@ namespace Gibs.Portal.Pages.Public
         public string Password { get; set; } = string.Empty;
 
         [Required]
-        public string Role { get; set; }
+        public string Role { get; set; } = string.Empty;
 
 
         public async Task<IActionResult> OnPostAsync()
@@ -47,7 +47,7 @@ namespace Gibs.Portal.Pages.Public
                 if (insured != null && insured.IsValidPassword(Password))
                 {
                     await SignInAsync(insured, Role);
-                    return RedirectToPage("/Admin/Dashboard");
+                    return RedirectToPage("/Customer/Dashboard");
                 }
 
                 throw new Exception("Invalid Username or Password");
