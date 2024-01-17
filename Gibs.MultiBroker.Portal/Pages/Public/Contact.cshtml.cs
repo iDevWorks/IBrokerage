@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gibs.MultiBroker.Portal.Pages.Public
+namespace Gibs.Portal.Pages.Public
 {
     public class ContactModel(EmailService emailService, IOptions<SmtpOptions> smtpSettings) : PageModel
     {

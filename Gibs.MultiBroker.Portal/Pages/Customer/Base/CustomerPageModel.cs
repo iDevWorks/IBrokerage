@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Gibs.Portal.Pages
 {
-    [Authorize]
+    [Authorize(Roles = "customer")]
     public class CustomerPageModel : PageModel
     {
 

@@ -2,15 +2,14 @@ using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gibs.Portal.Pages.Admin
+namespace Gibs.Portal.Pages
 {
-    public class ProductModel(BrokerContext context) : AdminPageModel
+    public class ProductModel(BrokerContext context) : BrokerPageModel(context)
     {
-        private readonly BrokerContext _context = context;
-
         public List<Product> Products { get; set; } = [];
 
         [BindProperty, Required]
@@ -30,7 +29,17 @@ namespace Gibs.Portal.Pages.Admin
 
         public async Task<PageResult> OnGet()
         {
-            Products = await _context.Products.ToListAsync();
+            try
+            {
+                var broker = await GetCurrentBroker();
+
+                await context.Entry(broker).Collection(x => x.Products).LoadAsync();
+                Products = broker.Products.ToList();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
             return Page();
         }
 
@@ -40,16 +49,17 @@ namespace Gibs.Portal.Pages.Admin
             {
                 if (ModelState.IsValid)
                 {
-                    var productExists = Products.Any(p => p.ProductId == ProductId && p.ProductName == ProductName);
-
-                    if (productExists)
-                        throw new Exception("A product with this id and name already exists.");
+                    var broker = await GetCurrentBroker();
 
                     var product = new Product(ProductId, ClassId, MidClassId, ProductName, ShortName);
 
-                    _context.Products.Add(product);
-                    await _context.SaveChangesAsync();
+                    broker.Products.Add(product);
+                    await context.SaveChangesAsync();
                 }
+            }
+            catch (SqlException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
             catch (Exception ex)
             {

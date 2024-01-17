@@ -4,10 +4,11 @@ using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
 namespace Gibs.Portal.Pages
 {
-    public class InsuredModel(BrokerContext context) : AdminPageModel
+    public class InsuredModel(BrokerContext context) : BrokerPageModel(context)
     {
         public List<Insured> Insureds { get; set; } = [];
 
@@ -24,17 +25,36 @@ namespace Gibs.Portal.Pages
         public string PhoneNumber { get; set; } = string.Empty;
 
         [BindProperty, Required]
-        public string IsCorporate { get; set; }
+        public bool IsCorporate { get; set; }
 
         [BindProperty]
-        public string CompanyName { get; set; } = string.Empty;
+        public string? CompanyName { get; set; }
 
         [BindProperty, Required]
         public string Password { get; set; } = string.Empty;
 
+        [BindProperty, Required]
+        public DateOnly DateOfBirth { get; set; }
+
+
         public async Task<PageResult> OnGetAsync()
         {
-          Insureds = await context.Insureds.ToListAsync();
+            //var broker = await context.Brokers
+            //      .Include(x => x.Insureds)
+            //      .Where(x => x.Id == BrokerId)
+            //      //.SelectMany(x => x.Insureds)
+            //      .SingleOrDefaultAsync();
+            try
+            {
+                var broker = await GetCurrentBroker();
+
+                await context.Entry(broker).Collection(x => x.Insureds).LoadAsync();
+                Insureds = broker.Insureds.ToList();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
             return Page();
         }
 
@@ -44,25 +64,17 @@ namespace Gibs.Portal.Pages
             {
                 if (ModelState.IsValid)
                 {
-                    //var clientExists = await Insureds.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
+                    var broker = await GetCurrentBroker();
 
-                    //if (clientExists)
-                    //    throw new Exception("A client with this email already exists.");
+                    var client = new Insured(IsCorporate, CompanyName, DateOfBirth, FirstName, LastName, Email, PhoneNumber, Password);
 
-                    Insured client;
-
-                    if (IsCorporate == "true")
-                    {
-                        client = new Insured(true, CompanyName, DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, Password);
-                    }
-                    else
-                    {
-                        client = new Insured(false, CompanyName, DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, Password);
-                    }
-
-                    context.Insureds.Add(client);
+                    broker.Insureds.Add(client);
                     await context.SaveChangesAsync();
                 }
+            }
+            catch (SqlException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
             catch (Exception ex)
             {

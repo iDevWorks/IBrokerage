@@ -25,7 +25,7 @@ namespace Gibs.Portal
                     });
 
             builder.Services.AddDbContext<BrokerContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDb")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbLocal")));
 
             builder.Services.AddRazorPages();
             builder.Services.AddHttpClient();

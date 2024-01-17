@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Gibs.MultiBroker.Portal.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,33 +40,6 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Insureds",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsCorporate = table.Column<bool>(type: "bit", nullable: false),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirthOrReg = table.Column<DateOnly>(type: "date", nullable: false),
-                    KycType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    KycNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IssueDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    ExpiryDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Insureds", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Insurers",
                 columns: table => new
                 {
@@ -83,6 +56,39 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Insureds",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsCorporate = table.Column<bool>(type: "bit", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirthOrReg = table.Column<DateOnly>(type: "date", nullable: false),
+                    KycType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KycNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IssueDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    ExpiryDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Insureds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Insureds_Brokers_BrokerId",
+                        column: x => x.BrokerId,
+                        principalTable: "Brokers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -91,11 +97,17 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     MidClassId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NaiconTypeId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    NaiconTypeId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Brokers_BrokerId",
+                        column: x => x.BrokerId,
+                        principalTable: "Brokers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -139,11 +151,17 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     Remark = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PaymentUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     InsuredId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Brokers_BrokerId",
+                        column: x => x.BrokerId,
+                        principalTable: "Brokers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Insureds_InsuredId",
                         column: x => x.InsuredId,
@@ -179,11 +197,17 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     Commision = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     InsuredId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UnderwriterMappedFields = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UnderwriterMappedFields = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Policies", x => x.PolicyNo);
+                    table.ForeignKey(
+                        name: "FK_Policies_Brokers_BrokerId",
+                        column: x => x.BrokerId,
+                        principalTable: "Brokers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Policies_Insureds_InsuredId",
                         column: x => x.InsuredId,
@@ -205,21 +229,32 @@ namespace Gibs.MultiBroker.Portal.Migrations
             migrationBuilder.InsertData(
                 table: "Brokers",
                 columns: new[] { "Id", "BrokerName", "CreatedUtc", "Email", "FirstName", "IsActive", "LastName", "Password", "Phone", "RegistrationNo", "Title" },
-                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 16, 10, 30, 47, 712, DateTimeKind.Local).AddTicks(2203), "omomowosymeon45@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
+                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 17, 12, 35, 6, 596, DateTimeKind.Local).AddTicks(6367), "omo@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
 
             migrationBuilder.InsertData(
                 table: "Insurers",
                 columns: new[] { "InsurerId", "ApiAuthStyle", "CreatedUtc", "InsurerName", "IsActive", "NaicomId" },
-                values: new object[] { "001", 2, new DateTime(2024, 1, 16, 9, 30, 47, 713, DateTimeKind.Utc).AddTicks(7798), "cornerstone", true, "naicomId" });
+                values: new object[] { "CORNERSTONE", 1, new DateTime(2024, 1, 17, 11, 35, 6, 597, DateTimeKind.Utc).AddTicks(6474), "Cornerstone Insurance", true, "naicomId" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "ClassId", "MidClassId", "NaiconTypeId", "Name", "ShortName" },
+                columns: new[] { "Id", "BrokerId", "ClassId", "MidClassId", "NaiconTypeId", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { "1001", "classId", "", null, "third-party-insurance", "shortname" },
-                    { "1002", "classId1", "", null, "third-party-insurance-2", "shortname2" }
+                    { "1001", null, "V", null, null, "Third Party Motor", "Third Party" },
+                    { "1002", null, "V", null, null, "Comprehensive Motor", "Comprehensive" },
+                    { "2002", null, "A", null, null, "Home Insurance", "Home" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Insureds_BrokerId",
+                table: "Insureds",
+                column: "BrokerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_BrokerId",
+                table: "Orders",
+                column: "BrokerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_InsuredId",
@@ -230,6 +265,11 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 name: "IX_Orders_ProductId",
                 table: "Orders",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Policies_BrokerId",
+                table: "Policies",
+                column: "BrokerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Policies_InsuredId",
@@ -245,6 +285,11 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 name: "IX_Policies_UnderwriterMappedFields",
                 table: "Policies",
                 column: "UnderwriterMappedFields");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_BrokerId",
+                table: "Products",
+                column: "BrokerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Underwriters_BrokerId",

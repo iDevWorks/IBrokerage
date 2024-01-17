@@ -1,5 +1,5 @@
 ﻿@page
-@model Gibs.Portal.Pages.Admin.PolicyModel
+@model PolicyModel
 
 @{
     ViewData["Title"] = "Policies";
@@ -24,12 +24,13 @@
         <thead>
             <tr>
                 <th><input type="checkbox" class="form-check-input" /></th>
-                <th>Id</th>
-                <th>Policy Name</th>
-                <th>Issuing Company</th>
-                <th>Premium Amount</th>
+                <th>Policy No</th>
+                <th>Created Date</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Insured</th>
+                <th>Status</th>
+                <th>Gross Premium</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -41,11 +42,12 @@
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
                         <td>@policy.PolicyNo</td>
-                        <td>@policy.InsuredName</td>
-                        <td>@policy.Underwriter</td>
-                        <td>@policy.GrossPremium</td>
                         <td>@policy.CreatedUtc.ToLocalTime().Date.ToShortDateString()</td>
-                        <td>@policy.EndDate.ToShortDateString()</td>
+                        <td>@policy.StartDate</td>
+                        <td>@policy.EndDate</td>
+                        <td>@policy.InsuredName</td>
+                        <td>@policy.Status</td>
+                        <td>@policy.GrossPremium</td>
                         <td class="d-flex gap-1">
                             <i class="bi bi-trash" data-bs-toggle="modal"
                                data-bs-target="#deletePolicy" data-id="@policy.PolicyNo" 
@@ -71,8 +73,22 @@
     <modal id="addPolicyModal">
         <header title="Create new Policy"></header>
         <body>
-            <input asp-label="Product Name" asp-for="@Model.ProductName" type="text">
-            <input asp-label="Insured Name" asp-for="@Model.InsuredName" type="text">
+            <div class="row mb-3 mt-3">
+                <label class="col-4 form-label" asp-for="@Model.ProductId">Select Product</label>
+                <div class="col-8">
+                    <select class="form-select" asp-for="@Model.ProductId" asp-items="@Model.Products">
+                        <option value="">Select product for this policy.</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3 mt-3">
+                <label class="col-4 form-label" asp-for="@Model.InsuredId">Select Insured</label>
+                <div class="col-8">
+                    <select class="form-select" asp-for="@Model.InsuredId" asp-items="@Model.Insureds">
+                        <option value="">Select client for this policy.</option>
+                    </select>
+                </div>
+            </div>
             <input asp-label="Policy Number" asp-for="@Model.PolicyNo" type="text">
             <input asp-label="Start Date" asp-for="@Model.StartDate" type="date">
             <input asp-label="End Date" asp-for="@Model.EndDate" type="date">

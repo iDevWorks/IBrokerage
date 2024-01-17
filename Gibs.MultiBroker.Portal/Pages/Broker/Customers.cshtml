@@ -24,6 +24,7 @@
                 <th>Customer Name</th>
                 <th>Phone</th>
                 <th>Email</th>
+                <th>Date of Birth</th>
                 <th>Created Date</th>
                 <th>Actions</th>
             </tr>
@@ -39,6 +40,7 @@
                         <td>@client.FullName</td>
                         <td>@client.Phone</td>
                         <td>@client.Email</td>
+                        <td>@client.DateOfBirthOrReg</td>
                         <td>@client.CreatedUtc.ToString("MMM-dd-yyyy")</td>
                         <td>
                             <div class="d-flex gap-3 py-3 fs-5">
@@ -84,7 +86,8 @@
                     </div>
                 </div>
             </div>
-            <input asp-label="CompanyName" asp-for="@Model.CompanyName" type="Password">
+            <input asp-label="Company Name" asp-for="@Model.CompanyName" type="text">
+            <input asp-label="Date of Birth" asp-for="@Model.DateOfBirth" value="1900-01-01" type="date">
             <input asp-label="Password" asp-for="@Model.Password" type="Password">
             
         </body>

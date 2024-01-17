@@ -35,19 +35,19 @@ namespace Gibs.Portal.Pages.Public
                     {
                         var principal = broker.AsPrincipal("broker");
                         await HttpContext.SignInAsync(principal);
-                        return RedirectToPage("/Admin/Dashboard");
+                        return RedirectToPage("/Broker/Dashboard");
                     }
                 }
 
-                var insured = await context.Insureds.SingleOrDefaultAsync(
-                    b => b.Email == Email);
+                //var insured = await context.Insureds.SingleOrDefaultAsync(
+                //    b => b.Email == Email);
 
-                if (insured != null && insured.IsValidPassword(Password))
-                {
-                    var principal = insured.AsPrincipal("customer");
-                    await HttpContext.SignInAsync(principal);
-                    return RedirectToPage("/Customer/Dashboard");
-                }
+                //if (insured != null && insured.IsValidPassword(Password))
+                //{
+                //    var principal = insured.AsPrincipal("customer");
+                //    await HttpContext.SignInAsync(principal);
+                //    return RedirectToPage("/Customer/Dashboard");
+                //}
 
                 throw new Exception("Invalid Username or Password");
             }

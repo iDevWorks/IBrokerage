@@ -47,7 +47,7 @@ namespace Gibs.Portal.Pages
 
                 var fullName = $"{FirstName} {LastName}";
 
-                var broker = new Broker(fullName, RegistrationNo, FirstName, LastName, Email, PhoneNumber, Password);
+                var broker = new Domain.Entities.Broker(fullName, RegistrationNo, FirstName, LastName, Email, PhoneNumber, Password);
                 context.Add(broker);
 
                 await context.SaveChangesAsync();

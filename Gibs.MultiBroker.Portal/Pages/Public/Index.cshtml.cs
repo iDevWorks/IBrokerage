@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Gibs.MultiBroker.Portal.Pages.Public
+namespace Gibs.Portal.Pages.Public
 {
     public class IndexModel : PageModel
     {

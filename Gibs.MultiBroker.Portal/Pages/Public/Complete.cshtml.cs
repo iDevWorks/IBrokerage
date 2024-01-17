@@ -14,17 +14,17 @@ namespace Gibs.Portal.Pages.Public
         {
             try
             {
-                var order = await context.Orders
-                        .Where(o => o.Reference == reference)
-                        .SingleOrDefaultAsync()
-                    ?? throw new InvalidOperationException("Wrong payment reference");
+                //var order = await context.Orders
+                //        .Where(o => o.Reference == reference)
+                //        .SingleOrDefaultAsync()
+                //    ?? throw new InvalidOperationException("Wrong payment reference");
 
-                Transaction = await paystack.VerifyTransaction(reference);
+                //Transaction = await paystack.VerifyTransaction(reference);
                 
-                if (Transaction.Status == "success")
-                    order.PaymentSuccess(Transaction.RequestedAmount);
-                else
-                    order.PaymentFailed(Transaction.GatewayResponse);
+                //if (Transaction.Status == "success")
+                //    order.PaymentSuccess(Transaction.RequestedAmount);
+                //else
+                //    order.PaymentFailed(Transaction.GatewayResponse);
 
                 await context.SaveChangesAsync();
             }
