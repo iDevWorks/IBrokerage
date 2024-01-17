@@ -132,6 +132,27 @@
                     <partial name="BreadCrumb" />
                 </nav>
             </header>
+
+            @if (ViewContext.TempData["ShowInfo"] != null)
+            {
+                <div class="alert alert-success d-flex">
+                    <i class="bi bi-info-circle-fill px-4 display-6"></i>
+                    <div class="m-auto">
+                        @ViewContext.TempData["ShowInfo"]
+                    </div>
+                </div>
+            }
+
+            @if (!ViewContext.ModelState.IsValid)
+            {
+                <div class="alert alert-danger d-flex">
+                    <i class="bi bi-exclamation-triangle-fill px-4 display-6"></i>
+                    <div class="m-auto">
+                        <div class="text-danger" asp-validation-summary="All"></div>
+                    </div>
+                </div>
+            }
+
             <div class="text-danger" asp-validation-summary="All"></div>
             @RenderBody()
         </section>
