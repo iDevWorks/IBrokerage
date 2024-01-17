@@ -4,9 +4,9 @@ using System.Net;
 
 namespace Gibs.Infrastructure.Email
 {
-    public class EmailService(IOptions<SmtpSettings> smtpSettings)
+    public class EmailService(IOptions<SmtpOptions> smtpSettings)
     {
-        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
+        private readonly SmtpOptions _smtpSettings = smtpSettings.Value;
 
         public Task SendEmailAsync(string senderEmail, string subject, string htmlMessage)
         {
@@ -14,7 +14,7 @@ namespace Gibs.Infrastructure.Email
             {
                 Host = _smtpSettings.Host,
                 Port = _smtpSettings.Port,
-                Credentials = new NetworkCredential(_smtpSettings.UserName, _smtpSettings.Password),
+                Credentials = new NetworkCredential(_smtpSettings.Username, _smtpSettings.Password),
                 EnableSsl = true,
             };
 

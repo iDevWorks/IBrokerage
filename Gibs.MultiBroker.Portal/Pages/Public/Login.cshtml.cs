@@ -1,12 +1,10 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Gibs.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
-using Gibs.Infrastructure.EntityFramework;
-using Gibs.Domain.Entities;
+using System.Security.Claims;
 
 namespace Gibs.Portal.Pages.Public
 {
@@ -22,7 +20,6 @@ namespace Gibs.Portal.Pages.Public
         [Required]
         public string Role { get; set; } = string.Empty;
 
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
@@ -36,7 +33,8 @@ namespace Gibs.Portal.Pages.Public
 
                     if (broker != null && broker.IsValidPassword(Password))
                     {
-                        await SignInAsync(broker, Role);
+                        var principal = broker.AsPrincipal("broker");
+                        await HttpContext.SignInAsync(principal);
                         return RedirectToPage("/Admin/Dashboard");
                     }
                 }
@@ -46,7 +44,8 @@ namespace Gibs.Portal.Pages.Public
 
                 if (insured != null && insured.IsValidPassword(Password))
                 {
-                    await SignInAsync(insured, Role);
+                    var principal = insured.AsPrincipal("customer");
+                    await HttpContext.SignInAsync(principal);
                     return RedirectToPage("/Customer/Dashboard");
                 }
 
@@ -57,21 +56,6 @@ namespace Gibs.Portal.Pages.Public
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();
-        }
-
-        private Task SignInAsync(Person user, string role)
-        {
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.Role, role)
-            };
-
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
         }
     }
 }

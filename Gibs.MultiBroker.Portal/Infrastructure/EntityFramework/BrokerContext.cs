@@ -20,16 +20,17 @@ namespace Gibs.Infrastructure.EntityFramework
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BrokerContext).Assembly);
 
             modelBuilder.Entity<Broker>().HasData(
-                new Broker("Omomowo Reliance", "12345678", "Omomowo", "Reliance", "omomowosymeon45@gmail.com", "08095482981", "123456")
+                new Broker("Omomowo Reliance", "12345678", "Omomowo", "Reliance", "omo@gmail.com", "08095482981", "123456")
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product("1001", "classId", "", "third-party-insurance", "shortname"),
-                new Product("1002", "classId1", "", "third-party-insurance-2", "shortname2")
+                new Product("1001", "V", null, "Third Party Motor", "Third Party"),
+                new Product("1002", "V", null, "Comprehensive Motor", "Comprehensive"),
+                new Product("2002", "A", null, "Home Insurance", "Home")
             );
 
             modelBuilder.Entity<Insurer>().HasData(
-                new Insurer("001", "cornerstone", ApiAuthEnum.QUERY_STRING, "naicomId")
+                new Insurer("CORNERSTONE", "Cornerstone Insurance", ApiAuthEnum.JSON_WEB_TOKEN, "naicomId")
             );
 
             base.OnModelCreating(modelBuilder);

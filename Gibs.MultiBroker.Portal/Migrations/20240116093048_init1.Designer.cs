@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gibs.MultiBroker.Portal.Migrations
 {
     [DbContext(typeof(BrokerContext))]
-    [Migration("20240115144725_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240116093048_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,7 +87,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             Id = "OMOMOWO_RELIANCE",
                             BrokerName = "Omomowo Reliance",
-                            CreatedUtc = new DateTime(2024, 1, 15, 15, 47, 23, 923, DateTimeKind.Local).AddTicks(2633),
+                            CreatedUtc = new DateTime(2024, 1, 16, 10, 30, 47, 712, DateTimeKind.Local).AddTicks(2203),
                             Email = "omomowosymeon45@gmail.com",
                             FirstName = "Omomowo",
                             IsActive = false,
@@ -195,7 +195,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             InsurerId = "001",
                             ApiAuthStyle = 2,
-                            CreatedUtc = new DateTime(2024, 1, 15, 14, 47, 23, 924, DateTimeKind.Utc).AddTicks(2497),
+                            CreatedUtc = new DateTime(2024, 1, 16, 9, 30, 47, 713, DateTimeKind.Utc).AddTicks(7798),
                             InsurerName = "cornerstone",
                             IsActive = true,
                             NaicomId = "naicomId"
