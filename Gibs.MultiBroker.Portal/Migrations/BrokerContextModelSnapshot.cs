@@ -84,7 +84,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             Id = "OMOMOWO_RELIANCE",
                             BrokerName = "Omomowo Reliance",
-                            CreatedUtc = new DateTime(2024, 1, 17, 12, 35, 6, 596, DateTimeKind.Local).AddTicks(6367),
+                            CreatedUtc = new DateTime(2024, 1, 17, 15, 56, 10, 554, DateTimeKind.Local).AddTicks(2604),
                             Email = "omo@gmail.com",
                             FirstName = "Omomowo",
                             IsActive = false,
@@ -197,7 +197,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             InsurerId = "CORNERSTONE",
                             ApiAuthStyle = 1,
-                            CreatedUtc = new DateTime(2024, 1, 17, 11, 35, 6, 597, DateTimeKind.Utc).AddTicks(6474),
+                            CreatedUtc = new DateTime(2024, 1, 17, 14, 56, 10, 555, DateTimeKind.Utc).AddTicks(9330),
                             InsurerName = "Cornerstone Insurance",
                             IsActive = true,
                             NaicomId = "naicomId"
@@ -324,6 +324,9 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
@@ -352,6 +355,8 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     b.HasIndex("BrokerId");
 
                     b.HasIndex("InsuredId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -439,7 +444,6 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .HasColumnName("ApiKey2Password");
 
                     b.Property<string>("BrokerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("InsurerId")
@@ -569,6 +573,10 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Gibs.Domain.Entities.Order", null)
+                        .WithMany("Policies")
+                        .HasForeignKey("OrderId");
+
                     b.HasOne("Gibs.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
@@ -593,19 +601,15 @@ namespace Gibs.MultiBroker.Portal.Migrations
 
             modelBuilder.Entity("Gibs.Domain.Entities.Underwriter", b =>
                 {
-                    b.HasOne("Gibs.Domain.Entities.Broker", "Broker")
+                    b.HasOne("Gibs.Domain.Entities.Broker", null)
                         .WithMany("Underwriters")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrokerId");
 
                     b.HasOne("Gibs.Domain.Entities.Insurer", "Insurer")
                         .WithMany()
                         .HasForeignKey("InsurerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Broker");
 
                     b.Navigation("Insurer");
                 });
@@ -621,6 +625,11 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     b.Navigation("Products");
 
                     b.Navigation("Underwriters");
+                });
+
+            modelBuilder.Entity("Gibs.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Policies");
                 });
 #pragma warning restore 612, 618
         }

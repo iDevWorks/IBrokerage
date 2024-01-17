@@ -6,13 +6,18 @@
         public Order() { }
         #pragma warning restore CS8618
 
-        public Order(Product product, Insured client, string transReference, decimal totalAmount)
+        public Order(ICollection<Policy> policies, Product product, Insured client, string transReference, decimal totalAmount)
         {
             ArgumentNullException.ThrowIfNull(product);
             ArgumentNullException.ThrowIfNull(client);
             ArgumentException.ThrowIfNullOrWhiteSpace(transReference);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalAmount);
+            if(policies == null || policies.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(policies));
+            }
 
+            Policies = policies;
             Reference = transReference;
             Insured = client;
             Product = product;
@@ -20,6 +25,7 @@
             TotalAmount = totalAmount;
             PaymentStatus = OrderStatus.PENDING;
             PaymentMethod = "PAYSTACK";
+            
         }
 
         public void PaymentFailed(string errorMessage)
@@ -49,6 +55,7 @@
 
         public virtual Insured Insured { get; private set; }
         public virtual Product Product { get; private set; }
+        public virtual ICollection<Policy> Policies { get; private set; }
     }
 
     public enum OrderStatus

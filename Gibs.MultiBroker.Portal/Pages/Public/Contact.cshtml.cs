@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages.Public
 {
-    public class ContactModel(EmailService emailService, IOptions<SmtpOptions> smtpSettings) : PageModel
+    public class ContactModel(EmailService emailService, IOptions<SmtpOptions> smtpSettings) : RootPageModel
     {
         private readonly SmtpOptions _smtpSettings = smtpSettings.Value;
 
@@ -38,7 +38,7 @@ namespace Gibs.Portal.Pages.Public
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
 

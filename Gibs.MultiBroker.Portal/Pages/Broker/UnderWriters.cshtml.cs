@@ -15,10 +15,10 @@ namespace Gibs.Portal.Pages
     {
         public List<Underwriter> UnderWriters { get; set; } = [];
 
-        public List<SelectListItem> Insurers { get; set; } 
+        public List<SelectListItem> InsurersSelectList { get; set; } 
 
         [BindProperty, Required]
-        public string SelectedInsurerId { get; set; }
+        public string InsurerId { get; set; }
 
         [BindProperty,Required]
         public string ApiKeyUsername { get; set; }
@@ -33,22 +33,22 @@ namespace Gibs.Portal.Pages
                 var broker = await GetCurrentBroker();
 
                 await context.Entry(broker).Collection(x => x.Underwriters).LoadAsync();
-                await context.Entry(broker).Collection(x => x.Insurers).LoadAsync();
 
-                var insurers = broker.Insurers.ToList();
+                // var insurers = await context.Insurers.ToListAsync();
 
                 // Load the list of available insurers into the Insurers property
-                Insurers = insurers.Select(i => new SelectListItem
+                InsurersSelectList = await context.Insurers
+                    .Select(i => new SelectListItem
                 {
                     Value = i.InsurerId,
                     Text = i.InsurerName
-                }).ToList();
+                }).ToListAsync();
 
                 UnderWriters = broker.Underwriters.ToList();
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }
@@ -61,21 +61,23 @@ namespace Gibs.Portal.Pages
                 {
                     var broker = await GetCurrentBroker();
 
-                    var insurer = broker.Insurers.SingleOrDefault(i => i.InsurerId == SelectedInsurerId);
+                    var insurer = await context.Insurers.FindAsync(InsurerId) 
+                        ?? throw new Exception("invalid insurer id.");
 
-                    var underwriter = new Underwriter(broker, insurer, ApiKeyUsername, ApiKeyPassword);
+                    var underwriter = new Underwriter(insurer, ApiKeyUsername, ApiKeyPassword);
 
                     broker.Underwriters.Add(underwriter);
                     await context.SaveChangesAsync();
+                    ShowInfo("the underwriter was added successfully.");
                 }
             }
             catch (SqlException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return RedirectToPage();
         }

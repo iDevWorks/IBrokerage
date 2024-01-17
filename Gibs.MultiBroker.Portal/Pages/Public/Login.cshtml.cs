@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace Gibs.Portal.Pages.Public
 {
     [BindProperties]
-    public class LoginModel(BrokerContext context) : PageModel
+    public class LoginModel(BrokerContext context) : RootPageModel
     {
         [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
@@ -53,7 +53,7 @@ namespace Gibs.Portal.Pages.Public
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }

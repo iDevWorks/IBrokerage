@@ -65,21 +65,17 @@
     <modal id="addModal">
         <header title="Create new Customer"></header>
         <body>
-            <input asp-label="First Name" asp-for="@Model.FirstName" type="text">
-            <input asp-label="Last Name" asp-for="@Model.LastName" type="text">
-            <input asp-label="Phone Number" asp-for="@Model.PhoneNumber" type="tel">
-            <input asp-label="Email" asp-for="@Model.Email" type="email">
             <div class="row mb-3 mt-3">
                 <label class="col-4 form-label" asp-for="IsCorporate">Is Corporate</label>
                 <div class="col-8">
                     <div class="form-check d-inline-block pe-2">
-                        <input name="IsCorporate" id="true" class="form-check-input" type="radio" value="true" onchange="toggleCompanyNameVisibility();" checked>
+                        <input name="IsCorporate" id="true" class="form-check-input" type="radio" value="true" onchange="toggleCompanyNameVisibility();" >
                         <label for="true" class="form-check-label">
                             true
                         </label>
                     </div>
                     <div class="form-check d-inline-block">
-                        <input name="IsCorporate" id="false" class="form-check-input" type="radio" value="false" onchange="toggleCompanyNameVisibility();">
+                        <input name="IsCorporate" id="false" class="form-check-input" type="radio" value="false" onchange="toggleCompanyNameVisibility();" checked>
                         <label for="false" class="form-check-label">
                             false
                         </label>
@@ -87,9 +83,11 @@
                 </div>
             </div>
             <input asp-label="Company Name" asp-for="@Model.CompanyName" type="text">
+            <input asp-label="First Name" asp-for="@Model.FirstName" type="text">
+            <input asp-label="Last Name" asp-for="@Model.LastName" type="text">
+            <input asp-label="Phone Number" asp-for="@Model.PhoneNumber" type="tel">
+            <input asp-label="Email" asp-for="@Model.Email" type="email">
             <input asp-label="Date of Birth" asp-for="@Model.DateOfBirth" value="1900-01-01" type="date">
-            <input asp-label="Password" asp-for="@Model.Password" type="Password">
-            
         </body>
         <footer>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -117,6 +115,5 @@
                 companyNameLabel.style.display = 'none';
             }
         }
-        
     </script>
 }

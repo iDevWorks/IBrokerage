@@ -13,7 +13,7 @@
             </div>
         </left>
         <right>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-circle-fill me-2"></i> Add Customer</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-circle-fill me-2"></i> Add Underwriter</button>
             <button class="btn btn-outline-secondary">Export</button>
         </right>
     </top-bar>
@@ -53,7 +53,7 @@
             else
             {
                 <tr>
-                    <td colspan="6" class="text-center">No items to show</td>
+                    <td colspan="9" class="text-center">No items to show</td>
                 </tr>
             }
         </tbody>
@@ -62,22 +62,22 @@
 
 
 
-<!-- Delete UnderWriter -->
-<div class="modal fade" id="deleteUnderWriter" data-bs-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="deleteUnderWriterModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteUnderWriterModalLabel">Delete Underwriter -<span id="underWriterName"></span></h5>
+<form method="post">
+    <modal id="addModal">
+        <header title="Create new Policy"></header>
+        <body>
+            <div class="row mb-3 mt-3">
+                <label class="col-4 form-label" asp-for="@Model.InsurerId">Insurer</label>
+                <div class="col-8">
+                    <select class="form-select" asp-items="@Model.InsurersSelectList" asp-for="@Model.InsurerId"></select>
+                </div>
             </div>
-            <div class="modal-body">
-                <form method="post" class="d-flex flex-column gap-3" asp-page-handler="DeleteUnderWriter">
-                    <input type="hidden" name="underWriterId" id="deleteUnderWriterId" />
-                    <div class="mt-1 d-flex align-items-center gap-1">
-                        <button type="submit" class="btn btn-danger">delete</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+            <input asp-label="ApiKeyUsername" asp-for="ApiKeyUsername" type="text">
+            <input asp-label="ApiKeyPassword" asp-for="ApiKeyPassword" type="text">
+        </body>
+        <footer>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" asp-page-handler="AddUnderwriter">Create Policy</button>
+        </footer>
+    </modal>
+</form>

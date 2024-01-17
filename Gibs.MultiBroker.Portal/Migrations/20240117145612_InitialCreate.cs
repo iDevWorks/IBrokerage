@@ -117,8 +117,8 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     MappedFields = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ApiKey1Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApiKey2Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    InsurerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    InsurerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -127,8 +127,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         name: "FK_Underwriters_Brokers_BrokerId",
                         column: x => x.BrokerId,
                         principalTable: "Brokers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Underwriters_Insurers_InsurerId",
                         column: x => x.InsurerId,
@@ -198,7 +197,8 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     InsuredId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UnderwriterMappedFields = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -215,6 +215,11 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Policies_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Policies_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
@@ -229,12 +234,12 @@ namespace Gibs.MultiBroker.Portal.Migrations
             migrationBuilder.InsertData(
                 table: "Brokers",
                 columns: new[] { "Id", "BrokerName", "CreatedUtc", "Email", "FirstName", "IsActive", "LastName", "Password", "Phone", "RegistrationNo", "Title" },
-                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 17, 12, 35, 6, 596, DateTimeKind.Local).AddTicks(6367), "omo@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
+                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 17, 15, 56, 10, 554, DateTimeKind.Local).AddTicks(2604), "omo@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
 
             migrationBuilder.InsertData(
                 table: "Insurers",
                 columns: new[] { "InsurerId", "ApiAuthStyle", "CreatedUtc", "InsurerName", "IsActive", "NaicomId" },
-                values: new object[] { "CORNERSTONE", 1, new DateTime(2024, 1, 17, 11, 35, 6, 597, DateTimeKind.Utc).AddTicks(6474), "Cornerstone Insurance", true, "naicomId" });
+                values: new object[] { "CORNERSTONE", 1, new DateTime(2024, 1, 17, 14, 56, 10, 555, DateTimeKind.Utc).AddTicks(9330), "Cornerstone Insurance", true, "naicomId" });
 
             migrationBuilder.InsertData(
                 table: "Products",
@@ -277,6 +282,11 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 column: "InsuredId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Policies_OrderId",
+                table: "Policies",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Policies_ProductId",
                 table: "Policies",
                 column: "ProductId");
@@ -306,10 +316,13 @@ namespace Gibs.MultiBroker.Portal.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Policies");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Policies");
+                name: "Underwriters");
 
             migrationBuilder.DropTable(
                 name: "Insureds");
@@ -318,13 +331,10 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Underwriters");
+                name: "Insurers");
 
             migrationBuilder.DropTable(
                 name: "Brokers");
-
-            migrationBuilder.DropTable(
-                name: "Insurers");
         }
     }
 }

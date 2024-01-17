@@ -23,7 +23,7 @@ namespace Gibs.Portal.Pages
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }

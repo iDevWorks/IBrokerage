@@ -25,7 +25,7 @@ namespace Gibs.Portal.Pages
         public string ClassId { get; set; }
 
         [BindProperty]
-        public string MidClassId { get; set; } = string.Empty;
+        public string? MidClassId { get; set; }
 
         public async Task<PageResult> OnGet()
         {
@@ -38,7 +38,7 @@ namespace Gibs.Portal.Pages
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }
@@ -55,15 +55,16 @@ namespace Gibs.Portal.Pages
 
                     broker.Products.Add(product);
                     await context.SaveChangesAsync();
+                    ShowInfo("the product was created successfully.");
                 }
             }
             catch (SqlException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return RedirectToPage();
         }

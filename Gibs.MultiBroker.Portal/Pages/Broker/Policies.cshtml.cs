@@ -45,29 +45,25 @@ namespace Gibs.Portal.Pages
                 await context.Entry(broker).Collection(x => x.Products).LoadAsync();
                 await context.Entry(broker).Collection(x => x.Insureds).LoadAsync();
 
-                var products = broker.Products.ToList();
-                // Load the list of available insurers into the Insurers property
-                Products = products.Select(i => new SelectListItem
+                // Load the list of available products into the Products property
+                Products = broker.Products.Select(i => new SelectListItem
                 {
                     Value = i.ProductId,
                     Text = i.ProductName
                 }).ToList();
 
-                var insureds = broker.Insureds.ToList();
-                foreach (var insured in insureds)
+                // Load the list of insureds into the Insureds property
+                Insureds = broker.Insureds.Select(i => new SelectListItem
                 {
-                    Insureds.Add(new SelectListItem
-                    {
-                        Value = insured.Id,
-                        Text = insured.FullName
-                    });
-                }
+                    Value = i.Id,
+                    Text = i.FullName
+                }).ToList();
 
                 Policies = broker.Policies.ToList();
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }
@@ -92,11 +88,11 @@ namespace Gibs.Portal.Pages
             }
             catch (SqlException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return RedirectToPage();
         }

@@ -30,7 +30,6 @@ namespace Gibs.Domain.Entities
         public virtual ICollection<Order> Orders { get; private set; } = [];
         public virtual ICollection<Policy> Policies { get; private set; } = [];
         public virtual ICollection<Product> Products { get; private set; } = [];
-        public virtual ICollection<Underwriter> Underwriters { get; private set; }
-        public virtual ICollection<Insurer> Insurers { get; private set; } = [];
+        public virtual ICollection<Underwriter> Underwriters { get; private set; } = [];
     }
 }

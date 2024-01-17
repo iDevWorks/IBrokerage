@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using iDevWorks.Paystack;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Gibs.Portal.Pages;
 
 
 namespace Gibs.MultiBroker.Portal.Pages.Public
 {
-    public class QuoteSummaryModel(IConfiguration configuration) : PageModel
+    public class QuoteSummaryModel(IConfiguration configuration) : RootPageModel
     {
         private readonly PaystackClient paystack = new(configuration["Paystack:Key"]);
         [BindProperty]
@@ -36,7 +37,7 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }

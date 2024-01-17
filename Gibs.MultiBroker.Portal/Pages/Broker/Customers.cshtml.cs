@@ -31,9 +31,6 @@ namespace Gibs.Portal.Pages
         public string? CompanyName { get; set; }
 
         [BindProperty, Required]
-        public string Password { get; set; } = string.Empty;
-
-        [BindProperty, Required]
         public DateOnly DateOfBirth { get; set; }
 
 
@@ -53,7 +50,7 @@ namespace Gibs.Portal.Pages
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }
@@ -66,7 +63,7 @@ namespace Gibs.Portal.Pages
                 {
                     var broker = await GetCurrentBroker();
 
-                    var client = new Insured(IsCorporate, CompanyName, DateOfBirth, FirstName, LastName, Email, PhoneNumber, Password);
+                    var client = new Insured(IsCorporate, CompanyName, DateOfBirth, FirstName, LastName, Email, PhoneNumber, "password");
 
                     broker.Insureds.Add(client);
                     await context.SaveChangesAsync();
@@ -74,11 +71,11 @@ namespace Gibs.Portal.Pages
             }
             catch (SqlException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return RedirectToPage(); 
         }

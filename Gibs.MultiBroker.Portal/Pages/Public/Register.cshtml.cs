@@ -8,7 +8,7 @@ using Gibs.Infrastructure.EntityFramework;
 namespace Gibs.Portal.Pages
 {
     [BindProperties]
-    public class RegisterModel(ILogger<RegisterModel> logger, BrokerContext context) : PageModel
+    public class RegisterModel(ILogger<RegisterModel> logger, BrokerContext context) : RootPageModel
     {
         [Required]
         public string Email { get; set; } = string.Empty;
@@ -56,7 +56,7 @@ namespace Gibs.Portal.Pages
             catch (Exception ex)
             {
                 logger.LogError(ex, "Exception in : {Message}", ex.Message);
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }

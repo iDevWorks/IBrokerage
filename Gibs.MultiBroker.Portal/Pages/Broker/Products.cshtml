@@ -71,10 +71,28 @@
     <modal id="addProductModal">
         <header title="Create new Product"></header>
         <body>
+            <div class="row mb-3 mt-3">
+                <label class="col-4 form-label" asp-for="@Model.ClassId">ClassId</label>
+                <div class="col-8">
+                    <select class="form-select" asp-for="@Model.ClassId">
+                        <option value="B">Bond</option>
+                        <option value="E">Engineering</option>
+                        <option value="F">Fire</option>
+                        <option value="G">General Accident</option>
+                        <option value="H">Aviation</option>
+                        <option value="M">Marine</option>
+                        <option value="MH">Marine Hull</option>
+                        <option value="O">Oil and Energy</option>
+                        <option value="S">Special Risk</option>
+                        <option value="V">Motor</option>
+                        <option value="PP">Package</option>
+                        <option value="AG"> Agric Insurance</option>
+                    </select>
+                </div>
+            </div>
             <input asp-label="Product Id" asp-for="@Model.ProductId" type="text">
             <input asp-label="Product Name" asp-for="@Model.ProductName" type="text">
-            <input asp-label="ClassId" asp-for="@Model.ClassId" type="text">
-            <input asp-label="MidClassId" asp-for="@Model.MidClassId" type="text">
+            @* <input asp-label="MidClassId" asp-for="@Model.MidClassId" type="text"> *@
             <input asp-label="Short Name" asp-for="@Model.ShortName" type="text">
         </body>
         <footer>

@@ -77,7 +77,6 @@
                 <label class="col-4 form-label" asp-for="@Model.ProductId">Select Product</label>
                 <div class="col-8">
                     <select class="form-select" asp-for="@Model.ProductId" asp-items="@Model.Products">
-                        <option value="">Select product for this policy.</option>
                     </select>
                 </div>
             </div>
@@ -85,7 +84,6 @@
                 <label class="col-4 form-label" asp-for="@Model.InsuredId">Select Insured</label>
                 <div class="col-8">
                     <select class="form-select" asp-for="@Model.InsuredId" asp-items="@Model.Insureds">
-                        <option value="">Select client for this policy.</option>
                     </select>
                 </div>
             </div>
