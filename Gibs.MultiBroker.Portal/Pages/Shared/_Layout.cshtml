@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <partial name="_StaticFiles" model='"styles"' />
@@ -102,10 +104,23 @@
                     </div>
                 </left>
                 <right class="d-flex gap-2">
-                    <button class="btn"><i class="bi bi-bell-fill"></i></button>
-                    <button class="btn btn-secondary"><i class="bi bi-bell-fill"></i></button>
-                    @*<button class="btn btn-outline-primary"><i class="bi bi-bell-slash"></i></button>*@
-                    <button class="btn btn-outline-secondary"><i class="bi bi-bell-slash"></i></button>
+                    <a class="nav-link" asp-page="/Admin/Tickets"><i class="bi bi-bell-fill fs-4"></i></a>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown" href="#">
+                            <div>
+                                @* <i class="bi bi-person-circle fs-4"></i> *@
+                                <img class="rounded-circle" src="@User.GetClaimValue(ClaimTypes.Uri)" width="32">
+                            </div>
+                            <div>
+                                <span>@User.GetClaimValue(ClaimTypes.Name)</span>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" asp-page="/Admin/Settings/Index">Settings</a>
+                            <hr class="dropdown-divider" />
+                            <a class="dropdown-item" asp-page="/Public/Login">Logout</a>
+                        </div>
+                    </div>
                 </right>
             </div>
         </header>
