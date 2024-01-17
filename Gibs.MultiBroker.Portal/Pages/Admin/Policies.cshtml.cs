@@ -47,7 +47,7 @@ namespace Gibs.Portal.Pages.Admin
             {
                 if (ModelState.IsValid)
                 {
-                    var policyExists = await context.Policies.AnyAsync(p => p.PolicyNo == PolicyNo && p.Insured.FullName == InsuredName);
+                    var policyExists = Policies.Any(p => p.PolicyNo == PolicyNo && p.Insured.FullName == InsuredName);
 
                     if (policyExists)
                         throw new Exception("A client with this policy already exists.");
@@ -59,8 +59,8 @@ namespace Gibs.Portal.Pages.Admin
 
                     var policy = new Policy(product, insured, PolicyNo, StartDate, EndDate, SumInsured, PremiumAmount);
 
-                    context.Policies.Add(policy);
-                    await context.SaveChangesAsync();
+                    _context.Policies.Add(policy);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)

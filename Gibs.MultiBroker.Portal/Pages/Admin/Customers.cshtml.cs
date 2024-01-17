@@ -44,7 +44,7 @@ namespace Gibs.Portal.Pages
             {
                 if (ModelState.IsValid)
                 {
-                    //var clientExists = await context.Insureds.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
+                    //var clientExists = await Insureds.AnyAsync(c => c.BrokerId == _currUserId && c.Email == Email);
 
                     //if (clientExists)
                     //    throw new Exception("A client with this email already exists.");
@@ -57,7 +57,7 @@ namespace Gibs.Portal.Pages
                     }
                     else
                     {
-                        client = new Insured(false, "", DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, Password);
+                        client = new Insured(false, CompanyName, DateOnly.FromDateTime(DateTime.UtcNow), FirstName, LastName, Email, PhoneNumber, Password);
                     }
 
                     context.Insureds.Add(client);
