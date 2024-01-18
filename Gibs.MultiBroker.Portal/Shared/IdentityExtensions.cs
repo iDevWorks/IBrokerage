@@ -33,5 +33,11 @@ namespace System.Security.Claims
             //if (claim == null) return null;
             return claim?.Value;
         }
+
+        public static string? GetCurrentId(this ClaimsPrincipal principal)
+        {
+            return GetClaimValue(principal, ClaimTypes.NameIdentifier);
+        }
+
     }
 }
