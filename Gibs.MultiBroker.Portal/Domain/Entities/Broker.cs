@@ -30,12 +30,12 @@ namespace Gibs.Domain.Entities
 
         public string BrokerName { get; private set; }
         public string RegistrationNo { get; private set; }
-        public KycInfo? Kyc { get; private set; } /*= new()*/
+        public KycInfo? Kyc { get; private set; } 
 
-        public virtual ICollection<Insured> Insureds { get; private set; }
-        public virtual ICollection<Order> Orders { get; private set; }
-        public virtual ICollection<Policy> Policies { get; private set; }
-        public virtual ICollection<Product> Products { get; private set; }
-        public virtual ICollection<Underwriter> Underwriters { get; private set; }
+        public ICollection<Insured> Insureds { get; } = [];
+        public ICollection<Order> Orders { get; } = [];
+        public ICollection<Policy> Policies { get; } = [];
+        public ICollection<Product> Products { get; } = [];
+        public ICollection<Underwriter> Underwriters { get; } = [];
     }
 }

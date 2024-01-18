@@ -31,15 +31,18 @@ namespace Gibs.Portal.Pages
         public string? CompanyName { get; set; }
 
         [BindProperty, Required]
+        public string Password { get; set; } = string.Empty;
+
+        [BindProperty, Required]
         public DateOnly DateOfBirth { get; set; }
 
 
         public async Task<PageResult> OnGetAsync()
         {
             //var broker = await context.Brokers
-            //      .Include(x => x.Insureds)
+            //      .Include(x => x.InsuredSelectItems)
             //      .Where(x => x.Id == BrokerId)
-            //      //.SelectMany(x => x.Insureds)
+            //      //.SelectMany(x => x.InsuredSelectItems)
             //      .SingleOrDefaultAsync();
             try
             {
@@ -50,7 +53,7 @@ namespace Gibs.Portal.Pages
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
             return Page();
         }
@@ -63,7 +66,7 @@ namespace Gibs.Portal.Pages
                 {
                     var broker = await GetCurrentBroker();
 
-                    var client = new Insured(IsCorporate, CompanyName, DateOfBirth, FirstName, LastName, Email, PhoneNumber, "password");
+                    var client = new Insured(IsCorporate, CompanyName, DateOfBirth, FirstName, LastName, Email, PhoneNumber, Password);
 
                     broker.Insureds.Add(client);
                     await context.SaveChangesAsync();
@@ -71,11 +74,11 @@ namespace Gibs.Portal.Pages
             }
             catch (SqlException ex)
             {
-                ShowError(ex.Message);
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
             return RedirectToPage(); 
         }

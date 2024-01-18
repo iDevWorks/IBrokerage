@@ -20,7 +20,8 @@
         public bool IsCorporate { get; private set; }
         public string? CompanyName { get; private set; }
         public DateOnly DateOfBirthOrReg { get; private set; }
+
         //public string Gender { get; private set; }
-        public KycInfo Kyc { get; private set; } /*= new();*/
+        public KycInfo? Kyc { get; private set; } 
     }
 }

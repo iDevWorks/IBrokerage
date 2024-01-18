@@ -1,22 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
-using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Data.SqlClient;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Gibs.Portal.Pages
 {
     [BindProperties]
     public class PolicyModel(BrokerContext context) : BrokerPageModel(context)
     {
-        private readonly BrokerContext _context = context;
-
-        public List<SelectListItem> Products { get; set; } = [];
-
-        public List<SelectListItem> Insureds { get; set; } = [];
+        public List<SelectListItem> ProductSelectItems { get; set; } = [];
+        public List<SelectListItem> InsuredSelectItems { get; set; } = [];
+        public List<Policy> Policies { get; set; } = [];
 
         [Required]
         public string ProductId { get; set; }
@@ -33,7 +30,6 @@ namespace Gibs.Portal.Pages
         [Required]
         public decimal PremiumAmount { get; set; }
 
-        public List<Policy> Policies { get; set; } = [];
 
         public async Task<PageResult> OnGetAsync()
         {
@@ -45,15 +41,15 @@ namespace Gibs.Portal.Pages
                 await context.Entry(broker).Collection(x => x.Products).LoadAsync();
                 await context.Entry(broker).Collection(x => x.Insureds).LoadAsync();
 
-                // Load the list of available products into the Products property
-                Products = broker.Products.Select(i => new SelectListItem
+                // Load the list of available products into the ProductSelectItems property
+                ProductSelectItems = broker.Products.Select(i => new SelectListItem
                 {
                     Value = i.ProductId,
                     Text = i.ProductName
                 }).ToList();
 
-                // Load the list of insureds into the Insureds property
-                Insureds = broker.Insureds.Select(i => new SelectListItem
+                // Load the list of insureds into the InsuredSelectItems property
+                InsuredSelectItems = broker.Insureds.Select(i => new SelectListItem
                 {
                     Value = i.Id,
                     Text = i.FullName
@@ -77,15 +73,15 @@ namespace Gibs.Portal.Pages
                     var broker = await GetCurrentBroker();
 
                     var insured = broker.Insureds.SingleOrDefault(i => i.Id == InsuredId)
-                        ?? throw new Exception("the insured cannot be found.");
+                        ?? throw new InvalidOperationException("Insured was not found");
 
-                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId) ?? throw new Exception("the product cannot be found");
+                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId);
 
-                    var policy = new Policy(product, insured, PolicyNo, StartDate, EndDate, SumInsured, PremiumAmount);
+                    var policy = new Policy(product, insured, PolicyNo, 
+                        StartDate, EndDate, SumInsured, PremiumAmount);
 
                     broker.Policies.Add(policy);
                     await _context.SaveChangesAsync();
-                    ShowInfo("the policy has been created sucessfully");
                 }
             }
             catch (SqlException ex)
