@@ -76,14 +76,16 @@ namespace Gibs.Portal.Pages
                 {
                     var broker = await GetCurrentBroker();
 
-                    var insured = broker.Insureds.SingleOrDefault(i => i.Id == InsuredId);
+                    var insured = broker.Insureds.SingleOrDefault(i => i.Id == InsuredId)
+                        ?? throw new Exception("the insured cannot be found.");
 
-                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId);
+                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId) ?? throw new Exception("the product cannot be found");
 
                     var policy = new Policy(product, insured, PolicyNo, StartDate, EndDate, SumInsured, PremiumAmount);
 
                     broker.Policies.Add(policy);
                     await _context.SaveChangesAsync();
+                    ShowInfo("the policy has been created sucessfully");
                 }
             }
             catch (SqlException ex)

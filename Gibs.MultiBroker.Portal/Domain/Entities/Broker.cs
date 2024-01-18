@@ -15,6 +15,12 @@ namespace Gibs.Domain.Entities
 
             BrokerName = brokerName;
             RegistrationNo = registrationNo;
+
+            Insureds = new List<Insured>();
+            Orders = new List<Order>();
+            Policies = new List<Policy>();
+            Products = new List<Product>();
+            Underwriters = new List<Underwriter>();
         }
 
         private static string GenerateBrokerId(string brokerName)
@@ -26,10 +32,10 @@ namespace Gibs.Domain.Entities
         public string RegistrationNo { get; private set; }
         public KycInfo? Kyc { get; private set; } /*= new()*/
 
-        public virtual ICollection<Insured> Insureds { get; private set; } = [];
-        public virtual ICollection<Order> Orders { get; private set; } = [];
-        public virtual ICollection<Policy> Policies { get; private set; } = [];
-        public virtual ICollection<Product> Products { get; private set; } = [];
-        public virtual ICollection<Underwriter> Underwriters { get; private set; } = [];
+        public virtual ICollection<Insured> Insureds { get; private set; }
+        public virtual ICollection<Order> Orders { get; private set; }
+        public virtual ICollection<Policy> Policies { get; private set; }
+        public virtual ICollection<Product> Products { get; private set; }
+        public virtual ICollection<Underwriter> Underwriters { get; private set; }
     }
 }
