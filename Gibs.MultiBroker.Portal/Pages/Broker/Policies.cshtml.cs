@@ -81,7 +81,7 @@ namespace Gibs.Portal.Pages
                         StartDate, EndDate, SumInsured, PremiumAmount);
 
                     broker.Policies.Add(policy);
-                    await _context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (SqlException ex)
