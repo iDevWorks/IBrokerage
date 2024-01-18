@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Gibs.MultiBroker.Portal/appsettings.Development.json
+/Gibs.MultiBroker.Portal/appsettings.release.json
+/Gibs.MultiBroker.Portal/appsettings.debug.json
+/Gibs.MultiBroker.Portal/appsettings.Production.json
