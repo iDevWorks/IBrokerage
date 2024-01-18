@@ -69,13 +69,13 @@
                 <label class="col-4 form-label" asp-for="IsCorporate">Is Corporate</label>
                 <div class="col-8">
                     <div class="form-check d-inline-block pe-2">
-                        <input name="IsCorporate" id="true" class="form-check-input" type="radio" value="true" onchange="toggleCompanyNameVisibility();" >
+                        <input name="IsCorporate" id="true" class="form-check-input" type="radio" value="true">
                         <label for="true" class="form-check-label">
                             true
                         </label>
                     </div>
                     <div class="form-check d-inline-block">
-                        <input name="IsCorporate" id="false" class="form-check-input" type="radio" value="false" onchange="toggleCompanyNameVisibility();" checked>
+                        <input name="IsCorporate" id="false" class="form-check-input" type="radio" value="false" checked>
                         <label for="false" class="form-check-label">
                             false
                         </label>
@@ -99,21 +99,29 @@
 
 
 
-@section Scripts{
+@section Scripts {
     <script>
-        function toggleCompanyNameVisibility() {
-            var isCorporate = document.querySelector('input[name="IsCorporate"]:checked').value;
-            var companyNameInput = document.getElementById('CompanyName');
-            var companyNameLabel = document.querySelector('label[for="CompanyName"]');
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initial visibility setup based on default value
+            toggleCompanyNameVisibility();
 
-            if (isCorporate === 'true') {
-                companyNameInput.style.display = 'block';
-                companyNameLabel.style.display = 'block';
+            function toggleCompanyNameVisibility() {
+                var isCorporate = document.querySelector('input[name="IsCorporate"]:checked').value;
+                var companyNameLabel = document.querySelector('label[for="CompanyName"]');
 
-            } else {
-                companyNameInput.style.display = 'none';
-                companyNameLabel.style.display = 'none';
+                if (isCorporate === 'true') {
+                    companyNameLabel.parentElement.classList.toggle("d-none");
+                } 
+                else {
+                    companyNameLabel.parentElement.classList.toggle("d-none");
+                }
             }
-        }
+
+            // Attach the onchange event to the radio buttons
+            var radioButtons = document.querySelectorAll('input[name="IsCorporate"]');
+            radioButtons.forEach(function (radioButton) {
+                radioButton.addEventListener('change', toggleCompanyNameVisibility);
+            });
+        });
     </script>
 }
