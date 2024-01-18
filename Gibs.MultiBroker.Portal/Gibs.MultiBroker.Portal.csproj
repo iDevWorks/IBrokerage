@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="iDevWorks.Utilities" Version="1.0.0" />
+    <PackageReference Include="iDevWorks.Utilities" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>

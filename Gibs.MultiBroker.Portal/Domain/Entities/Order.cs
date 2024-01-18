@@ -10,15 +10,13 @@
         {
             ArgumentNullException.ThrowIfNull(product);
             ArgumentNullException.ThrowIfNull(client);
-            ArgumentException.ThrowIfNullOrWhiteSpace(transReference);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalAmount);
             if(policies == null || policies.Count == 0)
             {
                 throw new ArgumentNullException(nameof(policies));
             }
 
-            Policies = policies;
-            Reference = transReference;
+            Reference = Guid.NewGuid();
             Insured = client;
             Product = product;
             CreatedUtc = DateTime.UtcNow;
@@ -49,7 +47,7 @@
         public decimal TotalAmount { get; private set; }
         public string PaymentMethod { get; private set; }
         public OrderStatus PaymentStatus { get; private set; }
-        public string Reference { get; private set; }
+        public Guid Reference { get; private set; }
         public string? Remarks { get; private set; }
         public DateTime? PaymentUtc { get; private set; }
 
