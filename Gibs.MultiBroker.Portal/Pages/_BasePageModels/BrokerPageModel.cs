@@ -7,7 +7,7 @@ namespace Gibs.Portal.Pages
     [Authorize(Roles = "broker")]
     public abstract class BrokerPageModel(BrokerContext context) : RootPageModel
     {
-        private string? BrokerId => User.GetCurrentId();
+        public string? BrokerId => User.GetCurrentId();
 
         public async Task<Domain.Entities.Broker> GetCurrentBroker()
         {

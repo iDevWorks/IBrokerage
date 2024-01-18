@@ -84,7 +84,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             Id = "OMOMOWO_RELIANCE",
                             BrokerName = "Omomowo Reliance",
-                            CreatedUtc = new DateTime(2024, 1, 18, 12, 25, 9, 609, DateTimeKind.Local).AddTicks(45),
+                            CreatedUtc = new DateTime(2024, 1, 18, 17, 5, 44, 457, DateTimeKind.Local).AddTicks(8736),
                             Email = "omo@gmail.com",
                             FirstName = "Omomowo",
                             IsActive = false,
@@ -197,7 +197,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             InsurerId = "CORNERSTONE",
                             ApiAuthStyle = 1,
-                            CreatedUtc = new DateTime(2024, 1, 18, 11, 25, 9, 609, DateTimeKind.Utc).AddTicks(7662),
+                            CreatedUtc = new DateTime(2024, 1, 18, 16, 5, 44, 458, DateTimeKind.Utc).AddTicks(4763),
                             InsurerName = "Cornerstone Insurance",
                             IsActive = true,
                             NaicomId = "naicomId"
@@ -238,8 +238,9 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("PaymentUtc");
 
-                    b.Property<Guid>("Reference")
-                        .HasColumnType("uniqueidentifier")
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Reference");
 
                     b.Property<string>("Remarks")
@@ -341,7 +342,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("SumInsured");
 
-                    b.Property<string>("UnderwriterMappedFields")
+                    b.Property<string>("UnderwriterId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("PolicyNo");
@@ -354,7 +355,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UnderwriterMappedFields");
+                    b.HasIndex("UnderwriterId");
 
                     b.ToTable("Policies", (string)null);
                 });
@@ -423,9 +424,9 @@ namespace Gibs.MultiBroker.Portal.Migrations
 
             modelBuilder.Entity("Gibs.Domain.Entities.Underwriter", b =>
                 {
-                    b.Property<string>("MappedFields")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
-                        .HasColumnName("MappedFields");
+                        .HasColumnName("Id");
 
                     b.Property<string>("ApiKey1Username")
                         .IsRequired()
@@ -444,7 +445,11 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("MappedFields");
+                    b.Property<string>("MappedFields")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("MappedFields");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("BrokerId");
 
@@ -570,7 +575,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
 
                     b.HasOne("Gibs.Domain.Entities.Underwriter", "Underwriter")
                         .WithMany()
-                        .HasForeignKey("UnderwriterMappedFields");
+                        .HasForeignKey("UnderwriterId");
 
                     b.Navigation("Insured");
 

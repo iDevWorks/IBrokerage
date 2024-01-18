@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
 {
@@ -72,10 +73,10 @@ namespace Gibs.Portal.Pages
                 {
                     var broker = await GetCurrentBroker();
 
-                    var insured = broker.Insureds.SingleOrDefault(i => i.Id == InsuredId)
+                    var insured = await context.Insureds.FindAsync(InsuredId)
                         ?? throw new InvalidOperationException("Insured was not found");
 
-                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId) 
+                    var product = await context.Products.FindAsync(ProductId) 
                         ?? throw new InvalidOperationException("product was not found");
 
                     var policy = new Policy(product, insured, PolicyNo, 

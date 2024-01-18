@@ -30,9 +30,13 @@ namespace Gibs.Portal.Pages
         {
             try
             {
-                var broker = await GetCurrentBroker();
+                // var broker = await GetCurrentBroker();
 
-                await context.Entry(broker).Collection(x => x.Underwriters).LoadAsync();
+
+                var broker = await context.Brokers
+                    .Include(x => x.Underwriters)
+                    .ThenInclude(x => x.Insurer)
+                    .SingleOrDefaultAsync(x => x.Id == BrokerId);
 
                 // var insurers = await context.Insurers.ToListAsync();
 
@@ -66,7 +70,8 @@ namespace Gibs.Portal.Pages
 
                     var underwriter = new Underwriter(insurer, ApiKeyUsername, ApiKeyPassword);
 
-                    broker.Underwriters.Add(underwriter);
+                    context.Add(underwriter);
+                    //broker.Underwriters.Add(underwriter);
                     await context.SaveChangesAsync();
                     ShowInfo("the underwriter was added successfully.");
                 }

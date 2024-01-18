@@ -63,7 +63,7 @@
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
-                    </div>scr
+                    </div>
                     <div class="col-12">
                         <label asp-for="Address" class="form-label">Address</label>
                         <input type="text" class="form-control" asp-for="Address" placeholder="1234 Main St" required>
@@ -504,7 +504,7 @@
                 </div>
             </body>
             <footer>
-                <button type="submit" class="btn btn-primary float-end">Get Quote</button>
+                <button asp-page-handler="GetQuote" type="submit" class="btn btn-primary float-end">Get Quote</button>
             </footer>
         </card>
     </form>

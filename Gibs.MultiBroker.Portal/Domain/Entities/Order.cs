@@ -14,7 +14,7 @@
 
             Policies = policies;
             Insured = customer;
-            Reference = Guid.NewGuid();
+            Reference = Guid.NewGuid().ToString();
             CreatedUtc = DateTime.UtcNow;
             TotalAmount = policies.Sum(x => x.GrossPremium);
             PaymentStatus = OrderStatus.PENDING;
@@ -42,7 +42,7 @@
         public decimal TotalAmount { get; private set; }
         public string PaymentMethod { get; private set; }
         public OrderStatus PaymentStatus { get; private set; }
-        public Guid Reference { get; private set; }
+        public string Reference { get; private set; }
         public string? Remarks { get; private set; }
         public DateTime? PaymentUtc { get; private set; }
 
