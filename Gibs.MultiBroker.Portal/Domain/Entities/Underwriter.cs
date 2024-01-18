@@ -21,7 +21,6 @@
         public string ApiKey1Username { get; private set; }
         public string ApiKey2Password { get; private set; } 
 
-        public virtual Insurer Insurer { get; private set; }
-        //public virtual ICollection<Policy> Policies { get; private set; }
+        public Insurer Insurer { get; private set; }
     }
 }

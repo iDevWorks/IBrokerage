@@ -76,14 +76,14 @@
             <div class="row mb-3 mt-3">
                 <label class="col-4 form-label" asp-for="@Model.ProductId">Select Product</label>
                 <div class="col-8">
-                    <select class="form-select" asp-for="@Model.ProductId" asp-items="@Model.Products">
+                    <select class="form-select" asp-for="@Model.ProductId" asp-items="@Model.ProductSelectItems">
                     </select>
                 </div>
             </div>
             <div class="row mb-3 mt-3">
                 <label class="col-4 form-label" asp-for="@Model.InsuredId">Select Insured</label>
                 <div class="col-8">
-                    <select class="form-select" asp-for="@Model.InsuredId" asp-items="@Model.Insureds">
+                    <select class="form-select" asp-for="@Model.InsuredId" asp-items="@Model.InsuredSelectItems">
                     </select>
                 </div>
             </div>

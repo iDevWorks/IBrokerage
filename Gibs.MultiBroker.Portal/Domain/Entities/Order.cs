@@ -6,24 +6,19 @@
         public Order() { }
         #pragma warning restore CS8618
 
-        public Order(ICollection<Policy> policies, Product product, Insured client, string transReference, decimal totalAmount)
+        public Order(ICollection<Policy> policies, Insured customer)
         {
-            ArgumentNullException.ThrowIfNull(product);
-            ArgumentNullException.ThrowIfNull(client);
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalAmount);
-            if(policies == null || policies.Count == 0)
-            {
-                throw new ArgumentNullException(nameof(policies));
-            }
+            ArgumentNullException.ThrowIfNull(customer);
+            ArgumentNullException.ThrowIfNull(policies);
+            ArgumentOutOfRangeException.ThrowIfZero(policies.Count);
 
+            Policies = policies;
+            Insured = customer;
             Reference = Guid.NewGuid();
-            Insured = client;
-            Product = product;
             CreatedUtc = DateTime.UtcNow;
-            TotalAmount = totalAmount;
+            TotalAmount = policies.Sum(x => x.GrossPremium);
             PaymentStatus = OrderStatus.PENDING;
             PaymentMethod = "PAYSTACK";
-            
         }
 
         public void PaymentFailed(string errorMessage)
@@ -51,9 +46,8 @@
         public string? Remarks { get; private set; }
         public DateTime? PaymentUtc { get; private set; }
 
-        public virtual Insured Insured { get; private set; }
-        public virtual Product Product { get; private set; }
-        public virtual ICollection<Policy> Policies { get; private set; }
+        public Insured Insured { get; private set; } //customer
+        public ICollection<Policy> Policies { get; } = [];
     }
 
     public enum OrderStatus

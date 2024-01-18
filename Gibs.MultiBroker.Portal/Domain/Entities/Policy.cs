@@ -54,9 +54,10 @@
         public decimal GrossPremium { get; private set; }
         public decimal Commission { get; private set; }
 
-        public virtual Product Product { get; private set; }
-        public virtual Insured Insured { get; private set; }
-        public virtual Underwriter? Underwriter { get; private set; }
-        //public virtual Underwriter? LeadInsurer { get; private set; }
+        public Product Product { get; private set; }
+        public Insured Insured { get; private set; }
+        public Underwriter? Underwriter { get; private set; }
+
+        //public Underwriter? LeadInsurer { get; private set; }
     }
 }
