@@ -146,11 +146,10 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Reference = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Reference = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Remark = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PaymentUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     InsuredId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     BrokerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -167,11 +166,6 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         principalTable: "Insureds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -234,12 +228,12 @@ namespace Gibs.MultiBroker.Portal.Migrations
             migrationBuilder.InsertData(
                 table: "Brokers",
                 columns: new[] { "Id", "BrokerName", "CreatedUtc", "Email", "FirstName", "IsActive", "LastName", "Password", "Phone", "RegistrationNo", "Title" },
-                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 17, 15, 56, 10, 554, DateTimeKind.Local).AddTicks(2604), "omo@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
+                values: new object[] { "OMOMOWO_RELIANCE", "Omomowo Reliance", new DateTime(2024, 1, 18, 12, 25, 9, 609, DateTimeKind.Local).AddTicks(45), "omo@gmail.com", "Omomowo", false, "Reliance", "6170F04B86312D18C0BE6EB0B0E9A2D2534DC1F6B51736840FB1B4645C3A882F55A062B37F76B85F8A207DEDAA6E67AE175E45C85A74EA14B49B8DDFA25BC8CA", "08095482981", "12345678", null });
 
             migrationBuilder.InsertData(
                 table: "Insurers",
                 columns: new[] { "InsurerId", "ApiAuthStyle", "CreatedUtc", "InsurerName", "IsActive", "NaicomId" },
-                values: new object[] { "CORNERSTONE", 1, new DateTime(2024, 1, 17, 14, 56, 10, 555, DateTimeKind.Utc).AddTicks(9330), "Cornerstone Insurance", true, "naicomId" });
+                values: new object[] { "CORNERSTONE", 1, new DateTime(2024, 1, 18, 11, 25, 9, 609, DateTimeKind.Utc).AddTicks(7662), "Cornerstone Insurance", true, "naicomId" });
 
             migrationBuilder.InsertData(
                 table: "Products",
@@ -265,11 +259,6 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 name: "IX_Orders_InsuredId",
                 table: "Orders",
                 column: "InsuredId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_ProductId",
-                table: "Orders",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Policies_BrokerId",
@@ -322,13 +311,13 @@ namespace Gibs.MultiBroker.Portal.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "Underwriters");
 
             migrationBuilder.DropTable(
                 name: "Insureds");
-
-            migrationBuilder.DropTable(
-                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Insurers");

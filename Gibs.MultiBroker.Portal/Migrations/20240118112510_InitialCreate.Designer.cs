@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gibs.MultiBroker.Portal.Migrations
 {
     [DbContext(typeof(BrokerContext))]
-    [Migration("20240117145612_InitialCreate")]
+    [Migration("20240118112510_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -87,7 +87,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             Id = "OMOMOWO_RELIANCE",
                             BrokerName = "Omomowo Reliance",
-                            CreatedUtc = new DateTime(2024, 1, 17, 15, 56, 10, 554, DateTimeKind.Local).AddTicks(2604),
+                            CreatedUtc = new DateTime(2024, 1, 18, 12, 25, 9, 609, DateTimeKind.Local).AddTicks(45),
                             Email = "omo@gmail.com",
                             FirstName = "Omomowo",
                             IsActive = false,
@@ -200,7 +200,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         {
                             InsurerId = "CORNERSTONE",
                             ApiAuthStyle = 1,
-                            CreatedUtc = new DateTime(2024, 1, 17, 14, 56, 10, 555, DateTimeKind.Utc).AddTicks(9330),
+                            CreatedUtc = new DateTime(2024, 1, 18, 11, 25, 9, 609, DateTimeKind.Utc).AddTicks(7662),
                             InsurerName = "Cornerstone Insurance",
                             IsActive = true,
                             NaicomId = "naicomId"
@@ -241,12 +241,8 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("PaymentUtc");
 
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Reference")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<Guid>("Reference")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Reference");
 
                     b.Property<string>("Remarks")
@@ -262,8 +258,6 @@ namespace Gibs.MultiBroker.Portal.Migrations
                     b.HasIndex("BrokerId");
 
                     b.HasIndex("InsuredId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders", (string)null);
                 });
@@ -539,8 +533,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                                 .HasForeignKey("InsuredId");
                         });
 
-                    b.Navigation("Kyc")
-                        .IsRequired();
+                    b.Navigation("Kyc");
                 });
 
             modelBuilder.Entity("Gibs.Domain.Entities.Order", b =>
@@ -555,13 +548,7 @@ namespace Gibs.MultiBroker.Portal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Gibs.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
                     b.Navigation("Insured");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Gibs.Domain.Entities.Policy", b =>

@@ -32,10 +32,10 @@ namespace Gibs.Domain.Entities
         public string RegistrationNo { get; private set; }
         public KycInfo? Kyc { get; private set; } 
 
-        public ICollection<Insured> Insureds { get; } = [];
-        public ICollection<Order> Orders { get; } = [];
-        public ICollection<Policy> Policies { get; } = [];
-        public ICollection<Product> Products { get; } = [];
-        public ICollection<Underwriter> Underwriters { get; } = [];
+        public ICollection<Insured> Insureds { get; }
+        public ICollection<Order> Orders { get; }
+        public ICollection<Policy> Policies { get; }
+        public ICollection<Product> Products { get; }
+        public ICollection<Underwriter> Underwriters { get; }
     }
 }

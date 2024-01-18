@@ -75,13 +75,15 @@ namespace Gibs.Portal.Pages
                     var insured = broker.Insureds.SingleOrDefault(i => i.Id == InsuredId)
                         ?? throw new InvalidOperationException("Insured was not found");
 
-                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId);
+                    var product = broker.Products.SingleOrDefault(p => p.ProductId == ProductId) 
+                        ?? throw new InvalidOperationException("product was not found");
 
                     var policy = new Policy(product, insured, PolicyNo, 
                         StartDate, EndDate, SumInsured, PremiumAmount);
 
                     broker.Policies.Add(policy);
                     await context.SaveChangesAsync();
+                    ShowInfo("Policy was added successfully.");
                 }
             }
             catch (SqlException ex)
