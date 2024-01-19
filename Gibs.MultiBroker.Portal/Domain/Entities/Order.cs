@@ -37,7 +37,7 @@
             PaymentStatus = OrderStatus.SUCCESS;
         }
 
-        public int OrderId { get; private set; }
+        public int Id { get; private set; }
         public DateTime CreatedUtc { get; private set; }
         public decimal TotalAmount { get; private set; }
         public string PaymentMethod { get; private set; }

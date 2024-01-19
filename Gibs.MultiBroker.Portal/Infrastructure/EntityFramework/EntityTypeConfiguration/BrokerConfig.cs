@@ -12,7 +12,23 @@ namespace WebTutor.EntityFramework.Configuration
             builder.ToTable("Brokers")
                    .HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasColumnName("Id");
+            builder.HasMany(x => x.Insureds).WithOne().IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Orders).WithOne().IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Policies).WithOne().IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Products).WithOne().IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Underwriters).WithOne().IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Property(x => x.Id).HasColumnName("BrokerId");
             builder.Property(x => x.CreatedUtc).HasColumnName("CreatedUtc");
             builder.Property(x => x.Title).HasColumnName("Title");
             builder.Property(x => x.FirstName).HasColumnName("FirstName");
@@ -24,7 +40,6 @@ namespace WebTutor.EntityFramework.Configuration
 
             builder.Property(x => x.BrokerName).HasColumnName("BrokerName");
             builder.Property(x => x.RegistrationNo).HasColumnName("RegistrationNo");
-
 
             builder.OwnsOne(x => x.Kyc, nb =>
             {

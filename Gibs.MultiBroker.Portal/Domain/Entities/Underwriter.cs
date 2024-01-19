@@ -12,16 +12,14 @@
             ArgumentException.ThrowIfNullOrWhiteSpace(apiKey1Username);
             ArgumentException.ThrowIfNullOrWhiteSpace(apiKey2Password);
 
-            Id = Guid.NewGuid().ToString();
             Insurer = insurer;
             ApiKey1Username = apiKey1Username;
             ApiKey2Password = apiKey2Password;
         }
 
-        public string Id { get; private set; }
-        public string? MappedFields { get; private set; }
         public string ApiKey1Username { get; private set; }
         public string ApiKey2Password { get; private set; } 
+        public string? MappedFields { get; private set; }
 
         public Insurer Insurer { get; private set; }
     }

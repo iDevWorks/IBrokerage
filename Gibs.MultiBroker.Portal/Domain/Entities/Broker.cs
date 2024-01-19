@@ -1,5 +1,4 @@
-﻿
-namespace Gibs.Domain.Entities
+﻿namespace Gibs.Domain.Entities
 {
     public class Broker : Person
     {

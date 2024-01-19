@@ -56,8 +56,8 @@
 
         public Product Product { get; private set; }
         public Insured Insured { get; private set; }
-        public Underwriter? Underwriter { get; private set; }
+        public Insurer? Insurer { get; private set; }
 
-        //public Underwriter? LeadInsurer { get; private set; }
+        //public Insurer? LeadInsurer { get; private set; }
     }
 }

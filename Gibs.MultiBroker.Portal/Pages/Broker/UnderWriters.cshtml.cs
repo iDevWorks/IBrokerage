@@ -1,17 +1,15 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
-using iDevWorks.Cart;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Gibs.Portal.Pages
 {
-    public class UnderWritersModel(BrokerContext context) : BrokerPageModel(context)
+    public class UnderwritersModel(BrokerContext context) : BrokerPageModel(context)
     {
         public List<Underwriter> UnderWriters { get; set; } = [];
 

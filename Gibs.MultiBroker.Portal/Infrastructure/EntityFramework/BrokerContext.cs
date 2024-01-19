@@ -23,11 +23,11 @@ namespace Gibs.Infrastructure.EntityFramework
                 new Broker("Omomowo Reliance", "12345678", "Omomowo", "Reliance", "omo@gmail.com", "08095482981", "123456")
             );
 
-            modelBuilder.Entity<Product>().HasData(
-                new Product("1001", "V", null, "Third Party Motor", "Third Party"),
-                new Product("1002", "V", null, "Comprehensive Motor", "Comprehensive"),
-                new Product("2002", "A", null, "Home Insurance", "Home")
-            );
+            //modelBuilder.Entity<Product>().HasData(
+            //    new Product("1001", "V", null, "Third Party Motor", "Third Party"),
+            //    new Product("1002", "V", null, "Comprehensive Motor", "Comprehensive"),
+            //    new Product("2002", "A", null, "Home Insurance", "Home")
+            //);
 
             modelBuilder.Entity<Insurer>().HasData(
                 new Insurer("CORNERSTONE", "Cornerstone Insurance", ApiAuthEnum.JSON_WEB_TOKEN, "naicomId")

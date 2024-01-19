@@ -8,7 +8,7 @@
 
         public Insurer(string insurerId, string insurerName, ApiAuthEnum apiAuthStyle, string naicomId)
         {
-            InsurerId = insurerId;
+            Id = insurerId;
             InsurerName = insurerName;
             ApiAuthStyle = apiAuthStyle;
             CreatedUtc = DateTime.UtcNow;
@@ -16,7 +16,7 @@
             IsActive = true;
         }
 
-        public string InsurerId { get; private set; }
+        public string Id { get; private set; }
         public string InsurerName { get; private set; }
         public DateTime CreatedUtc { get; private set; }
         public ApiAuthEnum ApiAuthStyle { get; private set; }
