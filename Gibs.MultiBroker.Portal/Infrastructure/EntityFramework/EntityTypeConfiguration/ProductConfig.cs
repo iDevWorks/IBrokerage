@@ -9,9 +9,13 @@ namespace WebTutor.EntityFramework.Configuration
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Products")
-                   .HasKey(x => x.ProductId);
+                   .HasKey(x => x.Id);
 
-            builder.Property(x => x.ProductId).HasColumnName("Id");
+            builder.HasMany<Policy>()
+                   .WithOne(x => x.Product).IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.Id).HasColumnName("ProductId");
             builder.Property(x => x.ClassId).HasColumnName("ClassId");
             builder.Property(x => x.MidClassId).HasColumnName("MidClassId");
             builder.Property(x => x.ProductName).HasColumnName("Name");

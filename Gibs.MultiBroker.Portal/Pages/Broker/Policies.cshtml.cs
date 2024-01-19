@@ -45,7 +45,7 @@ namespace Gibs.Portal.Pages
                 // Load the list of available products into the ProductSelectItems property
                 ProductSelectItems = broker.Products.Select(i => new SelectListItem
                 {
-                    Value = i.ProductId,
+                    Value = i.Id,
                     Text = i.ProductName
                 }).ToList();
 

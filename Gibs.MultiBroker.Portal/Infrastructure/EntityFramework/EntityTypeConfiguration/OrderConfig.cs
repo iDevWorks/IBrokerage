@@ -9,9 +9,13 @@ namespace WebTutor.EntityFramework.Configuration
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("Orders")
-                   .HasKey(x => x.OrderId);
+                   .HasKey(x => x.Id);
 
-            builder.Property(x => x.OrderId).HasColumnName("Id");
+            builder.HasMany(x => x.Policies)
+                   .WithOne().IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.Id).HasColumnName("OrderId");
             builder.Property(x => x.CreatedUtc).HasColumnName("CreatedUtc");
             builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount");
             builder.Property(x => x.PaymentMethod).HasColumnName("PaymentMethod");

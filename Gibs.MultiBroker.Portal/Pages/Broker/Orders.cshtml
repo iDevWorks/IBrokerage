@@ -36,7 +36,7 @@
                 {
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
-                        <td>@order.OrderId</td>
+                        <td>@order.Id</td>
                         <td>@order.CreatedUtc.ToLocalTime().Date</td>
                         <td>@order.TotalAmount</td>
                         <td>@order.Reference</td>
@@ -44,7 +44,7 @@
                         <td>@order.PaymentMethod</td>
                         <td class="d-flex gap-1">
                             <i class="bi bi-trash" data-bs-toggle="modal"
-                               data-bs-target="#deletePolicy" data-id="@order.OrderId">
+                               data-bs-target="#deletePolicy" data-id="@order.Id">
                             </i>
                             <i class="bi bi-pencil-square"></i>
                         </td>

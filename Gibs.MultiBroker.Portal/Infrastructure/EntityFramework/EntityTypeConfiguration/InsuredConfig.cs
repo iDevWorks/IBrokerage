@@ -11,7 +11,15 @@ namespace WebTutor.EntityFramework.Configuration
             builder.ToTable("Insureds")
                    .HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasColumnName("Id");
+            builder.HasMany<Order>()
+                   .WithOne(x => x.Insured).IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany<Policy>()
+                   .WithOne(x => x.Insured).IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.Id).HasColumnName("InsuredId");
             builder.Property(x => x.CreatedUtc).HasColumnName("CreatedUtc");
             builder.Property(x => x.Title).HasColumnName("Title");
             builder.Property(x => x.FirstName).HasColumnName("FirstName");

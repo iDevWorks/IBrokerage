@@ -9,14 +9,14 @@ namespace Gibs.Domain.Entities
 
         public Product(string productId, string classId, string? midClassId, string productName, string shortName)
         {
-            ProductId = productId;
+            Id = productId;
             ClassId = classId;
             MidClassId = midClassId;
             ProductName = productName;
             ShortName = shortName;
         }
 
-        public string ProductId { get; private set; }
+        public string Id { get; private set; }
         public string ClassId { get; private set; }
         public string? MidClassId { get; private set; }
         public string ProductName { get; private set; }

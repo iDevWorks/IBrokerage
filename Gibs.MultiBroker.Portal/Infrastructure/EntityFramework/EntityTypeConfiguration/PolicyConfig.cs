@@ -11,7 +11,7 @@ namespace WebTutor.EntityFramework.Configuration
             builder.ToTable("Policies")
                    .HasKey(x => x.PolicyNo);
 
-            builder.Property(x => x.PolicyNo).HasColumnName("PolicyNo");
+            builder.Property(x => x.PolicyNo).HasColumnName("PolicyId");
             builder.Property(x => x.CreatedUtc).HasColumnName("CreatedDate");
             builder.Property(x => x.StartDate).HasColumnName("StartDate");
             builder.Property(x => x.EndDate).HasColumnName("EndDate");
