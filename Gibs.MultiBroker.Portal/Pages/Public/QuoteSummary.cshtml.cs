@@ -44,7 +44,7 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
 
                 // Initialize the payment transaction with Paystack
                 var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Public/Complete";
-                var result = await paystack.InitializeTransaction(Insured.Email, Price, callbackUrl, order.Reference.ToString());
+                var result = await paystack.InitializeTransaction(Insured.Email, Price, callbackUrl, order.Reference);
 
                 // Redirect the user to Paystack for payment
                 return Redirect(result.AuthorizationUrl);

@@ -76,8 +76,7 @@ namespace Gibs.Portal.Pages
 
                     var underwriter = new Underwriter(insurer, ApiKeyUsername, ApiKeyPassword);
 
-                    context.Add(underwriter);
-                    //broker.Underwriters.Add(underwriter);
+                    broker.Underwriters.Add(underwriter);
                     await context.SaveChangesAsync();
                     ShowInfo("the underwriter was added successfully.");
                 }
