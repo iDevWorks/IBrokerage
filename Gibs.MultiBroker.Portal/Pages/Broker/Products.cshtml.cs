@@ -3,28 +3,27 @@ using Gibs.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages
 {
     public class ProductModel(BrokerContext context) : BrokerPageModel(context)
     {
-        public List<Product> Products { get; set; } = [];
+        public List<Product> ProductsData { get; set; } = [];
 
-        [BindProperty, Required]
+        [Required]
         public string ProductId { get; set; }
 
-        [BindProperty, Required]
+        [Required]
         public string ProductName { get; set; }
 
-        [BindProperty, Required]
+        [Required]
         public string ShortName { get; set; }
 
-        [BindProperty, Required]
+        [Required]
         public string ClassId { get; set; }
 
-        [BindProperty]
+        //[Required]
         public string? MidClassId { get; set; }
 
         public async Task<PageResult> OnGet()
@@ -34,7 +33,7 @@ namespace Gibs.Portal.Pages
                 var broker = await GetCurrentBroker();
 
                 await context.Entry(broker).Collection(x => x.Products).LoadAsync();
-                Products = broker.Products.ToList();
+                ProductsData = broker.Products.ToList();
             }
             catch (Exception ex)
             {
@@ -45,18 +44,18 @@ namespace Gibs.Portal.Pages
 
         public async Task<ActionResult> OnPostAddProduct()
         {
+            if (!ModelState.IsValid) return RedirectToPage();
+
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var broker = await GetCurrentBroker();
+                var broker = await GetCurrentBroker();
 
-                    var product = new Product(ProductId, ClassId, MidClassId, ProductName, ShortName);
+                var product = new Product(ProductId, ClassId, MidClassId, ProductName, ShortName);
 
-                    broker.Products.Add(product);
-                    await context.SaveChangesAsync();
-                    ShowInfo("the product was created successfully.");
-                }
+                broker.Products.Add(product);
+                await context.SaveChangesAsync();
+
+                ShowInfo("the product was created successfully.");
             }
             catch (SqlException ex)
             {

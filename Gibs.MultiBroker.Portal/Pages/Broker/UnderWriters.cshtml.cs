@@ -9,19 +9,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages
 {
+    [BindProperties]
     public class UnderwritersModel(BrokerContext context) : BrokerPageModel(context)
     {
-        public List<Underwriter> Underwriters { get; set; } = [];
+        public List<Underwriter> UnderwriterData { get; set; } = [];
+        public List<SelectListItem> InsurerOptions { get; set; } = [];
 
-        public List<SelectListItem> InsurersSelectList { get; set; } 
-
-        [BindProperty, Required]
+        //
+        [Required]
         public string InsurerId { get; set; }
 
-        [BindProperty,Required]
+        [Required]
         public string ApiKeyUsername { get; set; }
 
-        [BindProperty, Required]
+        [Required]
         public string ApiKeyPassword { get; set; }
 
         public async Task<PageResult> OnGetAsync()
@@ -34,25 +35,24 @@ namespace Gibs.Portal.Pages
                         .ThenInclude(x => x.Insurer)
                     .SingleOrDefaultAsync(x => x.Id == BrokerId);
 
-                if (broker != null)
+                if (broker == null)
                 {
-                    // Load the list of available insurers into the Insurers property
-                    InsurersSelectList = await context.Insurers
-                        .Select(i => new SelectListItem
-                        {
-                            Value = i.Id,
-                            Text = i.InsurerName
-                        })
-                        .ToListAsync();
+                    ShowError("Broker not found");
+                    return Page();
+                }
 
-                    // Populate the Underwriters property with the underwriters associated with the broker
-                    Underwriters = broker.Underwriters.ToList();
-                }
-                else
-                {
-                    ShowError("Broker not found"); 
-                    // Handle the case where the broker is not found
-                }
+                // Load the list of available insurers into the Insurers property
+                InsurerOptions = await context.Insurers
+                    .Select(i => new SelectListItem
+                    {
+                        Value = i.Id,
+                        Text = i.InsurerName
+                    })
+                    .ToListAsync();
+
+                // Populate the UnderwriterData property with the
+                // underwriters associated with the broker
+                UnderwriterData = broker.Underwriters.ToList();
             }
             catch (Exception ex)
             {
@@ -63,21 +63,21 @@ namespace Gibs.Portal.Pages
 
         public async Task<ActionResult> OnPostAddUnderwriter()
         {
+            if (!ModelState.IsValid) return RedirectToPage();
+
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var broker = await GetCurrentBroker();
+                var broker = await GetCurrentBroker();
 
-                    var insurer = await context.Insurers.FindAsync(InsurerId) 
-                        ?? throw new Exception("invalid insurer id");
+                var insurer = await context.Insurers.FindAsync(InsurerId)
+                    ?? throw new Exception("invalid insurer id");
 
-                    var underwriter = new Underwriter(insurer, ApiKeyUsername, ApiKeyPassword);
+                var underwriter = new Underwriter(insurer, ApiKeyUsername, ApiKeyPassword);
 
-                    broker.Underwriters.Add(underwriter);
-                    await context.SaveChangesAsync();
-                    ShowInfo("the underwriter was added successfully");
-                }
+                broker.Underwriters.Add(underwriter);
+                await context.SaveChangesAsync();
+
+                ShowInfo("the underwriter was added successfully");
             }
             catch (SqlException ex)
             {

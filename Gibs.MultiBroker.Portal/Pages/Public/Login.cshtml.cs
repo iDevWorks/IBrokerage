@@ -22,7 +22,7 @@ namespace Gibs.Portal.Pages.Public
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid) return RedirectToPage();
 
             try
             {
@@ -55,7 +55,7 @@ namespace Gibs.Portal.Pages.Public
             {
                 ShowError(ex.Message);
             }
-            return Page();
+            return RedirectToPage();
         }
     }
 }

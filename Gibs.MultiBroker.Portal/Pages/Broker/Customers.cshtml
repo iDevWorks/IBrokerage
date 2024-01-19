@@ -30,9 +30,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Insureds != null && Model.Insureds.Count > 0)
+            @if (Model.InsuredData != null && Model.InsuredData.Count > 0)
             {
-                foreach (var client in Model.Insureds)
+                foreach (var client in Model.InsuredData)
                 {
                     var viewLink = Url.Page("View", new { id = client.Id });
                     <tr>

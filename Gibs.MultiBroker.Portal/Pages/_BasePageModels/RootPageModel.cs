@@ -11,7 +11,7 @@ namespace Gibs.Portal.Pages
 
         public void ShowError(string message)
         {
-            ModelState.AddModelError(string.Empty, message);
+            ShowError(message);
         }
     }
 }

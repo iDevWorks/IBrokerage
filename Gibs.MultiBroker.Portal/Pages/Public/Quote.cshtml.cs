@@ -1,21 +1,18 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
-using iDevWorks.Paystack;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages.Public
 {
     [BindProperties]
-    public class GetQuoteModel(BrokerContext context) : PageModel
+    public class GetQuoteModel(BrokerContext context) : RootPageModel
     {
         [EmailAddress]
         public string Email { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        public string Phone {  get; set; }
+        public string Phone { get; set; }
 
         [StringLength(30, MinimumLength = 5)]
         public string FirstName { get; set; }
@@ -35,7 +32,7 @@ namespace Gibs.Portal.Pages.Public
 
         public string State { get; set; }
 
-        public string VehicleClass {  get; set; }
+        public string VehicleClass { get; set; }
 
         public string RegistrationNo { get; set; }
 
@@ -51,39 +48,34 @@ namespace Gibs.Portal.Pages.Public
 
         public string Color { get; set; }
 
-      
-        public async Task<ActionResult> OnPostGetQuote() 
+
+        public async Task<ActionResult> OnPostGetQuote()
         {
+            if (!ModelState.IsValid) return RedirectToPage();
+
             try
             {
-                if (ModelState.IsValid)
+                var insured = await context.Insureds.FindAsync(Email);
+
+                if (insured == null)
                 {
-                    var ExistingInsured = await context.Insureds
-                        .SingleOrDefaultAsync(x => x.Email == Email);
+                    insured = new Insured(false, string.Empty, DateOfBirth,
+                        FirstName, LastName, Email, Phone, "1234");
 
-                    if (ExistingInsured != null)
-                    {
-                        return RedirectToPage("QuoteSummary", new
-                        {
-                            InsuredId = ExistingInsured.Id
-                        });
-                    }
-
-                    var insured = new Insured(false, string.Empty, DateOfBirth, FirstName, LastName, Email, Phone, Guid.NewGuid().ToString());
                     context.Add(insured);
                     await context.SaveChangesAsync();
-
-                    return RedirectToPage("QuoteSummary", new
-                    {
-                        InsuredId = insured.Id
-                    });
                 }
+
+                return RedirectToPage("QuoteSummary", new
+                {
+                    InsuredId = insured.Id
+                });
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
-            return Page();
+            return RedirectToPage();
         }
     }
 }

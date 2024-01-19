@@ -30,9 +30,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Orders.Any())
+            @if (Model.OrdersGrid.Any())
             {
-                foreach (var order in Model.Orders)
+                foreach (var order in Model.OrdersGrid)
                 {
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>

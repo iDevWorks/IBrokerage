@@ -30,9 +30,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Underwriters.Any())
+            @if (Model.UnderwriterData.Any())
             {
-                foreach (var underWriter in Model.Underwriters)
+                foreach (var underWriter in Model.UnderwriterData)
                 {
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
@@ -69,7 +69,7 @@
             <div class="row mb-3 mt-3">
                 <label class="col-4 form-label" asp-for="@Model.InsurerId">Insurer</label>
                 <div class="col-8">
-                    <select class="form-select" asp-items="@Model.InsurersSelectList" asp-for="@Model.InsurerId"></select>
+                    <select class="form-select" asp-items="@Model.InsurerOptions" asp-for="@Model.InsurerId"></select>
                 </div>
             </div>
             <input asp-label="ApiKeyUsername" asp-for="ApiKeyUsername" type="text">

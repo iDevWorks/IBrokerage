@@ -8,76 +8,73 @@ using Microsoft.Data.SqlClient;
 
 namespace Gibs.Portal.Pages
 {
+    [BindProperties]
     public class InsuredModel(BrokerContext context) : BrokerPageModel(context)
     {
-        public List<Insured> Insureds { get; set; } = [];
+        public List<Insured> InsuredData { get; set; } = [];
 
-        [BindProperty, Required]
+        //form inputs
+        [Required]
         public string FirstName { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public string LastName { get; set; } = string.Empty;
 
-        [BindProperty, Required, EmailAddress]
+        [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        [BindProperty, Required]
+        [Required]
         public bool IsCorporate { get; set; }
 
         [BindProperty]
         public string? CompanyName { get; set; }
 
-        [BindProperty, Required]
+        [Required]
         public DateOnly DateOfBirth { get; set; }
 
 
         public async Task<PageResult> OnGetAsync()
         {
-            //var broker = await context.Brokers
-            //      .Include(x => x.InsuredSelectItems)
-            //      .Where(x => x.Id == BrokerId)
-            //      //.SelectMany(x => x.InsuredSelectItems)
-            //      .SingleOrDefaultAsync();
             try
             {
                 var broker = await GetCurrentBroker();
 
                 await context.Entry(broker).Collection(x => x.Insureds).LoadAsync();
-                Insureds = broker.Insureds.ToList();
+                InsuredData = broker.Insureds.ToList();
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAddInsured()
         {
+            if (!ModelState.IsValid) return RedirectToPage();
+
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var broker = await GetCurrentBroker();
+                var broker = await GetCurrentBroker();
 
-                    var client = new Insured(IsCorporate, CompanyName, DateOfBirth, FirstName, LastName, Email, PhoneNumber, "password");
+                var client = new Insured(IsCorporate, CompanyName,
+                    DateOfBirth, FirstName, LastName, Email, PhoneNumber, "1234");
 
-                    broker.Insureds.Add(client);
-                    await context.SaveChangesAsync();
-                }
+                broker.Insureds.Add(client);
+                await context.SaveChangesAsync();
             }
             catch (SqlException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ShowError(ex.Message);
             }
-            return RedirectToPage(); 
+            return RedirectToPage();
         }
     }
 }

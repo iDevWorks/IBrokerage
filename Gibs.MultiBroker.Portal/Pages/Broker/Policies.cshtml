@@ -35,9 +35,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Policies.Any())
+            @if (Model.PoliciesData.Any())
             {
-                foreach (var policy in Model.Policies)
+                foreach (var policy in Model.PoliciesData)
                 {
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
@@ -76,14 +76,14 @@
             <div class="row mb-3 mt-3">
                 <label class="col-4 form-label" asp-for="@Model.ProductId">Select Product</label>
                 <div class="col-8">
-                    <select class="form-select" asp-for="@Model.ProductId" asp-items="@Model.ProductSelectItems">
+                    <select class="form-select" asp-for="@Model.ProductId" asp-items="@Model.ProductOptions">
                     </select>
                 </div>
             </div>
             <div class="row mb-3 mt-3">
                 <label class="col-4 form-label" asp-for="@Model.InsuredId">Select Insured</label>
                 <div class="col-8">
-                    <select class="form-select" asp-for="@Model.InsuredId" asp-items="@Model.InsuredSelectItems">
+                    <select class="form-select" asp-for="@Model.InsuredId" asp-items="@Model.InsuredOptions">
                     </select>
                 </div>
             </div>

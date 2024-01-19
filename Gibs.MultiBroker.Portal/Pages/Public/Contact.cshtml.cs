@@ -1,47 +1,35 @@
 using Gibs.Infrastructure.Email;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages.Public
 {
-    public class ContactModel(EmailService emailService, IOptions<SmtpOptions> smtpSettings) : RootPageModel
+    [BindProperties]
+    public class ContactModel(EmailService emailService) : RootPageModel
     {
-        private readonly SmtpOptions _smtpSettings = smtpSettings.Value;
-
-        [BindProperty, EmailAddress]
+        [EmailAddress]
         public string Sender { get; set; }
 
-        [BindProperty, MinLength(5)]
+        [MinLength(5)]
         public string Subject { get; set; }
 
-        [BindProperty, MinLength(10)]
+        [MinLength(10)]
         public string Message { get; set; }
 
-        private readonly EmailService _emailService = emailService;
-
-        public void OnGet()
+        public async Task<ActionResult> OnPostAsync()
         {
-        }
+            if (!ModelState.IsValid) return RedirectToPage();
 
-        public async Task<ActionResult> OnPostAsync() 
-        {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    _smtpSettings.SenderEmail = Sender;
-                    await _emailService.SendEmailAsync(_smtpSettings.SenderEmail, Subject, Message);
-                    return RedirectToPage("Index");
-                }
+                await emailService.SendEmailAsync(Sender, Subject, Message);
+                return RedirectToPage("Index");
             }
             catch (Exception ex)
             {
                 ShowError(ex.Message);
             }
-            return Page();
-
+            return RedirectToPage();
         }
 
     }

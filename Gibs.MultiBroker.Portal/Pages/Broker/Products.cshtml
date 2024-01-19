@@ -34,9 +34,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Products.Any())
+            @if (Model.ProductsData.Any())
             {
-                foreach (var product in Model.Products)
+                foreach (var product in Model.ProductsData)
                 {
                     var viewLink = Url.Page("View", new { id = product.Id });
                     <tr>

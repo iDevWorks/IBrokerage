@@ -9,9 +9,9 @@ namespace Gibs.Portal.Pages
     {
         private string? CustomerId => User.GetCurrentId();
 
-        public async Task<Domain.Entities.Broker> GetCurrentBroker()
+        public async Task<Domain.Entities.Insured> GetCurrentBroker()
         {
-            return await context.Brokers.FindAsync(CustomerId)
+            return await context.Insureds.FindAsync(CustomerId)
                 ?? throw new Exception("invalid customer id");
         }
 

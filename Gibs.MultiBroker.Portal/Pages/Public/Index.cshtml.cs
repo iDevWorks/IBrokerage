@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Gibs.Portal.Pages.Public
 {
-    public class IndexModel : PageModel
+    public class IndexModel : RootPageModel
     {
         public void OnGet()
         {

@@ -1,14 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 
 namespace Gibs.Portal.Pages
 {
     [BindProperties]
-    public class RegisterModel(ILogger<RegisterModel> logger, BrokerContext context) : RootPageModel
+    public class RegisterModel(BrokerContext context) : RootPageModel
     {
         [Required]
         public string Email { get; set; } = string.Empty;
@@ -36,7 +34,7 @@ namespace Gibs.Portal.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid) return RedirectToPage();
 
             try
             {
@@ -55,10 +53,9 @@ namespace Gibs.Portal.Pages
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Exception in : {Message}", ex.Message);
                 ShowError(ex.Message);
             }
-            return Page();
+            return RedirectToPage();
         }
     }
 }
