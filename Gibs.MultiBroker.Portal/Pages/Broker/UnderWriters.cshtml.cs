@@ -11,7 +11,7 @@ namespace Gibs.Portal.Pages
 {
     public class UnderwritersModel(BrokerContext context) : BrokerPageModel(context)
     {
-        public List<Underwriter> UnderWriters { get; set; } = [];
+        public List<Underwriter> Underwriters { get; set; } = [];
 
         public List<SelectListItem> InsurersSelectList { get; set; } 
 
@@ -45,19 +45,19 @@ namespace Gibs.Portal.Pages
                         })
                         .ToListAsync();
 
-                    // Populate the UnderWriters property with the underwriters associated with the broker
-                    UnderWriters = broker.Underwriters.ToList();
+                    // Populate the Underwriters property with the underwriters associated with the broker
+                    Underwriters = broker.Underwriters.ToList();
                 }
                 else
                 {
-                    ShowError("Broker not found."); // Handle the case where the broker is not found
+                    ShowError("Broker not found"); 
+                    // Handle the case where the broker is not found
                 }
             }
             catch (Exception ex)
             {
                 ShowError(ex.Message);
             }
-
             return Page();
         }
 
@@ -70,13 +70,13 @@ namespace Gibs.Portal.Pages
                     var broker = await GetCurrentBroker();
 
                     var insurer = await context.Insurers.FindAsync(InsurerId) 
-                        ?? throw new Exception("invalid insurer id.");
+                        ?? throw new Exception("invalid insurer id");
 
                     var underwriter = new Underwriter(insurer, ApiKeyUsername, ApiKeyPassword);
 
                     broker.Underwriters.Add(underwriter);
                     await context.SaveChangesAsync();
-                    ShowInfo("the underwriter was added successfully.");
+                    ShowInfo("the underwriter was added successfully");
                 }
             }
             catch (SqlException ex)
