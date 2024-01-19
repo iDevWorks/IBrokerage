@@ -22,7 +22,7 @@ namespace Gibs.Portal.Pages.Public
                 Transaction = await paystack.VerifyTransaction(reference);
 
                 if (Transaction.Status == "success")
-                    order.PaymentSuccess(Transaction.RequestedAmount);
+                    order.PaymentSuccess(Transaction.AmountInKobo / 100);
                 else
                     order.PaymentFailed(Transaction.GatewayResponse);
 

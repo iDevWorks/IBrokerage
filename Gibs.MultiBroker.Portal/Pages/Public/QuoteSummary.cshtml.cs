@@ -31,9 +31,9 @@ namespace Gibs.MultiBroker.Portal.Pages.Public
             {
                 Insured = await context.Insureds.FindAsync(InsuredId);
 
-                var product = new Product("2001", "V", null, "Third Party Motor", "motor insurance");
+                var product = new Product("2003", "V", null, "Third Party Motor", "motor insurance");
 
-                var policy = new Policy(product, Insured, "0004", DateOnly.FromDateTime(DateTime.UtcNow), DateOnly.FromDateTime(DateTime.UtcNow.AddDays(365)), 20000, Price);
+                var policy = new Policy(product, Insured, "0008", DateOnly.FromDateTime(DateTime.UtcNow), DateOnly.FromDateTime(DateTime.UtcNow.AddDays(365)), 20000, Price);
 
                 var listOfPolicy = new List<Policy>{ policy };
 
