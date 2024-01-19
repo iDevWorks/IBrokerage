@@ -40,7 +40,7 @@ namespace Gibs.Portal.Pages
                     InsurersSelectList = await context.Insurers
                         .Select(i => new SelectListItem
                         {
-                            Value = i.InsurerId,
+                            Value = i.Id,
                             Text = i.InsurerName
                         })
                         .ToListAsync();
