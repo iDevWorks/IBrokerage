@@ -30,30 +30,36 @@ namespace Gibs.Portal.Pages
         {
             try
             {
-                // var broker = await GetCurrentBroker();
-
-
+                // Retrieve the broker using the provided BrokerId
                 var broker = await context.Brokers
                     .Include(x => x.Underwriters)
-                    .ThenInclude(x => x.Insurer)
+                        .ThenInclude(x => x.Insurer)
                     .SingleOrDefaultAsync(x => x.Id == BrokerId);
 
-                // var insurers = await context.Insurers.ToListAsync();
-
-                // Load the list of available insurers into the Insurers property
-                InsurersSelectList = await context.Insurers
-                    .Select(i => new SelectListItem
+                if (broker != null)
                 {
-                    Value = i.InsurerId,
-                    Text = i.InsurerName
-                }).ToListAsync();
+                    // Load the list of available insurers into the Insurers property
+                    InsurersSelectList = await context.Insurers
+                        .Select(i => new SelectListItem
+                        {
+                            Value = i.InsurerId,
+                            Text = i.InsurerName
+                        })
+                        .ToListAsync();
 
-                UnderWriters = broker.Underwriters.ToList();
+                    // Populate the UnderWriters property with the underwriters associated with the broker
+                    UnderWriters = broker.Underwriters.ToList();
+                }
+                else
+                {
+                    ShowError("Broker not found."); // Handle the case where the broker is not found
+                }
             }
             catch (Exception ex)
             {
                 ShowError(ex.Message);
             }
+
             return Page();
         }
 
