@@ -1,0 +1,32 @@
+﻿@page "{id}"
+@using System.Security.Claims;
+@model Gibs.MultiBroker.Portal.Pages.Broker.CustomerViewModel
+@{
+
+}
+
+<div class="container mt-5">
+    <div class="card rounded-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="@User.GetClaimValue(ClaimTypes.Uri)" alt="Customer Avatar" class="img-fluid rounded-circle">
+                </div>
+                <div class="col-md-8">
+                    <h2 class="card-title">@Model.Customer.FullName</h2>
+                    <p class="card-text">
+                        <strong>Email:</strong> @Model.Customer.Email<br>
+                        <strong>Phone Number:</strong> @Model.Customer.Phone<br>
+                        <strong>Date of Birth:</strong> @Model.Customer.DateOfBirthOrReg.ToString("yyyy-MM-dd")<br>
+                        @if (Model.Customer.IsCorporate)
+                        {
+                            <strong>Company Name:</strong> @Model.Customer.CompanyName
+
+                            <br>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

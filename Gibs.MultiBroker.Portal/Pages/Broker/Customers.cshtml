@@ -34,7 +34,7 @@
             {
                 foreach (var client in Model.InsuredData)
                 {
-                    var viewLink = Url.Page("View", new { id = client.Id });
+                    var viewLink = Url.Page("CustomerView", new { id = client.Id });
                     <tr>
                         <td><input type="checkbox" class="form-check-input" /></td>
                         <td>@client.FullName</td>

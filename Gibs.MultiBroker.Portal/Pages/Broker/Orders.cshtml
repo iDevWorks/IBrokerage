@@ -37,8 +37,8 @@
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
                         <td>@order.Id</td>
-                        <td>@order.CreatedUtc.ToLocalTime().Date</td>
-                        <td>@order.TotalAmount</td>
+                        <td>@order.CreatedUtc.ToLocalTime().ToString("dd/MM/yyy hh:mm")</td>
+                        <td>@order.TotalAmount.ToString("C")</td>
                         <td>@order.Reference</td>
                         <td>@order.PaymentStatus</td>
                         <td>@order.PaymentMethod</td>
