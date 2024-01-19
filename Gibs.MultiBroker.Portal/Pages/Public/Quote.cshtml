@@ -37,44 +37,44 @@
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label asp-for="Email" class="form-label">Email</label>
-                        <input type="email" class="form-control" asp-for="Email" required>
+                        <label asp-for="Quote.Email" class="form-label">Email</label>
+                        <input type="email" class="form-control" asp-for="Quote.Email" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="Phone" class="form-label">Phone</label>
-                        <input type="number" class="form-control" asp-for="Phone" required>
+                        <label asp-for="Quote.Phone" class="form-label">Phone</label>
+                        <input type="number" class="form-control" asp-for="Quote.Phone" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="FirstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" asp-for="FirstName" required>
+                        <label asp-for="Quote.FirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" asp-for="Quote.FirstName" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="LastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" asp-for="LastName" required>
+                        <label asp-for="Quote.LastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" asp-for="Quote.LastName" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
-                        <input class="form-control" value="1980-01-01" asp-for="DateOfBirth" type="date" required>
+                        <label asp-for="Quote.DateOfBirth" class="form-label">Date of Birth</label>
+                        <input class="form-control" value="1980-01-01" asp-for="Quote.DateOfBirth" type="date" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="Gender" class="form-label">Gender</label>
-                        <select asp-for="Gender" class="form-select" required>
+                        <label asp-for="Quote.Gender" class="form-label">Gender</label>
+                        <select asp-for="Quote.Gender" class="form-select" required>
                             <option value="" selected></option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
                     </div>
                     <div class="col-12">
-                        <label asp-for="Address" class="form-label">Address</label>
-                        <input type="text" class="form-control" asp-for="Address" placeholder="1234 Main St" required>
+                        <label asp-for="Quote.Address" class="form-label">Address</label>
+                        <input type="text" class="form-control" asp-for="Quote.Address" placeholder="1234 Main St" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="City" class="form-label">City</label>
-                        <input type="text" class="form-control" asp-for="City" required>
+                        <label asp-for="Quote.City" class="form-label">City</label>
+                        <input type="text" class="form-control" asp-for="Quote.City" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="State" class="form-label">State</label>
-                        <select asp-for="State" class="form-select" required>
+                        <label asp-for="Quote.State" class="form-label">State</label>
+                        <select asp-for="Quote.State" class="form-select" required>
                             <option value="">Select State</option>
                             <option value="FC">FCT</option>
                             <option value="AB">Abia</option>
@@ -123,20 +123,20 @@
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label asp-for="VehicleClass" class="form-label">Class/Type</label>
-                        <select asp-for="VehicleClass" class="form-select" required>
+                        <label asp-for="Quote.VehicleClass" class="form-label">Class/Type</label>
+                        <select asp-for="Quote.VehicleClass" class="form-select" required>
                             <option value="" selected>Choose...</option>
                             <option value="private">Private</option>
                             <option value="commercial">Commercial</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="RegistrationNo" class="form-label">Registration No</label>
-                        <input type="text" class="form-control" asp-for="RegistrationNo" required>
+                        <label asp-for="Quote.RegistrationNo" class="form-label">Registration No</label>
+                        <input type="text" class="form-control" asp-for="Quote.RegistrationNo" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="CarBrand" class="form-label">Brand</label>
-                        <select asp-for="CarBrand" class="form-select" required>
+                        <label asp-for="Quote.CarBrand" class="form-label">Brand</label>
+                        <select asp-for="Quote.CarBrand" class="form-select" required>
                             <option value="">Select vehicle brand</option>
                             <option value="346"> STEYR</option>
                             <option value="127">35CMB</option>
@@ -482,24 +482,24 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="CarModel" class="form-label">Model</label>
-                        <input type="text" class="form-control" asp-for="CarModel" placeholder="ex Camry, Altima" required>
+                        <label asp-for="Quote.CarModel" class="form-label">Model</label>
+                        <input type="text" class="form-control" asp-for="Quote.CarModel" placeholder="ex Camry, Altima" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="EngineNo" class="form-label">Engine No</label>
-                        <input class="form-control" type="text" asp-for="EngineNo" required>
+                        <label asp-for="Quote.EngineNo" class="form-label">Engine No</label>
+                        <input class="form-control" type="text" asp-for="Quote.EngineNo" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="ChasisNo" class="form-label">Chasis No</label>
-                        <input class="form-control" type="text" asp-for="ChasisNo" required>
+                        <label asp-for="Quote.ChasisNo" class="form-label">Chasis No</label>
+                        <input class="form-control" type="text" asp-for="Quote.ChasisNo" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="YearOfMake" class="form-label">Manufactured Year</label>
-                        <input type="number" min="1980" max="2024" class="form-control" asp-for="YearOfMake" required>
+                        <label asp-for="Quote.YearOfMake" class="form-label">Manufactured Year</label>
+                        <input type="number" min="1980" max="2024" class="form-control" asp-for="Quote.YearOfMake" required>
                     </div>
                     <div class="col-md-6">
-                        <label asp-for="Color" class="form-label">Color</label>
-                        <input type="text" class="form-control" asp-for="Color" required>
+                        <label asp-for="Quote.Color" class="form-label">Color</label>
+                        <input type="text" class="form-control" asp-for="Quote.Color" required>
                     </div>
                 </div>
             </body>

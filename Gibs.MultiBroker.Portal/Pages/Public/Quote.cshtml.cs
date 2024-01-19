@@ -5,8 +5,31 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages.Public
 {
-    [BindProperties]
     public class GetQuoteModel(BrokerContext context) : RootPageModel
+    {
+        [BindProperty]
+        public VehicleModel Quote { get; set; } = new();
+
+        public ActionResult OnPostGetQuote()
+        {
+            if (!ModelState.IsValid) return RedirectToPage();
+
+            try
+            {
+                TempData.Put("quote", Quote);
+                
+
+                return RedirectToPage("QuoteSummary");
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+            return RedirectToPage();
+        }
+    }
+
+    public class VehicleModel()
     {
         [EmailAddress]
         public string Email { get; set; }
@@ -47,35 +70,5 @@ namespace Gibs.Portal.Pages.Public
         public string YearOfMake { get; set; }
 
         public string Color { get; set; }
-
-
-        public async Task<ActionResult> OnPostGetQuote()
-        {
-            if (!ModelState.IsValid) return RedirectToPage();
-
-            try
-            {
-                var insured = await context.Insureds.FindAsync(Email);
-
-                if (insured == null)
-                {
-                    insured = new Insured(false, string.Empty, DateOfBirth,
-                        FirstName, LastName, Email, Phone, "1234");
-
-                    context.Add(insured);
-                    await context.SaveChangesAsync();
-                }
-
-                return RedirectToPage("QuoteSummary", new
-                {
-                    InsuredId = insured.Id
-                });
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex.Message);
-            }
-            return RedirectToPage();
-        }
     }
 }

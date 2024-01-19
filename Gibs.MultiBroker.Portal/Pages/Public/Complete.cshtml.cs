@@ -2,6 +2,7 @@ using Gibs.Infrastructure.EntityFramework;
 using iDevWorks.Paystack;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Gibs.Portal.Pages.Public
 {
@@ -14,17 +15,17 @@ namespace Gibs.Portal.Pages.Public
         {
             try
             {
-                //var order = await context.OrdersGrid
-                //        .Where(o => o.Reference == reference)
-                //        .SingleOrDefaultAsync()
-                //    ?? throw new InvalidOperationException("Wrong payment reference");
+                var order = await context.Orders
+                        .Where(o => o.Reference == reference)
+                        .SingleOrDefaultAsync()
+                    ?? throw new InvalidOperationException("wrong payment reference");
 
-                //Transaction = await paystack.VerifyTransaction(reference);
-                
-                //if (Transaction.Status == "success")
-                //    order.PaymentSuccess(Transaction.RequestedAmount);
-                //else
-                //    order.PaymentFailed(Transaction.GatewayResponse);
+                Transaction = await paystack.VerifyTransaction(reference);
+
+                if (Transaction.Status == "success")
+                    order.PaymentSuccess(Transaction.AmountInKobo / 100);
+                else
+                    order.PaymentFailed(Transaction.GatewayResponse);
 
                 await context.SaveChangesAsync();
             }
