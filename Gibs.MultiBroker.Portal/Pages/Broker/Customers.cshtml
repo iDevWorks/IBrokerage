@@ -37,14 +37,17 @@
                     var viewLink = Url.Page("CustomerView", new { id = client.Id });
                     <tr>
                         <td><input type="checkbox" class="form-check-input" /></td>
-                        <td>@client.FullName</td>
+                        <td>
+                            <a href="@viewLink" class="text-decoration-none">@client.FullName
+                                </a>
+                        </td>
                         <td>@client.Phone</td>
                         <td>@client.Email</td>
                         <td>@client.DateOfBirthOrReg</td>
                         <td>@client.CreatedUtc.ToString("MMM-dd-yyyy")</td>
                         <td>
                             <div class="d-flex gap-3 py-3 fs-5">
-                                <a href="@viewLink" class="text-muted" title="Edit Insured"><i class="bi bi-pencil-fill text-warning"></i></a>
+                                <a asp-page="CustomerEdit" asp-route-Id="@client.Id" class="text-muted" title="Edit Insured"><i class="bi bi-pencil-fill text-warning"></i></a>
                                 <a href="@viewLink&d=1" class="text-muted" title="Ban Insured"><i class="bi bi-stop-circle-fill text-danger"></i></a>
                             </div>
                         </td>

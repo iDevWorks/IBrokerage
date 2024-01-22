@@ -1,0 +1,34 @@
+﻿@page
+@model Gibs.Portal.Pages.CustomerEditModel
+@{
+    ViewData["Title"] = "Edit Customer";
+}
+
+<div class="col-md-6 bg-white p-3 shadow rounded-3">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Customer.Id" />
+        <div class="row g-3">
+            <div class="col-6">
+                <label asp-for="Customer.FirstName" class="form-label">First name</label>
+                <input class="form-control" asp-for="Customer.FirstName">
+            </div>
+            <div class="col-6">
+                <label asp-for="Customer.LastName" class="form-label">Last name</label>
+                <input class="form-control" asp-for="Customer.LastName">
+            </div>
+            <div class="col-6">
+                <label asp-for="Customer.Email" class="form-label">Email</label>
+                <input class="form-control" asp-for="Customer.Email">
+            </div>
+            <div class="col-6">
+                <label asp-for="Customer.Phone" class="form-label">Phone</label>
+                <input class="form-control" asp-for="Customer.Phone">
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <button class="btn btn-secondary">Cancel</button>
+        </div>
+    </form>
+</div>
