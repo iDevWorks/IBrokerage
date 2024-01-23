@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
 {
-    public class CustomerEditModel(BrokerContext context) : PageModel
+    public class CustomerEditModel(BrokerContext context) : RootPageModel
     {
         [BindProperty]
-        public Insured Customer { get; set; } = default!;
+        public Insured Customer { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -38,18 +38,19 @@ namespace Gibs.Portal.Pages
             try
             {
                 await context.SaveChangesAsync();
+                ShowInfo("the insured was updated successfully.");
             }
             catch (DbUpdateConcurrencyException ex)
             {
                 if (!InsuredExists(Customer.Id))
                 {
-                    return NotFound();
+                    ShowError("the insured was not found");
                 }
                 else
                 {
-                    ModelState.AddModelError("", ex.Message);
-                    return Page();
+                    ShowError(ex.Message);
                 }
+                return Page();
             }
 
             return RedirectToPage("Customers");
