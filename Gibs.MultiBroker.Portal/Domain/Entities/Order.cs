@@ -6,7 +6,7 @@
         public Order() { }
         #pragma warning restore CS8618
 
-        public Order(ICollection<Policy> policies, Insured customer)
+        public Order(List<Policy> policies, Insured customer)
         {
             ArgumentNullException.ThrowIfNull(customer);
             ArgumentNullException.ThrowIfNull(policies);
