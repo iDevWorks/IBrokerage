@@ -26,7 +26,6 @@ namespace Gibs.Portal.Pages
 
             // Fetch policies associated with the customer
             Policies = await context.PoliciesData
-                .Include(p => p.Insured)
                 .Include(p => p.Product)
                 .Where(p => p.Insured == customer)
                 .ToListAsync();

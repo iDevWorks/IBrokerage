@@ -35,12 +35,13 @@
     </div>
     <div class="card rounded-4 shadow" style="width: 50%">
         <div class="card-body p-4">
-            <div class="pb-3 border-bottom">
-                <p class="fw-bold mb-3">Policies</p>
+            <div class="pb-3 border-bottom mb-3">
+                <p class="fw-bold mb-0">Policies</p>
             </div>
 
             @foreach (var policy in Model.Policies)
             {
+                
                 <div class="mb-4">
                     <p class="mb-0 card-text">@policy.PolicyNo</p>
                     <h3 class="fw-bold">@policy.Product.ProductName<span class="badge bg-primary ms-3 rounded-3">@policy.Status</span></h3>
@@ -63,6 +64,8 @@
                         <button class="btn btn-primary">Change Policy</button>
                     </div>
                 </div>
+
+                <hr />
             }
         </div>
     </div>
@@ -101,7 +104,7 @@
                 <tr>
                     <th><input type="checkbox" class="form-check-input"></th>
                     <td>@order.Id</td>
-                    <td>@order.CreatedUtc.ToString("dd/MMM/yyyy hh:mm")</td>
+                    <td>@order.CreatedUtc.ToString("dd/MM/yyyy hh:mm")</td>
                     <td>@order.TotalAmount.ToString("C")</td>
                     <td>@order.Reference</td>
                     <td>@order.PaymentStatus</td>
@@ -113,21 +116,6 @@
                     </td>
                 </tr>
             }
-            
-            <tr>
-                <th><input type="checkbox" class="form-check-input"></th>
-                <td>6</td>
-                <td>19/01/2024 02:27</td>
-                <td>₦15,000.00</td>
-                <td>5de4d39e-0e09-4cc4-b08e-dea3a94685e3</td>
-                <td>SUCCESS</td>
-                <td>PAYSTACK</td>
-                <td class="d-flex gap-1">
-                    <i class="bi bi-trash" data-bs-toggle="modal" data-bs-target="#deletePolicy" data-id="6">
-                    </i>
-                    <i class="bi bi-pencil-square"></i>
-                </td>
-            </tr>
         </tbody>
     </table>
 </section>
