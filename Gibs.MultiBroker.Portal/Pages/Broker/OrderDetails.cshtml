@@ -1,0 +1,66 @@
+﻿@page "{id:int}"
+@model Gibs.Portal.Pages.OrderDetailsModel
+@{
+    ViewData["Title"] = $"Order Details";
+}
+
+<section class="mt-3">
+    <dl class="row bg-white">
+        <dt class="col-sm-3">Order ID:</dt>
+        <dd class="col-sm-9">@Model.Order.Id</dd>
+
+        <dt class="col-sm-3">Reference:</dt>
+        <dd class="col-sm-9">@Model.Order.Reference</dd>
+
+        <dt class="col-sm-3">Created Date:</dt>
+        <dd class="col-sm-9">@Model.Order.CreatedUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+
+        <dt class="col-sm-3">Total Amount:</dt>
+        <dd class="col-sm-9">₦@Model.Order.TotalAmount</dd>
+
+        <dt class="col-sm-3">Payment Method:</dt>
+        <dd class="col-sm-9">@Model.Order.PaymentMethod</dd>
+
+        <dt class="col-sm-3">Payment Status:</dt>
+        <dd class="col-sm-9">@Model.Order.PaymentStatus</dd>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Order.Remarks))
+        {
+            <dt class="col-sm-3">Remarks:</dt>
+            <dd class="col-sm-9">@Model.Order.Remarks</dd>
+        }
+
+        @if (Model.Order.PaymentUtc.HasValue)
+        {
+            <dt class="col-sm-3">Payment Date:</dt>
+            <dd class="col-sm-9">@Model.Order.PaymentUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+        }
+
+        <dt class="col-sm-3">Customer Name:</dt>
+        <dd class="col-sm-9">@Model.Order.Insured.FullName</dd>
+
+        <dt class="col-sm-3">Customer Email:</dt>
+        <dd class="col-sm-9">@Model.Order.Insured.Email</dd>
+    </dl>
+
+    <h3 class="mt-4">Policies</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Policy ID</th>
+                <th>Product Name</th>
+                <th>Gross Premium</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var policy in Model.Order.Policies)
+            {
+                <tr>
+                    <td>@policy.PolicyNo</td>
+                    <td>@policy.Product.ProductName</td>
+                    <td>₦@policy.GrossPremium</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

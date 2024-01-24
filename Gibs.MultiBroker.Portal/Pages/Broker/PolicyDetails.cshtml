@@ -1,0 +1,38 @@
+﻿@page "{policyNo}"
+@model Gibs.Portal.Pages.PolicyDetailModel
+@{
+    ViewData["Title"] = "Policy Details";
+}
+
+<div class="mt-3">
+    <div class="card">
+        <div class="card-body">
+            <p class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fw-bold">Policy info</span>
+                <a asp-page="PolicyEdit" asp-route-id="@Model.Policy.PolicyNo" class="text-decoration-none">Edit</a>
+            </p>
+            <dl class="row">
+                <dt class="col-sm-3">Policy Number:</dt>
+                <dd class="col-sm-9">@Model.Policy.PolicyNo</dd>
+
+                <dt class="col-sm-3">Insured Name:</dt>
+                <dd class="col-sm-9">@Model.Policy.InsuredName</dd>
+
+                <dt class="col-sm-3">Start Date:</dt>
+                <dd class="col-sm-9">@Model.Policy.StartDate.ToString("MM/dd/yyyy")</dd>
+
+                <dt class="col-sm-3">End Date:</dt>
+                <dd class="col-sm-9">@Model.Policy.EndDate.ToString("MM/dd/yyyy")</dd>
+
+                <dt class="col-sm-3">Sum Insured:</dt>
+                <dd class="col-sm-9">@Model.Policy.SumInsured</dd>
+
+                <dt class="col-sm-3">Gross Premium:</dt>
+                <dd class="col-sm-9">@Model.Policy.GrossPremium</dd>
+
+                <dt class="col-sm-3">Commission:</dt>
+                <dd class="col-sm-9">@Model.Policy.Commission</dd>
+            </dl>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,6 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
@@ -10,7 +8,7 @@ namespace Gibs.Portal.Pages
     public class CustomerEditModel(BrokerContext context) : RootPageModel
     {
         [BindProperty]
-        public Insured Customer { get; set; }
+        public Insured Customer { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -19,7 +17,7 @@ namespace Gibs.Portal.Pages
                 return NotFound();
             }
 
-            var insured = await context.Insureds.FirstOrDefaultAsync(i => i.Id == id)
+            var insured = await context.Insureds.FindAsync(id)
                 ?? throw new Exception("no insured with this id was found.");
 
             Customer = insured;
@@ -38,13 +36,13 @@ namespace Gibs.Portal.Pages
             try
             {
                 await context.SaveChangesAsync();
-                ShowInfo("the insured was updated successfully.");
+                ShowInfo("The insured was updated successfully");
             }
             catch (DbUpdateConcurrencyException ex)
             {
                 if (!InsuredExists(Customer.Id))
                 {
-                    ShowError("the insured was not found");
+                    ShowError($"No insured was found with this id {Customer.Id}");
                 }
                 else
                 {

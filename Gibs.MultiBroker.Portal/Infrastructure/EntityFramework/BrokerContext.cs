@@ -12,7 +12,7 @@ namespace Gibs.Infrastructure.EntityFramework
         public DbSet<Insurer> Insurers { get; set; }
         public DbSet<Product> Products { get; set; }
         //public DbSet<Underwriter> UnderwriterData { get; set; }
-        //public DbSet<Policy> PoliciesData { get; set; }
+        public DbSet<Policy> PoliciesData { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

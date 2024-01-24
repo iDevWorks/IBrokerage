@@ -1,6 +1,6 @@
 ﻿@page "{id}"
 @using System.Security.Claims;
-@model Gibs.MultiBroker.Portal.Pages.Broker.CustomerViewModel
+@model Gibs.Portal.Pages.CustomerDetailsModel
 @{
 
 }
@@ -36,32 +36,37 @@
     <div class="card rounded-4 shadow" style="width: 50%">
         <div class="card-body p-4">
             <div class="pb-3 border-bottom">
-                <p class="fw-bold mb-3">Policy</p>
-                <p class="mb-0 card-text">third-party-insurance</p>
-                <h3 class="fw-bold">Motor Insurance<span class="badge bg-primary ms-3 rounded-3">active</span></h3>
+                <p class="fw-bold mb-3">Policies</p>
             </div>
-            <div>
-                <div class="d-flex justify-content-between pt-3">
-                    <div>
-                        <p class="mb-0">Billing cycle</p>
-                        <p class="fw-bold fs-5 mb-0">Annually</p>
+
+            @foreach (var policy in Model.Policies)
+            {
+                <div class="mb-4">
+                    <p class="mb-0 card-text">@policy.PolicyNo</p>
+                    <h3 class="fw-bold">@policy.Product.ProductName<span class="badge bg-primary ms-3 rounded-3">@policy.Status</span></h3>
+                    <div class="d-flex justify-content-between pt-3">
+                        <div>
+                            <p class="mb-0">Billing cycle</p>
+                            <p class="fw-bold fs-5 mb-0">Anually</p>
+                        </div>
+                        <div>
+                            <p class="mb-0">Renews On</p>
+                            <p class="fw-bold fs-5 mb-0">@policy.EndDate.ToString("dd, MMMM, yyyy")</p>
+                        </div>
+                        <div>
+                            <p class="mb-0">Registration Date</p>
+                            <p class="fw-bold fs-5 mb-0">@policy.StartDate.ToString("dd, MMMM, yyyy")</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="mb-0">Renews On</p>
-                        <p class="fw-bold fs-5 mb-0">02, january, 2025</p>
-                    </div>
-                    <div>
-                        <p class="mb-0">Registration Date</p>
-                        <p class="fw-bold fs-5 mb-0">02, january, 2024</p>
+                    <div class="d-flex gap-3 align-items-center pt-4">
+                        <button class="btn btn-outline-danger">Suspend Policy</button>
+                        <button class="btn btn-primary">Change Policy</button>
                     </div>
                 </div>
-                <div class="d-flex gap-3 align-items-center pt-4">
-                    <button class="btn btn-outline-danger">Suspend Policy</button>
-                    <button class="btn btn-primary">Change Policy</button>
-                </div>
-            </div>
+            }
         </div>
     </div>
+
 </div>
 
 <section class="bg-white p-4 border mt-5 rounded-3 shadow">
@@ -91,20 +96,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th><input type="checkbox" class="form-check-input"></th>
-                <td>4</td>
-                <td>19/01/2024 02:10</td>
-                <td>₦15,000.00</td>
-                <td>b8a673ae-34da-467a-baf8-f4bfb6840881</td>
-                <td>FAILED</td>
-                <td>PAYSTACK</td>
-                <td class="d-flex gap-1">
-                    <i class="bi bi-trash" data-bs-toggle="modal" data-bs-target="#deletePolicy" data-id="4">
-                    </i>
-                    <i class="bi bi-pencil-square"></i>
-                </td>
-            </tr>
+            @foreach(var order in Model.Orders)
+            {
+                <tr>
+                    <th><input type="checkbox" class="form-check-input"></th>
+                    <td>@order.Id</td>
+                    <td>@order.CreatedUtc.ToString("dd/MMM/yyyy hh:mm")</td>
+                    <td>@order.TotalAmount.ToString("C")</td>
+                    <td>@order.Reference</td>
+                    <td>@order.PaymentStatus</td>
+                    <td>@order.PaymentMethod</td>
+                    <td class="d-flex gap-1">
+                        <i class="bi bi-trash" data-bs-toggle="modal" data-bs-target="#deletePolicy" data-id="4">
+                        </i>
+                        <i class="bi bi-pencil-square"></i>
+                    </td>
+                </tr>
+            }
+            
             <tr>
                 <th><input type="checkbox" class="form-check-input"></th>
                 <td>6</td>

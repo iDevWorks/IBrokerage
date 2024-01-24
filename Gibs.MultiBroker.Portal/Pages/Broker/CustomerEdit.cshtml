@@ -1,29 +1,28 @@
-﻿@page
+﻿@page "{id}"
 @model Gibs.Portal.Pages.CustomerEditModel
 @{
     ViewData["Title"] = "Edit Customer";
 }
 
 <div class="col-md-6 bg-white p-3 shadow rounded-3">
-    <form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Customer.Id" />
+    <form method="post" asp-page-handler="Update">
+        <input type="hidden" name="id" value="@Model.Customer.Id" />
         <div class="row g-3">
             <div class="col-6">
-                <label asp-for="Customer.FirstName" class="form-label">First name</label>
-                <input class="form-control" asp-for="Customer.FirstName">
+                <label asp-for="@Model.Customer.FirstName" class="form-label">First name</label>
+                <input class="form-control" asp-for="@Model.Customer.FirstName">
             </div>
             <div class="col-6">
-                <label asp-for="Customer.LastName" class="form-label">Last name</label>
-                <input class="form-control" asp-for="Customer.LastName">
+                <label asp-for="@Model.Customer.LastName" class="form-label">Last name</label>
+                <input class="form-control" asp-for="@Model.Customer.LastName">
             </div>
             <div class="col-6">
-                <label asp-for="Customer.Email" class="form-label">Email</label>
-                <input class="form-control" asp-for="Customer.Email">
+                <label asp-for="@Model.Customer.Email" class="form-label">Email</label>
+                <input class="form-control" asp-for="@Model.Customer.Email" readonly>
             </div>
             <div class="col-6">
-                <label asp-for="Customer.Phone" class="form-label">Phone</label>
-                <input class="form-control" asp-for="Customer.Phone">
+                <label asp-for="@Model.Customer.Phone" class="form-label">Phone</label>
+                <input class="form-control" asp-for="@Model.Customer.Phone">
             </div>
         </div>
         <div class="form-group mt-3">

@@ -34,19 +34,23 @@
             {
                 foreach (var order in Model.OrdersGrid)
                 {
+                    var viewLink = Url.Page("OrderDetails", new { id = order.Id });
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
-                        <td>@order.Id</td>
+                        <td>
+                            <a href="@viewLink" class="text-decoration-none">
+                                @order.Id
+                            </a>
+                        </td>
                         <td>@order.CreatedUtc.ToLocalTime().ToString("dd/MM/yyy hh:mm")</td>
                         <td>@order.TotalAmount.ToString("C")</td>
                         <td>@order.Reference</td>
                         <td>@order.PaymentStatus</td>
                         <td>@order.PaymentMethod</td>
-                        <td class="d-flex gap-1">
-                            <i class="bi bi-trash" data-bs-toggle="modal"
-                               data-bs-target="#deletePolicy" data-id="@order.Id">
-                            </i>
-                            <i class="bi bi-pencil-square"></i>
+                        <td>
+                            <div class="py-3 fs-5">
+                                <a href="@viewLink&d=1" class="text-muted" title="Ban Insured"><i class="bi bi-stop-circle-fill text-danger"></i></a>
+                            </div>
                         </td>
                     </tr>
                 }
