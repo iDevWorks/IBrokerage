@@ -2,31 +2,17 @@
 {
     public class Settings
     {
-        public JWTOptions JWT { get; init; } = new();
-        public SMSOptions SMS { get; init; } = new();
         public SMTPOptions SMTP { get; init; } = new();
-        public ConnectionStringOptions ConnStrings { get; init; } = new();
+        public PaystackOptions Paystack { get; init; } = new();
 
-        public class ConnectionStringOptions
-        {
-            public string ServiceBus { get; init; } = string.Empty;
-            public string Storage { get; init; } = string.Empty;
-            public string SqlDb { get; init; } = string.Empty;
-        }
-
-        public class SMSOptions
-        {
-            public long Free { get; init; } = 10;
-            public string FreeText { get; init; } = string.Empty;
-            public long MaxLength { get; init; } = 810;
-            public long BalEmailsPerHr { get; init; } = 1000;
-        }
-
-        public class JWTOptions
-        {
-            public string Secret { get; init; } = string.Empty;
-            public int ExpiresIn { get; init; } = 3600;
-        }
+        //public class SmtpOptions(string host, int port, string userName, string password, string senderEmail)
+        //{
+        //    public string Host { get; set; } = host;
+        //    public int Port { get; set; } = port;
+        //    public string Username { get; set; } = userName;
+        //    public string Password { get; set; } = password;
+        //    public string SenderEmail { get; set; } = senderEmail;
+        //}
 
         public class SMTPOptions
         {
@@ -35,6 +21,11 @@
             public string Username { get; init; } = string.Empty;
             public string Password { get; init; } = string.Empty;
             public bool UseSSL { get; init; } = true;
+        }
+
+        public class PaystackOptions
+        {
+            public string Key { get; init; } = string.Empty;
         }
 
         public static class Headers

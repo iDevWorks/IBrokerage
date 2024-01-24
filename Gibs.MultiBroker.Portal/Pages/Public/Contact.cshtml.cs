@@ -7,13 +7,13 @@ namespace Gibs.Portal.Pages.Public
     [BindProperties]
     public class ContactModel(EmailService emailService) : RootPageModel
     {
-        [EmailAddress]
+        [Required, EmailAddress]
         public string Sender { get; set; }
 
-        [MinLength(5)]
+        [Required]
         public string Subject { get; set; }
 
-        [MinLength(10)]
+        [Required]
         public string Message { get; set; }
 
         public async Task<ActionResult> OnPostAsync()
@@ -22,7 +22,11 @@ namespace Gibs.Portal.Pages.Public
 
             try
             {
-                await emailService.SendEmailAsync(Sender, Subject, Message);
+                var sendTo = "dejisys@idevworks.com";
+
+                await emailService.SendContactForm(
+                    Sender, Subject, Message, sendTo);
+
                 return RedirectToPage("Index");
             }
             catch (Exception ex)

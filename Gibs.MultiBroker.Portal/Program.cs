@@ -9,8 +9,8 @@ using Gibs.Portal;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var settings = builder.Configuration.GetSection("SmtpSettings").Get<Settings>()
-    ?? throw new InvalidOperationException("SmtpSettings configuration is missing!!!");
+var settings = builder.Configuration.GetSection("AppSettings").Get<Settings>()
+    ?? throw new InvalidOperationException("AppSettings configuration is missing!!!");
 
 builder.Services.AddDbContextPool<BrokerContext>(options =>
 {
@@ -41,13 +41,13 @@ builder.Services.AddRazorPages(options =>
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
-var paystack = new PaystackClient("sk_test_56ad4dcb51028c01db37201b5d74f69032c4b9eb");
+var paystack = new PaystackClient(settings.Paystack.Key);
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton(paystack);
+builder.Services.AddSingleton(settings);
 
 builder.Services.AddSingleton<EmailService>();
-builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection("SmtpSettings"));
 
 var app = builder.Build();
 
