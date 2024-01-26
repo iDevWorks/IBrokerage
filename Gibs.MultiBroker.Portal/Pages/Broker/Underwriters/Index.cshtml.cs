@@ -1,5 +1,6 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
+using Gibs.Portal.Pages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,13 +34,12 @@ namespace Gibs.Portal.Pages
                 var broker = await context.Brokers
                     .Include(x => x.Underwriters)
                         .ThenInclude(x => x.Insurer)
-                    .SingleOrDefaultAsync(x => x.Id == BrokerId);
+                    .SingleOrDefaultAsync(x => x.Id == BrokerId)
+                    ?? throw new Exception("Broker not found");
 
-                if (broker == null)
-                {
-                    ShowError("Broker not found");
-                    return Page();
-                }
+                // Populate the UnderwriterData property with the
+                // underwriters associated with the broker
+                UnderwriterData = broker.Underwriters.ToList();
 
                 // Load the list of available insurers into the Insurers property
                 InsurerOptions = await context.Insurers
@@ -49,10 +49,6 @@ namespace Gibs.Portal.Pages
                         Text = i.InsurerName
                     })
                     .ToListAsync();
-
-                // Populate the UnderwriterData property with the
-                // underwriters associated with the broker
-                UnderwriterData = broker.Underwriters.ToList();
             }
             catch (Exception ex)
             {
@@ -79,7 +75,7 @@ namespace Gibs.Portal.Pages
 
                 ShowInfo("the underwriter was added successfully");
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex)
             {
                 ShowError(ex.Message);
             }

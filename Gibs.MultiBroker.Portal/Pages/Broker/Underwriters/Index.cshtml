@@ -24,7 +24,7 @@
                 <th>Insurer Name</th>
                 <th>ApiAuthStyle</th>
                 <th>ApiKey Username</th>
-                <th>Naicom Id</th>
+                <th>Naicom ID</th>
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
@@ -34,9 +34,10 @@
             {
                 foreach (var underWriter in Model.UnderwriterData)
                 {
+                    var viewLink = Url.Page("View", new { id = underWriter.ApiKey1Username });
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
-                        <td>@underWriter.Insurer.InsurerName</td>
+                        <td><a href="@viewLink" class="text-decoration-none">@underWriter.Insurer.InsurerName</a></td>
                         <td>@underWriter.Insurer.ApiAuthStyle</td>
                         <td>@underWriter.ApiKey1Username</td>
                         <td>@underWriter.Insurer.NaicomId</td>

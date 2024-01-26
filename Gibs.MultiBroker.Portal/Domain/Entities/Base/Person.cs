@@ -58,6 +58,20 @@ namespace Gibs.Domain.Entities
             throw new Exception("Invalid old Password");
         }
 
+        public void UpdateProfile(string? title, string firstName, string lastName, string email, string phone)
+        {
+            ArgumentException.ThrowIfNullOrEmpty(firstName);
+            ArgumentException.ThrowIfNullOrEmpty(lastName);
+            ArgumentException.ThrowIfNullOrEmpty(email);
+            ArgumentException.ThrowIfNullOrEmpty(phone);
+
+            Title = title;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Phone = phone;
+        }
+
         private static string HashPassword(string passwordToHash)
         {
             byte[] emptySalt = [];

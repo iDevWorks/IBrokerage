@@ -34,7 +34,7 @@
             {
                 foreach (var client in Model.InsuredData)
                 {
-                    var viewLink = Url.Page("CustomerDetails", new { id = client.Id });
+                    var viewLink = Url.Page("View", new { id = client.Id });
                     <tr>
                         <td><input type="checkbox" class="form-check-input" /></td>
                         <td>
@@ -43,11 +43,11 @@
                         </td>
                         <td>@client.Phone</td>
                         <td>@client.Email</td>
-                        <td>@client.DateOfBirthOrReg</td>
-                        <td>@client.CreatedUtc.ToString("MMM-dd-yyyy")</td>
+                        <td><span class="text-nowrap">@client.DateOfBirthOrReg.ToString("MMM dd yyyy")</span></td>
+                        <td><span class="text-nowrap">@client.CreatedUtc.ToString("MMM dd yyyy")</span></td>
                         <td>
                             <div class="d-flex gap-3 py-3 fs-5">
-                                <a asp-page="CustomerEdit" asp-route-Id="@client.Id" class="text-muted"                      title="Edit Insured">
+                                <a asp-page="View" asp-route-Id="@client.Id" class="text-muted"                      title="Edit Insured">
                                     <i class="bi bi-pencil-fill text-warning"></i>
                                 </a>
                                 <a href="@viewLink&d=1" class="text-muted" title="Ban Insured"><i class="bi bi-stop-circle-fill text-danger"></i></a>

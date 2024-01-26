@@ -1,6 +1,7 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
 {

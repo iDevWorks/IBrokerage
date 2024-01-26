@@ -25,11 +25,11 @@
         <thead>
             <tr>
                 <th><input type="checkbox" class="form-check-input" /></th>
-                <th>ProductId</th>
-                <th>ProductName</th>
-                <th>ClassId</th>
-                <th>MidClassId</th>
-                <th>ShortName</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Class ID</th>
+                <th>Mid Class ID</th>
+                <th>Short Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -41,7 +41,7 @@
                     var viewLink = Url.Page("View", new { id = product.Id });
                     <tr>
                         <td><input type="checkbox" class="form-check-input" /></td>
-                        <td>@product.Id</td>
+                        <td><a href="@viewLink" class="text-decoration-none">@product.Id</a></td>
                         <td>@product.ProductName</td>
                         <td>@product.ClassId</td>
                         <td>@product.MidClassId</td>

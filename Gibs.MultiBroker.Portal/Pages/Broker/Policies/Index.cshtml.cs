@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
 {
@@ -85,7 +86,7 @@ namespace Gibs.Portal.Pages
                 await context.SaveChangesAsync();
                 ShowInfo("Policy was added successfully.");
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex)
             {
                 ShowError(ex.Message);
             }

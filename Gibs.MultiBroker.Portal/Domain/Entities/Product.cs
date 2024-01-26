@@ -9,6 +9,12 @@ namespace Gibs.Domain.Entities
 
         public Product(string productId, string classId, string? midClassId, string productName, string shortName)
         {
+
+            ArgumentException.ThrowIfNullOrEmpty(productId);
+            ArgumentException.ThrowIfNullOrEmpty(classId);
+            ArgumentException.ThrowIfNullOrEmpty(productName);
+            ArgumentException.ThrowIfNullOrEmpty(shortName);
+
             Id = productId;
             ClassId = classId;
             MidClassId = midClassId;

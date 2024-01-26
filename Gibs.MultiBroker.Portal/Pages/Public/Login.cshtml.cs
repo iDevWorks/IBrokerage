@@ -35,7 +35,7 @@ namespace Gibs.Portal.Pages.Public
                     {
                         var principal = broker.AsPrincipal("broker");
                         await HttpContext.SignInAsync(principal);
-                        return RedirectToPage("/Broker/Dashboard");
+                        return RedirectToPage("/Broker/Index");
                     }
                 }
 

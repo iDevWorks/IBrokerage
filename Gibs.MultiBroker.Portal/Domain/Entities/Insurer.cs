@@ -8,6 +8,10 @@
 
         public Insurer(string insurerId, string insurerName, ApiAuthEnum apiAuthStyle, string naicomId)
         {
+            ArgumentException.ThrowIfNullOrEmpty(insurerId);
+            ArgumentException.ThrowIfNullOrEmpty(insurerName);
+            ArgumentException.ThrowIfNullOrEmpty(naicomId);
+
             Id = insurerId;
             InsurerName = insurerName;
             ApiAuthStyle = apiAuthStyle;

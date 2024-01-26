@@ -17,14 +17,14 @@
                     <img src="~/images/profile.png" alt="Customer Avatar" class="img-fluid rounded-circle">
                 </div>
                 <div class="col-md-8">
-                    <h3 class="card-title fw-bold">@Model.Customer.FullName</h3>
+                    <h3 class="card-title fw-bold">@Model.FirstName @Model.LastName</h3>
                     <p class="card-text">
-                        <strong>Email:</strong> @Model.Customer.Email<br>
-                        <strong>Phone Number:</strong> @Model.Customer.Phone<br>
-                        <strong>Date of Birth:</strong> @Model.Customer.DateOfBirthOrReg.ToString("yyyy-MM-dd")<br>
-                        @if (Model.Customer.IsCorporate)
+                        <strong>Email:</strong> @Model.Email<br>
+                        <strong>Phone Number:</strong> @Model.Phone<br>
+                        <strong>Date of Birth:</strong> @Model.DateOfBirth.ToString("yyyy-MM-dd")<br>
+                        @if (Model.IsCorporate)
                         {
-                            <strong>Company Name:</strong> @Model.Customer.CompanyName
+                            <strong>Company Name:</strong> @Model.CompanyName
 
                             <br>
                         }
@@ -126,12 +126,12 @@
 
 <form method="post">
     <modal id="addModal">
-        <header title="Edit Customer - @Model.Customer.Id"></header>
+        <header title="Edit Customer - @Model.Id"></header>
         <body>
-            <input asp-label="First Name" asp-for="@Model.Customer.FirstName" type="text" readonly>
-            <input asp-label="Last Name" asp-for="@Model.Customer.LastName" type="text">
-            <input asp-label="Email" asp-for="@Model.Customer.Email" type="email">
-            <input asp-label="Phone" asp-for="@Model.Customer.Phone" type="number">
+            <input asp-label="First Name" asp-for="@Model.FirstName" type="text">
+            <input asp-label="Last Name" asp-for="@Model.LastName" type="text">
+            <input asp-label="Email" asp-for="@Model.Email" type="email">
+            <input asp-label="Phone" asp-for="@Model.Phone" type="number">
         </body>
         <footer>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

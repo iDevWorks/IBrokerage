@@ -34,18 +34,27 @@
             {
                 foreach (var order in Model.OrdersGrid)
                 {
-                    var viewLink = Url.Page("OrderDetails", new { id = order.Id });
+                    var viewLink = Url.Page("View", new { id = order.Id });
                     <tr>
                         <th><input type="checkbox" class="form-check-input" /></th>
                         <td>
                             <a href="@viewLink" class="text-decoration-none">
-                                @order.Id
+                                #@order.Id.ToString("00000")
                             </a>
                         </td>
-                        <td>@order.CreatedUtc.ToLocalTime().ToString("dd/MM/yyy hh:mm")</td>
+                        <td>
+                            <span class="text-nowrap">@order.CreatedUtc.ToString("MMM dd yyyy")</span>
+                            <small class="text-nowrap text-muted">@order.CreatedUtc.ToShortTimeString()</small>
+                        </td>
+                        @* <td>@order.CreatedUtc.ToLocalTime().ToString("dd/MM/yyy hh:mm")</td> *@
                         <td>@order.TotalAmount.ToString("C")</td>
                         <td>@order.Reference</td>
-                        <td>@order.PaymentStatus</td>
+                        <td>
+                            <span class="badge bg-success">
+                                <i class="bi bi-credit-card-2-back"></i> @order.PaymentStatus
+                            </span>
+                        </td>
+                        @* <td>@order.PaymentStatus</td> *@
                         <td>@order.PaymentMethod</td>
                         <td>
                             <div class="py-3 fs-5">

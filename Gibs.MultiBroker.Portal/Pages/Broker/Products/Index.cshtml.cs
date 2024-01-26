@@ -1,12 +1,15 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
+using Gibs.Portal.Pages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gibs.Portal.Pages
 {
+    [BindProperties]
     public class ProductModel(BrokerContext context) : BrokerPageModel(context)
     {
         public List<Product> ProductsData { get; set; } = [];
@@ -57,7 +60,7 @@ namespace Gibs.Portal.Pages
 
                 ShowInfo("the product was created successfully.");
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex)
             {
                 ShowError(ex.Message);
             }

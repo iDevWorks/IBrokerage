@@ -60,13 +60,15 @@ namespace Gibs.Portal.Pages
             {
                 var broker = await GetCurrentBroker();
 
+                var password = "password";
+
                 var client = new Insured(IsCorporate, CompanyName,
-                    DateOfBirth, FirstName, LastName, Email, PhoneNumber, "1234");
+                    DateOfBirth, FirstName, LastName, Email, PhoneNumber, password);
 
                 broker.Insureds.Add(client);
                 await context.SaveChangesAsync();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex)
             {
                 ShowError(ex.Message);
             }
