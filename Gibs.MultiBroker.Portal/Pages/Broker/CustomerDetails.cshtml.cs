@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gibs.Portal.Pages
 {
-    public class CustomerDetailsModel(BrokerContext context) : PageModel
+    public class CustomerDetailsModel(BrokerContext context) : RootPageModel
     {
         [BindProperty(SupportsGet = true)]
         public string Id { get; set; }
 
+        [BindProperty]
         public Insured Customer { get; set; }
         public List<Policy> Policies { get; set; }
         public List<Order> Orders { get; set; }
@@ -38,6 +39,41 @@ namespace Gibs.Portal.Pages
 
             Customer = customer;
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostUpdateCustomerAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            context.Attach(Customer).State = EntityState.Modified;
+
+            try
+            {
+                await context.SaveChangesAsync();
+                ShowInfo("The insured was updated successfully");
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                if (!InsuredExists(Customer.Id))
+                {
+                    ShowError($"No insured was found with this id {Customer.Id}");
+                }
+                else
+                {
+                    ShowError(ex.Message);
+                }
+                return Page();
+            }
+
+            return RedirectToPage("Customers");
+        }
+
+        private bool InsuredExists(string id)
+        {
+            return context.Insureds.Any(i => i.Id == id);
         }
     }
 }
