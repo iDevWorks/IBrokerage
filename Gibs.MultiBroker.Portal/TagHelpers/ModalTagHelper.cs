@@ -23,6 +23,7 @@ namespace WebTutor.TagHelpers
             output.TagName = "div";
             output.Attributes.Add("id", Id);
             output.Attributes.Add("class", "modal fade");
+            output.Attributes.Add("data-bs-backdrop", "static");
             output.Attributes.Add("tabindex", "-1");
 
             output.Content.SetHtmlContent(dialogDiv);
