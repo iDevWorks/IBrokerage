@@ -60,12 +60,33 @@
                                 <span class="fw-bold">Creation Date: </span>
                                 @Model.Order.CreatedUtc
                             </li>
-                            <li class="text-muted"> 
-                                <span class="me-1 fw-bold">Payment Status:</span>
-                                <span class="badge bg-success fw-bold">
-                                    @Model.Order.PaymentStatus
-                                </span>
-                            </li>
+                            @if (Model.Order.PaymentStatus.ToString().ToLower() == "success")
+                            {
+                                <li class="text-muted">
+                                    <span class="me-1 fw-bold">Payment Status:</span>
+                                    <span class="badge bg-success fw-bold">
+                                        @Model.Order.PaymentStatus
+                                    </span>
+                                </li>
+                            }
+                            else if (Model.Order.PaymentStatus.ToString().ToLower() == "pending")
+                            {
+                                <li class="text-muted">
+                                    <span class="me-1 fw-bold">Payment Status:</span>
+                                    <span class="badge bg-warning fw-bold">
+                                        @Model.Order.PaymentStatus
+                                    </span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="text-muted">
+                                    <span class="me-1 fw-bold">Payment Status:</span>
+                                    <span class="badge bg-danger fw-bold">
+                                        @Model.Order.PaymentStatus
+                                    </span>
+                                </li>
+                            }
                             @if (!string.IsNullOrWhiteSpace(Model.Order.Remarks))
                             {
                                 <li class="text-muted">

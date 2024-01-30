@@ -2,124 +2,250 @@
 @using System.Security.Claims;
 @model Gibs.Portal.Pages.CustomerDetailsModel
 @{
-
+    ViewData["Title"] = "Customer Details";
 }
 
-<div class="d-flex gap-3 mt-3">
-    <div class="card rounded-4 shadow" style="width:50%; height:fit-content;">
-        <div class="card-body p-4">
-            <p class="d-flex justify-content-between align-items-center mb-3">
-                <span class="fw-bold">Personal Details</span>
-                <a data-bs-toggle="modal" data-bs-target="#addModal" class="text-decoration-none btn btn-link">Edit</a>
-            </p>
-            <div class="row">
-                <div class="col-lg-2">
-                    <img src="~/images/profile.png" alt="Customer Avatar" class="img-fluid rounded-circle">
-                </div>
-                <div class="col-md-8">
-                    <h3 class="card-title fw-bold">@Model.FirstName @Model.LastName</h3>
-                    <p class="card-text">
-                        <strong>Email:</strong> @Model.Email<br>
-                        <strong>Phone Number:</strong> @Model.Phone<br>
-                        <strong>Date of Birth:</strong> @Model.DateOfBirth.ToString("yyyy-MM-dd")<br>
-                        @if (Model.IsCorporate)
-                        {
-                            <strong>Company Name:</strong> @Model.CompanyName
 
-                            <br>
-                        }
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card rounded-4 shadow" style="width: 50%">
-        <div class="card-body p-4">
-            <div class="pb-3 border-bottom mb-3">
-                <p class="fw-bold mb-0">Policies</p>
-            </div>
+<section class="col-12">
+    <card class="bg-primary">
+        <body>
+            <card class="bg-primary">
+                <body>
+                    <div class="d-flex">
+                        <div class="align-self-center p-3" style="width:20%">
+                            <img src="~/images/profile.png" alt="Customer Avatar" 
+                                class="rounded-circle img-thumbnail">
+                        </div>
 
-            @foreach (var policy in Model.Policies)
-            {
-                
-                <div class="mb-4">
-                    <p class="mb-0 card-text">@policy.PolicyNo</p>
-                    <h3 class="fw-bold">@policy.Product.ProductName<span class="badge bg-primary ms-3 rounded-3">@policy.Status</span></h3>
-                    <div class="d-flex justify-content-between pt-3">
-                        <div>
-                            <p class="mb-0">Billing cycle</p>
-                            <p class="fw-bold fs-5 mb-0">Anually</p>
+                        <div class=" flex-grow-1 ms-3">
+                            <h4 class="mt-1 mb-1 text-white">@Model.FirstName @Model.LastName</h4>
+                            <p class="text-white-50">Customer name</p>
+
+                            <ul class="mb-0 list-inline text-light">
+                                @if (Model.IsCorporate)
+                                {
+                                    <li class="list-inline-item me-3">
+                                        <h5 class="mb-1 text-white">@Model.CompanyName</h5>
+                                        <p class="mb-0 text-white-50">Company name</p>
+                                    </li>
+                                }
+                                <li class="list-inline-item me-3">
+                                    <h5 class="mb-1 text-white">@Model.Email</h5>
+                                    <p class="mb-0 text-white-50">Email</p>
+                                </li>
+                                <li class="list-inline-item me-3">
+                                    <h5 class="mb-1 text-white">@Model.Phone</h5>
+                                    <p class="mb-0 text-white-50">Phone</p>
+                                </li>
+                                <li class="list-inline-item me-3">
+                                    <h5 class="mb-1 text-white">@Model.DateOfBirth.ToString("MMM dd yyyy")</h5>
+                                    <p class="mb-0 text-white-50">Date of birth</p>
+                                </li>
+                            </ul>
                         </div>
-                        <div>
-                            <p class="mb-0">Renews On</p>
-                            <p class="fw-bold fs-5 mb-0">@policy.EndDate.ToString("dd, MMMM, yyyy")</p>
-                        </div>
-                        <div>
-                            <p class="mb-0">Registration Date</p>
-                            <p class="fw-bold fs-5 mb-0">@policy.StartDate.ToString("dd, MMMM, yyyy")</p>
+                        <div class="d-flex flex-column gap-2">
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal">
+                                <i class="bi bi-pencil-square me-1"></i> Edit Policy
+                            </button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('sure?');">
+                                <i class="bi bi-trash3 me-1"></i> Delete Policy
+                            </button>
                         </div>
                     </div>
-                    <div class="d-flex gap-3 align-items-center pt-4">
-                        <button class="btn btn-outline-danger">Suspend Policy</button>
-                        <button class="btn btn-primary">Change Policy</button>
-                    </div>
-                </div>
+                </body>
+            </card>
 
-                <hr />
-            }
-        </div>
-    </div>
-
-</div>
-
-<section class="bg-white p-4 border mt-5 rounded-3 shadow">
-    <div class="fw-bold pb-3"><h3>Orders</h3></div>
-    <top-bar>
-        <left>
-            <div class="input-group ">
-                <input type="text" class="form-control" placeholder="Search...." />
-                <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
-            </div>
-        </left>
-        <right>
-            <button class="btn btn-outline-secondary">Export</button>
-        </right>
-    </top-bar>
-    <table class="table table-hover align-middle">
-        <thead>
-            <tr>
-                <th><input type="checkbox" class="form-check-input" /></th>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Total Amount</th>
-                <th>Reference No</th>
-                <th>Payment Status</th>
-                <th>Payment Method</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var order in Model.Orders)
-            {
-                <tr>
-                    <th><input type="checkbox" class="form-check-input"></th>
-                    <td>@order.Id</td>
-                    <td>@order.CreatedUtc.ToString("dd/MM/yyyy hh:mm")</td>
-                    <td>@order.TotalAmount.ToString("C")</td>
-                    <td>@order.Reference</td>
-                    <td>@order.PaymentStatus</td>
-                    <td>@order.PaymentMethod</td>
-                    <td class="d-flex gap-1">
-                        <i class="bi bi-trash" data-bs-toggle="modal" data-bs-target="#deletePolicy" data-id="4">
-                        </i>
-                        <i class="bi bi-pencil-square"></i>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        </body>
+    </card>
 </section>
 
+<div class="row mt-4">
+    <div class="col-12 col-lg-4 mb-lg-0 mb-4">
+        <card>
+            <body>
+                
+            </body>
+        </card>
+    </div>
+
+    <div class="col-lg-8 col-12">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5>Reviews</h5>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="col-12 mt-4">
+    <card>
+        <body>
+            <div class="fw-bold pb-3"><h3>Policies</h3></div>
+            <top-bar>
+                <left>
+                    <div class="input-group ">
+                        <input type="text" class="form-control" placeholder="Search...." />
+                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                </left>
+                <right>
+                    <button class="btn btn-outline-secondary">Export</button>
+                </right>
+            </top-bar>
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" class="form-check-input" /></th>
+                        <th>Policy No</th>
+                        <th>Product Name</th>
+                        <th>Billing Cycle</th>
+                        <th>Created Date</th>
+                        <th>Renews On</th>
+                        <th>Policy Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Policies.Any())
+                    {
+                        @foreach (var policy in Model.Policies)
+                        {
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input"></th>
+                                <td>@policy.PolicyNo</td>
+                                <td>@policy.Product.ProductName</td>
+                                <td>Annually</td>
+                                <td>
+                                    <span class="text-nowrap">
+                                        @policy.CreatedUtc.ToString("MMM dd yyyy")
+                                    </span>
+                                    <small class="text-nowrap text-muted">
+                                        @policy.CreatedUtc.ToShortTimeString()
+                                    </small>
+                                </td>
+                                <td>@policy.EndDate.ToString("MMM dd yyyy")</td>
+                                <td>
+                                    <span class="badge bg-primary rounded-3">
+                                        @policy.Status
+                                    </span>
+                                </td>
+                                <td class="d-flex gap-1">
+                                    <i class="bi bi-trash" data-bs-toggle="modal"
+                                       data-bs-target="#deletePolicy" data-id="4">
+                                    </i>
+                                    <i class="bi bi-pencil-square"></i>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-danger fs-5">
+                                No policy was found..
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </body>
+    </card>
+</section>
+
+<section class="col-12 mt-4">
+    <div class="card">
+        <div class="card-body rounded-3 p-4">
+            <div class="fw-bold pb-3"><h3>Orders</h3></div>
+            <top-bar>
+                <left>
+                    <div class="input-group ">
+                        <input type="text" class="form-control" placeholder="Search...." />
+                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                </left>
+                <right>
+                    <button class="btn btn-outline-secondary">Export</button>
+                </right>
+            </top-bar>
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" class="form-check-input" /></th>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Total Amount</th>
+                        <th>Reference No</th>
+                        <th>Payment Status</th>
+                        <th>Payment Method</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Orders.Any())
+                    {
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input"></th>
+                                <td>@order.Id</td>
+                                <td>
+                                    <span class="text-nowrap">
+                                        @order.CreatedUtc.ToString("MMM dd yyyy")
+                                    </span>
+                                    <small class="text-nowrap text-muted">
+                                        @order.CreatedUtc.ToShortTimeString()
+                                    </small>
+                                </td>
+                                <td>@order.TotalAmount.ToString("C")</td>
+                                <td>@order.Reference</td>
+                                @if (order.PaymentStatus.ToString().ToLower() == "success")
+                                {
+                                    <td>
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-credit-card-2-back"></i>                                  @order.PaymentStatus
+                                        </span>
+                                    </td>
+                                }
+                                else if (order.PaymentStatus.ToString().ToLower() == "pending")
+                                {
+                                    <td>
+                                        <span class="badge bg-warning">
+                                            <i class="bi bi-credit-card-2-back"></i>                                  @order.PaymentStatus
+                                        </span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            <i class="bi bi-credit-card-2-back"></i>                                  @order.PaymentStatus
+                                        </span>
+                                    </td>
+                                }
+                                <td>@order.PaymentMethod</td>
+                                <td class="d-flex gap-1">
+                                    <i class="bi bi-trash" data-bs-toggle="modal" 
+                                    data-bs-target="#deletePolicy" data-id="4">
+                                    </i>
+                                    <i class="bi bi-pencil-square"></i>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-danger fs-5">
+                                No order was found..
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 
 

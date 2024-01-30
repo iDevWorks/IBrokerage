@@ -53,7 +53,11 @@
                         <td><span class="text-nowrap">@policy.StartDate.ToString("MMM dd yyyy")</span></td>
                         <td><span class="text-nowrap">@policy.EndDate.ToString("MMM dd yyyy")</span></td>
                         <td>@policy.InsuredName</td>
-                        <td>@policy.Status</td>
+                        <td>
+                            <span class="badge bg-warning rounded-3">
+                                @policy.Status
+                            </span>
+                        </td>
                         <td>@policy.GrossPremium.ToString("C")</td>
                         <td>
                             <div class="d-flex gap-3 py-3 fs-5">
