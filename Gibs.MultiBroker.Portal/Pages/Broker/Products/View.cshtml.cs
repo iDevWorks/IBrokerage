@@ -34,6 +34,7 @@ namespace Gibs.Portal.Pages
                     ?? throw new Exception("No product was found.");
 
                 ProductPurchases = await context.Orders
+                        .Include(o => o.Insured)
                         .Where(o => o.Policies.Any(p => p.Product.Id == Id) 
                         && o.PaymentStatus == OrderStatus.SUCCESS)
                         .ToListAsync();

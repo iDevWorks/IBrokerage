@@ -67,6 +67,71 @@
 <section class="col-12 mt-4">
     <card>
         <body>
+            <div class="fw-bold pb-3"><h3>Purchases</h3></div>
+            <top-bar>
+                <left>
+                    <div class="input-group ">
+                        <input type="text" class="form-control" placeholder="Search...." />
+                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                </left>
+                <right>
+                    <button class="btn btn-outline-secondary">Export</button>
+                </right>
+            </top-bar>
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" class="form-check-input" /></th>
+                        <th>Order ID</th>
+                        <th>Purchase Date</th>
+                        <th>Customer Name</th>
+                        <th>Payment Status</th>
+                        <th>Total Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ProductPurchases.Any())
+                    {
+                        @foreach (var purchase in Model.ProductPurchases)
+                        {
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input"></th>
+                                <td>#@purchase.Id.ToString("0000")</td>
+                                <td>
+                                    <span class="text-nowrap">@purchase.CreatedUtc.ToString("MMM dd yyyy")</span>
+                                    <small class="text-nowrap text-muted">@purchase.CreatedUtc.ToShortTimeString()</small>
+                                </td>
+                                <td>@purchase.Insured.FullName</td>
+                                <td>
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-credit-card-2-back"></i>                                    @purchase.PaymentStatus
+                                    </span>
+                                </td>
+                                <td>
+                                    @purchase.TotalAmount.ToString("C")
+                                </td>
+                                <td>
+                                    <div class="py-3 fs-5">
+                                        <a href="" class="text-muted" title="Ban Insured">
+                                            <i class="bi bi-stop-circle-fill text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-danger fs-5">
+                                No purchase was found..
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </body>
     </card>
 </section>
