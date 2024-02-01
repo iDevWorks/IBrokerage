@@ -1,7 +1,6 @@
 using Gibs.Domain.Entities;
 using Gibs.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +34,7 @@ namespace Gibs.Portal.Pages
 
                 ProductPurchases = await context.Orders
                         .Include(o => o.Insured)
-                        .Where(o => o.Policies.Any(p => p.Product.Id == Id) 
+                        .Where(o => o.Policies.Any(p => p.Product.Id == Id)
                         && o.PaymentStatus == OrderStatus.SUCCESS)
                         .ToListAsync();
 

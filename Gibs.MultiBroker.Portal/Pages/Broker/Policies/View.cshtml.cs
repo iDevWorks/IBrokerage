@@ -12,8 +12,19 @@ namespace Gibs.Portal.Pages
         [BindProperty(SupportsGet = true)]
         public string PolicyNo { get; set; }
 
-        [BindProperty]
         public Policy Policy { get; set; }
+
+        [BindProperty]
+        public string InsuredName {  get; set; }
+
+        [BindProperty]
+        public decimal SumInsured { get; set; }
+
+        [BindProperty]
+        public DateOnly EndDate { get; set; }
+
+        [BindProperty]
+        public decimal GrossPremium { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -23,6 +34,11 @@ namespace Gibs.Portal.Pages
                .Include(p => p.Insured)
                .SingleOrDefaultAsync(m => m.PolicyNo == PolicyNo)
                ?? throw new Exception("No policy was found.");
+
+                InsuredName = Policy.InsuredName;
+                SumInsured = Policy.SumInsured;
+                EndDate = Policy.EndDate;
+                GrossPremium = Policy.GrossPremium;
             }
             catch (Exception ex)
             {
